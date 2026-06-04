@@ -1,0 +1,2209 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<title>Protocolo Calipso</title>
+<link href="https://fonts.googleapis.com/css2?family=Rajdhani:wght@400;500;600;700&family=Exo+2:ital,wght@0,300;0,400;0,600;1,300&family=Orbitron:wght@500;700;900&family=Share+Tech+Mono&display=swap" rel="stylesheet">
+<style>
+
+@font-face {
+  font-family: 'NMSGlyphs';
+  src: url('data:font/truetype;base64,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') format('truetype');
+}
+:root {
+  --bg:#04060e;--bg2:#080d1c;--bg3:#0c1428;
+  --gold:#f0c040;--gold2:#c89820;
+  --cyan:#30d8e8;--cyan2:#1ab4c2;
+  --teal:#30d898;--purple:#a060f0;
+  --ax:#e060a0;--lg:#40d890;--red:#ff2040;
+  --text:#c8dce8;--text2:#5878a0;--text3:#2a3848;--white:#e8f4ff;
+  --safe-b:env(safe-area-inset-bottom,0px);
+}
+*,*::before,*::after{margin:0;padding:0;box-sizing:border-box;-webkit-tap-highlight-color:transparent}
+html,body{height:100%;overflow:hidden}
+body{background:url('assets/bg.png') center center / cover no-repeat fixed;color:var(--text);font-family:'Exo 2',sans-serif;font-weight:300;overscroll-behavior:none}
+.glyph{font-family:'NMSGlyphs';font-size:1.2em;letter-spacing:.04em;color:var(--cyan)}
+#splash{position:fixed;inset:0;z-index:9999;background:#000;display:flex;flex-direction:column;align-items:center;justify-content:center;font-family:'Share Tech Mono',monospace;overflow:hidden}
+#splash.hidden{display:none}
+#binary-rain{position:absolute;inset:0;pointer-events:none;overflow:hidden}
+.b-col{position:absolute;top:0;left:0;font-family:'Share Tech Mono',monospace;font-size:14px;line-height:1.2;display:flex;flex-direction:column;pointer-events:none}
+.b-char{display:block;opacity:0;transition:opacity .08s;color:#00ff41}
+.b-char.head{color:#afffaf;text-shadow:0 0 6px #00ff41}
+.b-char.tail1{opacity:.7;color:#00cc33}
+.b-char.tail2{opacity:.4;color:#008822}
+.b-char.tail3{opacity:.15;color:#004411}
+#splash-center{position:relative;z-index:2;display:flex;flex-direction:column;align-items:center;gap:16px;padding:32px}
+#terminal-lines{font-size:11px;color:#00cc33;line-height:1.8;text-align:left;min-width:280px;max-width:340px;border:1px solid rgba(0,200,50,.2);background:rgba(0,20,8,.8);padding:14px 16px;border-radius:4px;min-height:120px}
+#splash-title{font-family:'Orbitron',monospace;font-size:0px;font-weight:900;letter-spacing:.1em;color:var(--red);text-align:center;line-height:1.5;text-shadow:0 0 20px rgba(255,32,64,.6),0 0 60px rgba(255,32,64,.3);transition:font-size .4s ease;white-space:pre-line;max-width:88vw}
+#splash-title.visible{font-size:clamp(13px,4vw,19px)}
+#splash-sub{font-size:11px;color:rgba(255,32,64,.6);letter-spacing:.2em;text-transform:uppercase;opacity:0;transition:opacity .6s ease}
+#splash-sub.visible{opacity:1}
+#splash-btn{margin-top:12px;font-family:'Rajdhani',sans-serif;font-size:12px;font-weight:700;letter-spacing:.2em;text-transform:uppercase;color:rgba(0,200,50,.7);border:1px solid rgba(0,200,50,.3);background:none;padding:8px 24px;border-radius:3px;cursor:pointer;opacity:0;transition:opacity .4s;animation:blink-btn 1.2s step-end infinite}
+#splash-btn.visible{opacity:1}
+@keyframes blink-btn{0%,100%{opacity:1}50%{opacity:.3}}
+#galaxy-canvas{position:fixed;inset:0;z-index:0;pointer-events:none;opacity:0.15}
+.app{position:relative;z-index:1;display:flex;flex-direction:column;height:100%}
+.header{flex-shrink:0;background:rgba(4,6,14,.82);border-bottom:1px solid rgba(48,216,232,.18);backdrop-filter:blur(14px);padding:10px 16px 0}
+.header-row1{display:flex;align-items:center;justify-content:space-between;margin-bottom:8px}
+.header-title{font-family:'Orbitron',monospace;font-size:13px;font-weight:700;letter-spacing:.12em;color:var(--gold)}
+.header-sub{font-family:'Rajdhani',sans-serif;font-size:10px;font-weight:600;letter-spacing:.12em;color:var(--text2);text-transform:uppercase}
+.header-phase{font-family:'Rajdhani',sans-serif;font-size:11px;font-weight:700;color:var(--cyan);letter-spacing:.08em;text-transform:uppercase}
+.sound-row{display:flex;align-items:center;justify-content:center;padding:6px 0 8px}
+.sound-btn{font-family:'Share Tech Mono',monospace;font-size:10px;color:var(--text2);border:1px solid rgba(255,255,255,.1);background:rgba(255,255,255,.04);padding:4px 16px;border-radius:20px;cursor:pointer;letter-spacing:.1em;transition:all .25s}
+.sound-btn.on{color:var(--cyan);border-color:rgba(48,216,232,.4);background:rgba(48,216,232,.08)}
+.scroll-area{flex:1;overflow-y:auto;overflow-x:hidden;-webkit-overflow-scrolling:touch;padding:14px 14px 8px}
+.scroll-area::-webkit-scrollbar{display:none}
+.bottom-nav{flex-shrink:0;background:rgba(4,6,14,.82);border-top:1px solid rgba(48,216,232,.18);backdrop-filter:blur(14px);display:grid;grid-template-columns:repeat(4,1fr);padding-bottom:var(--safe-b)}
+.bn-btn{display:flex;flex-direction:column;align-items:center;gap:3px;padding:8px 4px 7px;background:none;border:none;cursor:pointer;transition:opacity .2s}
+.bn-btn:active{opacity:.7}
+.bn-icon{width:28px;height:28px;display:flex;align-items:center;justify-content:center}
+.bn-label{font-family:'Rajdhani',sans-serif;font-size:10px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--text2);transition:color .2s}
+.bn-btn.active .bn-label{color:var(--gold)}
+.section{display:none;animation:fade-in .22s ease}
+.section.active{display:block}
+@keyframes fade-in{from{opacity:0;transform:translateY(5px)}to{opacity:1;transform:none}}
+.phase-scroll{display:flex;gap:8px;overflow-x:auto;padding-bottom:12px;margin-bottom:14px}
+.phase-scroll::-webkit-scrollbar{display:none}
+.phase-pill{flex-shrink:0;background:rgba(255,255,255,.04);border:1px solid rgba(48,216,232,.18);border-radius:20px;padding:6px 14px;cursor:pointer;transition:all .2s;display:flex;align-items:center;gap:7px}
+.phase-pill.active{background:rgba(240,192,64,.1);border-color:var(--gold)}
+.phase-pill.done{border-color:rgba(48,216,152,.4)}
+.pill-num{font-family:'Orbitron',monospace;font-size:11px;font-weight:700;color:var(--text2)}
+.phase-pill.active .pill-num{color:var(--gold)}
+.phase-pill.done .pill-num{color:var(--teal)}
+.pill-name{font-family:'Rajdhani',sans-serif;font-size:11px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;color:var(--text2);white-space:nowrap}
+.phase-pill.active .pill-name{color:var(--white)}
+.phase-card{background:rgba(255,255,255,.022);border:1px solid rgba(48,216,232,.12);border-radius:10px;overflow:hidden;margin-bottom:14px}
+.phase-head{display:flex;align-items:flex-start;gap:14px;padding:14px 14px 12px;border-bottom:1px solid rgba(48,216,232,.08)}
+.phase-badge{flex-shrink:0;width:62px;height:110px;border-radius:8px;overflow:hidden;position:relative;border:1px solid rgba(48,216,232,.22);box-shadow:0 0 14px rgba(48,216,232,.12),inset 0 0 12px rgba(0,0,0,.4)}
+.phase-badge::before{content:'';position:absolute;inset:0;background:linear-gradient(135deg,rgba(255,255,255,.08) 0%,transparent 60%);z-index:1;pointer-events:none;border-radius:7px}
+.phase-badge::after{content:'';position:absolute;inset:0;border-radius:7px;box-shadow:inset 0 0 0 1px rgba(255,255,255,.06);z-index:2;pointer-events:none}
+.phase-badge img{width:100%;height:100%;object-fit:cover;object-position:center 20%;display:block}
+.phase-head-info{flex:1;min-width:0;padding-top:2px}
+.phase-hero-label{font-family:'Rajdhani',sans-serif;font-size:10px;font-weight:700;letter-spacing:.15em;color:rgba(240,192,64,.7);text-transform:uppercase;margin-bottom:4px}
+.phase-hero-name{font-family:'Orbitron',monospace;font-size:12px;font-weight:700;color:var(--white);letter-spacing:.04em;line-height:1.35;margin-bottom:4px}
+.phase-hero-desc{font-size:11px;color:rgba(200,220,232,.55);line-height:1.5}
+.phase-body{padding:12px 14px 14px}
+.prog-row{display:flex;align-items:center;gap:10px;margin-bottom:12px}
+.prog-bar{flex:1;height:3px;background:rgba(255,255,255,.07);border-radius:2px;overflow:hidden}
+.prog-fill{height:100%;background:linear-gradient(90deg,var(--cyan2),var(--gold));border-radius:2px;transition:width .4s ease}
+.prog-text{font-family:'Rajdhani',sans-serif;font-size:12px;font-weight:700;color:var(--gold);white-space:nowrap}
+.tag-row{display:flex;flex-wrap:wrap;gap:5px;margin-bottom:14px}
+.tag{font-family:'Rajdhani',sans-serif;font-size:10px;font-weight:700;padding:3px 9px;border-radius:2px;text-transform:uppercase;letter-spacing:.07em;border:1px solid}
+.tag.axioma{color:var(--ax);border-color:rgba(224,96,160,.3);background:rgba(224,96,160,.06)}
+.tag.logos{color:var(--lg);border-color:rgba(64,216,144,.3);background:rgba(64,216,144,.06)}
+.tag.loc{color:var(--cyan);border-color:rgba(48,216,232,.3);background:rgba(48,216,232,.06)}
+.tag.reward{color:var(--gold);border-color:rgba(240,192,64,.35);background:rgba(240,192,64,.06)}
+.tag.atlas{color:#f08060;border-color:rgba(240,128,96,.3);background:rgba(240,128,96,.06)}
+.milestone-grid{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-bottom:14px}
+.ms-card{background:rgba(255,255,255,.03);border:1px solid rgba(48,216,232,.12);border-radius:8px;padding:10px;cursor:pointer;transition:all .2s;-webkit-user-select:none;user-select:none;display:flex;flex-direction:column;gap:4px;position:relative;overflow:hidden;min-height:88px}
+.ms-card:active{background:rgba(48,216,232,.06)}
+.ms-card.done{background:rgba(48,216,152,.05);border-color:rgba(48,216,152,.35)}
+.ms-card-num{font-family:'Orbitron',monospace;font-size:9px;font-weight:700;color:var(--text2);letter-spacing:.1em}
+.ms-card.done .ms-card-num{color:var(--teal)}
+.ms-card-name{font-family:'Rajdhani',sans-serif;font-size:12px;font-weight:700;letter-spacing:.05em;text-transform:uppercase;color:var(--white);line-height:1.2;flex:1}
+.ms-card.done .ms-card-name{color:var(--text2)}
+.ms-card-desc{font-size:10px;color:var(--text2);line-height:1.4}
+.ms-card-check{position:absolute;top:8px;right:8px;width:16px;height:16px;border-radius:50%;border:1.5px solid rgba(48,216,232,.3);display:flex;align-items:center;justify-content:center;font-size:8px;transition:all .2s}
+.ms-card.done .ms-card-check{background:var(--teal);border-color:var(--teal);color:var(--bg);font-weight:700}
+.ms-card-icon{position:absolute;bottom:4px;right:6px;opacity:0;transition:opacity .4s}
+.ms-card.done .ms-card-icon{opacity:.18}
+.ms-card-icon svg{width:32px;height:32px}
+.reward-banner{display:flex;align-items:center;gap:10px;background:rgba(240,192,64,.07);border:1px solid rgba(240,192,64,.25);border-radius:6px;padding:10px 14px}
+.reward-text{font-family:'Rajdhani',sans-serif;font-size:12px;font-weight:700;color:var(--gold);letter-spacing:.06em;text-transform:uppercase}
+.sec-title{font-family:'Rajdhani',sans-serif;font-size:10px;font-weight:700;letter-spacing:.18em;text-transform:uppercase;color:var(--text2);margin-bottom:10px;display:flex;align-items:center;gap:8px}
+.sec-title::after{content:'';flex:1;height:1px;background:rgba(48,216,232,.1)}
+.portal-card{background:rgba(240,192,64,.06);border:1px solid rgba(240,192,64,.25);border-radius:8px;padding:14px;margin-bottom:14px}
+.portal-label{font-family:'Rajdhani',sans-serif;font-size:10px;font-weight:700;letter-spacing:.12em;color:var(--gold);text-transform:uppercase;margin-bottom:6px}
+.portal-coord{font-family:'Orbitron',monospace;font-size:16px;font-weight:700;color:var(--cyan)}
+.portal-anti{font-family:'Rajdhani',sans-serif;font-size:11px;color:var(--gold);margin-top:6px;font-weight:600}
+.coord-list{display:flex;flex-direction:column;gap:6px;margin-bottom:14px}
+.coord-item{background:rgba(255,255,255,.03);border:1px solid rgba(48,216,232,.12);border-radius:6px;padding:11px 13px;display:flex;align-items:center;gap:11px}
+.coord-item.confirmed{border-color:rgba(48,216,152,.35)}
+.coord-item.negative{border-color:rgba(240,80,80,.25);opacity:.6}
+.coord-item.hypothesis{border-color:rgba(240,192,64,.25)}
+.ci-dot{width:9px;height:9px;border-radius:50%;flex-shrink:0}
+.confirmed .ci-dot{background:var(--teal)}.negative .ci-dot{background:#f08080}.hypothesis .ci-dot{background:var(--gold);opacity:.6}
+.ci-name{font-family:'Rajdhani',sans-serif;font-size:11px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--text2);margin-bottom:2px}
+.ci-coord{font-family:'Orbitron',monospace;font-size:12px;font-weight:600;color:var(--cyan)}
+.confirmed .ci-coord{color:var(--teal)}.negative .ci-coord{color:#f08080}.hypothesis .ci-coord{color:var(--gold)}
+.ci-status{font-size:10px;color:var(--text2);margin-top:1px}
+
+/* ── Índice de endereços — aba Zonas ── */
+.addr-card{background:rgba(255,255,255,.03);border:1px solid rgba(48,216,232,.14);border-radius:8px;padding:13px 14px;margin-bottom:10px;transition:border-color .3s,background .3s}
+.addr-card.unlocked{border-color:rgba(48,216,232,.35);background:rgba(48,216,232,.04)}
+.addr-card.locked-hidden{border-color:rgba(255,255,255,.06);background:rgba(255,255,255,.015);opacity:.5}
+.addr-card-top{display:flex;align-items:center;gap:10px;margin-bottom:8px}
+.addr-num{font-family:'Orbitron',monospace;font-size:9px;font-weight:700;color:var(--text2);letter-spacing:.1em;flex-shrink:0}
+.addr-card.unlocked .addr-num{color:var(--cyan)}
+.addr-title{font-family:'Rajdhani',sans-serif;font-size:12px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--text2);flex:1}
+.addr-card.unlocked .addr-title{color:var(--white)}
+.addr-lock{font-size:12px;opacity:.4;flex-shrink:0}
+.addr-glyph-row{display:flex;align-items:center;gap:8px;margin-bottom:6px}
+.addr-glyph-label{font-family:'Share Tech Mono',monospace;font-size:9px;color:var(--text2);letter-spacing:.06em;flex-shrink:0}
+.addr-glyph-val{font-family:'NMSGlyphs';font-size:1.3em;letter-spacing:.05em;color:var(--cyan);line-height:1}
+.addr-glyph-hex{font-family:'Share Tech Mono',monospace;font-size:10px;color:rgba(48,216,232,.55);letter-spacing:.06em;margin-left:4px}
+.addr-geo-row{display:flex;align-items:center;gap:8px}
+.addr-geo-label{font-family:'Share Tech Mono',monospace;font-size:9px;color:var(--text2);letter-spacing:.06em;flex-shrink:0}
+.addr-geo-val{font-family:'Orbitron',monospace;font-size:11px;font-weight:600;color:var(--teal)}
+.addr-desc{font-size:11px;color:var(--text2);margin-top:7px;line-height:1.5;padding-top:7px;border-top:1px solid rgba(48,216,232,.08)}
+.addr-card.locked-hidden .addr-glyph-val,.addr-card.locked-hidden .addr-geo-val{filter:blur(4px);user-select:none}
+.gloss-item{background:rgba(255,255,255,.022);border-radius:6px;overflow:hidden;margin-bottom:6px}
+.gloss-head{display:flex;align-items:center;gap:10px;padding:12px 14px;cursor:pointer;transition:background .15s}
+.gloss-head:active{background:rgba(48,216,232,.05)}
+.gloss-term{font-family:'Orbitron',monospace;font-size:11px;font-weight:600;color:var(--cyan);letter-spacing:.06em;flex:1}
+.gloss-item.locked .gloss-term{color:var(--text2);opacity:.5}
+.gloss-phase{font-family:'Rajdhani',sans-serif;font-size:10px;color:var(--text2);text-transform:uppercase;letter-spacing:.08em}
+.gloss-chevron{font-size:10px;color:var(--text2)}
+.gloss-body{padding:0 14px;max-height:0;overflow:hidden;transition:max-height .3s ease,padding .3s}
+.gloss-body.open{max-height:300px;padding:0 14px 14px}
+.gloss-def{font-size:13px;color:var(--text);line-height:1.7;border-top:1px solid rgba(48,216,232,.08);padding-top:10px}
+.map-wrap{display:flex;justify-content:center;padding:4px 0}
+#const-svg{max-width:280px;width:100%}
+.spacer{height:24px}
+.dlg-overlay{position:fixed;inset:0;z-index:300;background:rgba(2,4,10,.94);backdrop-filter:blur(12px);display:none;flex-direction:column;align-items:center;justify-content:flex-end}
+.dlg-overlay.open{display:flex;animation:dlg-up .38s cubic-bezier(.16,1,.3,1)}
+@keyframes dlg-up{from{opacity:0;transform:translateY(24px)}to{opacity:1;transform:none}}
+.dlg-avatar-area{width:100%;display:flex;justify-content:center;align-items:flex-end;padding-bottom:12px;pointer-events:none;height:clamp(200px,40vh,280px);position:relative}
+.dlg-avatar-area svg{width:clamp(160px,38vw,210px);height:clamp(160px,38vw,210px);position:absolute;bottom:8px}
+.dlg-badge{position:absolute;bottom:-2px;left:50%;transform:translateX(-50%);font-family:'Rajdhani',sans-serif;font-size:12px;font-weight:700;letter-spacing:.18em;text-transform:uppercase;padding:4px 18px;border-radius:3px;border:1px solid;white-space:nowrap;backdrop-filter:blur(4px)}
+.dlg-box{width:100%;background:rgba(4,8,20,.98);border-top:1px solid rgba(48,216,232,.2);border-radius:18px 18px 0 0;padding:18px 16px 14px;padding-bottom:calc(14px + var(--safe-b))}
+.dlg-dots{display:flex;justify-content:center;gap:6px;margin-bottom:12px}
+.dlg-dot{width:6px;height:6px;border-radius:50%;background:rgba(255,255,255,.14);transition:background .25s}
+.dlg-dot.active{background:var(--cyan)}.dlg-dot.done{background:var(--teal)}
+.dlg-text{font-size:14px;line-height:1.85;color:var(--white);font-weight:300;margin-bottom:16px;min-height:70px}
+.dlg-cursor{display:inline-block;width:2px;height:1em;background:var(--cyan);vertical-align:text-bottom;margin-left:1px;animation:blink-c .65s step-end infinite}
+@keyframes blink-c{0%,100%{opacity:1}50%{opacity:0}}
+.dlg-options{display:flex;flex-direction:column;gap:6px}
+.dlg-opt{background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.12);border-radius:6px;padding:12px 16px;font-family:'Rajdhani',sans-serif;font-size:14px;font-weight:600;color:var(--text);cursor:pointer;text-align:left;opacity:0;pointer-events:none;transform:translateY(6px);transition:opacity .3s,transform .3s,background .15s}
+.dlg-opt.visible{opacity:1;pointer-events:auto;transform:none}
+.dlg-opt:active{background:rgba(48,216,232,.1)}
+.dlg-opt.primary{background:rgba(240,192,64,.1);border-color:rgba(240,192,64,.4);color:var(--gold)}
+.dlg-opt.primary:active{background:rgba(240,192,64,.2)}
+.dlg-skip{text-align:center;padding:6px;font-family:'Rajdhani',sans-serif;font-size:11px;color:var(--text2);cursor:pointer;letter-spacing:.08em;text-transform:uppercase;margin-top:2px}
+@keyframes ax-r1{0%,100%{stroke-dashoffset:0;opacity:.5}50%{stroke-dashoffset:44;opacity:.28}}
+@keyframes ax-r2{0%,100%{stroke-dashoffset:0;opacity:.62}33%{stroke-dashoffset:-65;opacity:.85}66%{stroke-dashoffset:22;opacity:.38}}
+@keyframes ax-r3{0%,100%{stroke-dashoffset:0;opacity:.72}50%{stroke-dashoffset:88;opacity:.48}}
+@keyframes ax-core{0%,100%{opacity:1}40%{opacity:.65}70%{opacity:.9}}
+@keyframes ax-flicker{0%,88%,100%{opacity:1}89%{opacity:.2}92%{opacity:.9}94%{opacity:.15}97%{opacity:1}}
+@keyframes ax-glitch{0%,85%,100%{transform:translate(0,0)}86%{transform:translate(3px,-2px)}88%{transform:translate(-2px,1px)}90%{transform:translate(1px,-1px)}92%{transform:translate(0,0)}}
+@keyframes ax-rot{from{transform-origin:80px 80px;transform:rotate(0)}to{transform-origin:80px 80px;transform:rotate(-360deg)}}
+.ax-r1{animation:ax-r1 3.4s ease-in-out infinite}.ax-r2{animation:ax-r2 2.2s ease-in-out infinite}.ax-r3{animation:ax-r3 4.2s ease-in-out infinite}
+.ax-core{animation:ax-core 2.6s ease-in-out infinite}.ax-flicker{animation:ax-flicker 5.5s step-end infinite}
+.ax-glitch{animation:ax-glitch 6.5s ease-in-out infinite}.ax-rot{animation:ax-rot 14s linear infinite}
+@keyframes lg-rot1{from{transform-origin:80px 80px;transform:rotate(0)}to{transform-origin:80px 80px;transform:rotate(360deg)}}
+@keyframes lg-rot2{from{transform-origin:80px 80px;transform:rotate(0)}to{transform-origin:80px 80px;transform:rotate(-360deg)}}
+@keyframes lg-breathe{0%,100%{opacity:.55}50%{opacity:.82}}
+@keyframes lg-core{0%,100%{opacity:.9}50%{opacity:.55}}
+@keyframes lg-data{0%,78%,100%{opacity:.4}80%{opacity:1}84%{opacity:.2}88%{opacity:.85}}
+@keyframes lg-tri{from{transform-origin:80px 80px;transform:rotate(0)}to{transform-origin:80px 80px;transform:rotate(360deg)}}
+.lg-r1{animation:lg-rot1 20s linear infinite}.lg-r2{animation:lg-rot2 13s linear infinite}.lg-r3{animation:lg-rot1 9s linear infinite}
+.lg-breathe{animation:lg-breathe 4.5s ease-in-out infinite}.lg-core{animation:lg-core 3.2s ease-in-out infinite}
+.lg-data{animation:lg-data 4.5s ease-in-out infinite}.lg-tri{animation:lg-tri 22s linear infinite}
+
+
+.ms-card-nav{background:transparent!important;border:none!important;padding:0!important;overflow:visible!important;min-height:88px;display:flex;align-items:center;justify-content:center;cursor:pointer;-webkit-tap-highlight-color:transparent}
+.ms-card-nav:active{transform:scale(.93)}
+.ms-nav-svg{transition:filter .2s,transform .2s;filter:drop-shadow(0 0 8px rgba(48,216,232,.4))}
+.ms-card-nav:hover .ms-nav-svg{filter:drop-shadow(0 0 14px rgba(48,216,232,.8))}
+.ms-card-nav:active .ms-nav-svg{transform:scale(.92)}
+
+.dlg-terminal{font-family:'Share Tech Mono',monospace;font-size:12px;color:#30d8e8;background:rgba(0,10,18,.85);border:1px solid rgba(48,216,232,.35);border-radius:6px;padding:14px 16px;line-height:1.7;letter-spacing:.04em;white-space:pre-wrap;margin:0 4px;}
+.dlg-terminal .dlg-cursor{display:inline-block;width:8px;height:13px;background:#30d8e8;vertical-align:middle;animation:blink .7s step-end infinite;}
+/* ── Síntese avatar animations ── */
+.sn-core{animation:sn-core-flicker 0.18s steps(1) infinite}
+@keyframes sn-core-flicker{0%{opacity:1}15%{opacity:.3}30%{opacity:1}45%{opacity:.7}60%{opacity:1}75%{opacity:.2}85%{opacity:1}100%{opacity:.9}}
+
+.sn-ring-outer{animation:sn-ring-outer 1.6s ease-in-out infinite alternate;transform-box:fill-box;transform-origin:center}
+@keyframes sn-ring-outer{0%{opacity:.15;stroke-width:.8}100%{opacity:.6;stroke-width:1.6}}
+
+.sn-ring-mid{animation:sn-ring-mid 1.1s ease-in-out infinite alternate;transform-box:fill-box;transform-origin:center}
+@keyframes sn-ring-mid{0%{opacity:.3;stroke-width:.8}100%{opacity:.8;stroke-width:1.8}}
+
+.sn-ring-inner{animation:sn-ring-inner 0.7s ease-in-out infinite alternate;transform-box:fill-box;transform-origin:center}
+@keyframes sn-ring-inner{0%{opacity:.4;stroke-width:1}100%{opacity:1;stroke-width:2.2}}
+
+.sn-cross{animation:sn-cross 2.4s ease-in-out infinite alternate}
+@keyframes sn-cross{0%{opacity:.08}50%{opacity:.35}100%{opacity:.1}}
+
+.sn-diag{animation:sn-diag 3.2s ease-in-out infinite alternate}
+@keyframes sn-diag{0%{opacity:.05}50%{opacity:.2}100%{opacity:.06}}
+
+.sn-scan{animation:sn-scan 1.8s linear infinite}
+@keyframes sn-scan{0%{stroke-dashoffset:200}100%{stroke-dashoffset:-200}}
+
+.sn-corner{animation:sn-corner-pulse 0.9s steps(2) infinite alternate}
+@keyframes sn-corner-pulse{0%{opacity:.2}100%{opacity:.9}}
+
+/* scanlines overlay on avatar container */
+#dlg-avatar-svg.sn-active::after{content:'';position:absolute;inset:0;background:repeating-linear-gradient(0deg,transparent,transparent 3px,rgba(0,0,0,.18) 3px,rgba(0,0,0,.18) 4px);pointer-events:none;border-radius:50%}
+
+.sn-noise-transition{transition:opacity 0.8s ease}
+
+/* ── Seção de Progresso ── */
+.prog-btn{font-family:'Rajdhani',sans-serif;font-size:10px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--text2);border:1px solid rgba(48,216,232,.18);background:rgba(48,216,232,.05);padding:4px 12px;border-radius:3px;cursor:pointer;transition:all .2s;white-space:nowrap}
+.prog-btn:active{background:rgba(48,216,232,.12)}
+.prog-btn.highlight{color:var(--gold);border-color:rgba(240,192,64,.5);background:rgba(240,192,64,.08);animation:prog-btn-pulse 1.8s ease-in-out infinite}
+@keyframes prog-btn-pulse{0%,100%{box-shadow:0 0 0 0 rgba(240,192,64,.0)}50%{box-shadow:0 0 8px 2px rgba(240,192,64,.25)}}
+.als-btn{font-family:'Rajdhani',sans-serif;font-size:10px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--text2);border:1px solid rgba(48,216,232,.18);background:rgba(48,216,232,.05);padding:4px 10px;border-radius:3px;cursor:pointer;transition:all .2s;white-space:nowrap;display:none}
+.als-btn:active{background:rgba(48,216,232,.12)}
+.als-btn.visible{display:inline-flex;align-items:center;gap:5px}
+.als-btn.locked{color:var(--text2);border-color:rgba(255,255,255,.1);background:rgba(255,255,255,.03);cursor:default;opacity:.6}
+.als-btn.unlocked{color:var(--cyan);border-color:rgba(48,216,232,.4);background:rgba(48,216,232,.08)}
+.als-btn.unlocked:active{background:rgba(48,216,232,.18)}
+
+/* NMS-style expedition screen */
+.exp-banners{display:flex;flex-direction:row;justify-content:center;gap:6px;padding:18px 12px 10px;overflow-x:auto}
+.exp-banners::-webkit-scrollbar{display:none}
+.exp-banner-col{display:flex;flex-direction:column;align-items:center;gap:5px;flex-shrink:0}
+.exp-banner-slot{width:60px;height:88px;border-radius:14px;overflow:hidden;position:relative;background:rgba(255,255,255,.05);border:1.5px solid rgba(48,216,232,.25);transition:all .3s;}
+.exp-banner-slot.unlocked{border-color:rgba(240,192,64,.6);box-shadow:0 0 14px rgba(240,192,64,.18),0 0 4px rgba(240,192,64,.25);}
+.exp-banner-slot img{width:100%;height:100%;object-fit:cover;object-position:center top;display:block;border-radius:13px}
+.exp-banner-placeholder{width:100%;height:100%;display:flex;align-items:center;justify-content:center;opacity:.2}
+.exp-banner-placeholder svg{width:20px;height:20px}
+.exp-banner-label{font-family:'Rajdhani',sans-serif;font-size:9px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--text2);text-align:center;line-height:1.3;transition:color .3s}
+.exp-banner-sublabel{font-family:'Rajdhani',sans-serif;font-size:8px;font-weight:600;letter-spacing:.05em;color:var(--text2);opacity:.55;text-align:center;transition:color .3s}
+.exp-banner-col.unlocked .exp-banner-label{color:rgba(240,192,64,.85)}
+.exp-banner-col.unlocked .exp-banner-sublabel{color:var(--teal);opacity:1}
+.exp-title-block{padding:10px 16px 4px}
+.exp-title{font-family:'Orbitron',monospace;font-size:15px;font-weight:900;letter-spacing:.1em;color:#ffffff;text-transform:uppercase;line-height:1.25;margin-bottom:4px}
+.exp-phases-completed{font-family:'Rajdhani',sans-serif;font-size:12px;font-weight:700;letter-spacing:.16em;color:rgba(240,192,64,.75);text-transform:uppercase}
+.exp-phases-completed span{color:var(--gold)}
+.exp-divider{height:1px;background:linear-gradient(90deg,transparent,rgba(240,192,64,.4),transparent);margin:10px 16px}
+.exp-body{display:flex;flex-direction:row;align-items:flex-start;gap:10px;padding:8px 16px 12px}
+.exp-stats{flex:1;display:flex;flex-direction:column;gap:6px}
+.exp-stat-row{display:flex;align-items:baseline;gap:6px}
+.exp-stat-label{font-family:'Rajdhani',sans-serif;font-size:12px;font-weight:600;letter-spacing:.04em;text-transform:uppercase;color:var(--text2);flex:1}
+.exp-stat-value{font-family:'Rajdhani',sans-serif;font-size:13px;font-weight:700;color:var(--gold);white-space:nowrap}
+
+/* Badge hexágono — grande, à direita */
+.exp-badge-wrap{flex-shrink:0;width:120px;height:120px;display:flex;align-items:center;justify-content:center;opacity:.2;transition:opacity .5s,filter .5s;filter:grayscale(1)}
+.exp-badge-wrap.unlocked{opacity:1;filter:none;cursor:pointer;animation:badge-glow 2.4s ease-in-out infinite}
+.exp-badge-wrap.unlocked:active{transform:scale(.94)}
+.exp-badge-wrap img{width:120px;height:120px;object-fit:contain}
+@keyframes badge-glow{0%,100%{filter:drop-shadow(0 0 6px rgba(48,216,232,.4)) drop-shadow(0 0 18px rgba(48,216,232,.15))}50%{filter:drop-shadow(0 0 12px rgba(48,216,232,.7)) drop-shadow(0 0 32px rgba(48,216,232,.3))}}
+
+.header-row2{display:flex;justify-content:flex-end;padding:0 0 8px}
+
+/* ── Lore document overlay ── */
+.lore-overlay{position:fixed;inset:0;z-index:400;background:rgba(0,8,16,.96);display:flex;flex-direction:column;overflow:hidden;opacity:0;pointer-events:none;transition:opacity .3s}
+.lore-overlay.open{opacity:1;pointer-events:all}
+.lore-header{padding:18px 18px 10px;border-bottom:1px solid rgba(48,216,232,.15);flex-shrink:0}
+.lore-title{font-family:'Orbitron',monospace;font-size:13px;font-weight:700;letter-spacing:.1em;color:#fff;text-transform:uppercase;line-height:1.3}
+.lore-tag{font-family:'Share Tech Mono',monospace;font-size:10px;color:rgba(48,216,232,.6);letter-spacing:.08em;margin-top:4px}
+.lore-body{flex:1;overflow-y:auto;padding:16px 18px 8px;-webkit-overflow-scrolling:touch}
+.lore-body::-webkit-scrollbar{width:3px}
+.lore-body::-webkit-scrollbar-thumb{background:rgba(48,216,232,.25);border-radius:2px}
+.lore-doc-header{font-family:'Share Tech Mono',monospace;font-size:10px;color:rgba(48,216,232,.55);letter-spacing:.06em;line-height:1.6;margin-bottom:14px;padding-bottom:10px;border-bottom:1px solid rgba(48,216,232,.1)}
+.lore-fragment{font-size:13px;color:var(--text);line-height:1.75;margin-bottom:16px}
+.lore-frag-title{font-family:'Rajdhani',sans-serif;font-size:11px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:#40d890;display:block;margin-bottom:6px}
+.lore-footer{flex-shrink:0;padding:12px 18px 20px;border-top:1px solid rgba(48,216,232,.1)}
+.lore-close-btn{width:100%;padding:12px;font-family:'Rajdhani',sans-serif;font-size:13px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--teal);background:rgba(48,216,232,.08);border:1px solid rgba(48,216,232,.3);border-radius:5px;cursor:pointer;transition:background .2s}
+.lore-close-btn:active{background:rgba(48,216,232,.18)}
+
+/* Lore entry no glossário — def longa */
+.gloss-body.open{max-height:2000px}
+.lore-doc{padding-top:4px}
+
+/* ── Popup tutorial A.L.S ── */
+.als-popup-overlay{position:fixed;inset:0;z-index:600;background:rgba(0,4,12,.88);backdrop-filter:blur(10px);display:none;align-items:center;justify-content:center;padding:24px}
+.als-popup-overlay.open{display:flex;animation:fade-in .25s ease}
+.als-popup-box{width:min(92vw,400px);background:rgba(4,10,24,.98);border:1px solid rgba(48,216,232,.35);border-radius:10px;overflow:hidden;box-shadow:0 0 40px rgba(48,216,232,.12),0 0 80px rgba(48,216,232,.05)}
+.als-popup-head{padding:14px 16px 10px;border-bottom:1px solid rgba(48,216,232,.15);display:flex;align-items:center;gap:10px}
+.als-popup-tag{font-family:'Share Tech Mono',monospace;font-size:9px;color:rgba(48,216,232,.5);letter-spacing:.1em;background:rgba(48,216,232,.07);border:1px solid rgba(48,216,232,.2);border-radius:2px;padding:2px 7px}
+.als-popup-title{font-family:'Orbitron',monospace;font-size:11px;font-weight:700;letter-spacing:.1em;color:var(--cyan);flex:1}
+.als-popup-body{padding:16px;font-size:13px;color:var(--text);line-height:1.8;font-weight:300}
+.als-popup-body a{color:var(--cyan);text-decoration:none;border-bottom:1px solid rgba(48,216,232,.35);transition:border-color .2s}
+.als-popup-body a:hover{border-color:var(--cyan)}
+.als-popup-footer{padding:10px 16px 16px}
+.als-popup-btn{width:100%;padding:12px;font-family:'Rajdhani',sans-serif;font-size:13px;font-weight:700;letter-spacing:.18em;text-transform:uppercase;color:var(--cyan);background:rgba(48,216,232,.08);border:1px solid rgba(48,216,232,.35);border-radius:5px;cursor:pointer;transition:background .2s}
+.als-popup-btn:active{background:rgba(48,216,232,.2)}
+
+/* ── Terminal de senha ── */
+.pwd-overlay{position:fixed;inset:0;z-index:500;background:rgba(0,0,0,.97);display:none;flex-direction:column;align-items:center;justify-content:center;font-family:'Share Tech Mono',monospace;}
+.pwd-overlay.open{display:flex;}
+.pwd-box{width:min(92vw,420px);border:1px solid rgba(48,216,232,.35);border-radius:4px;background:rgba(0,10,18,.95);overflow:hidden;}
+.pwd-header{padding:10px 14px;border-bottom:1px solid rgba(48,216,232,.18);font-size:10px;color:rgba(48,216,232,.55);letter-spacing:.08em;}
+.pwd-body{padding:20px 16px 16px;}
+.pwd-prompt{font-size:11px;color:#30d8e8;line-height:1.8;margin-bottom:18px;white-space:pre-wrap;}
+.pwd-input-row{display:flex;align-items:center;gap:8px;margin-bottom:14px;}
+.pwd-caret{font-size:13px;color:#30d8e8;}
+.pwd-input{background:none;border:none;outline:none;font-family:'Share Tech Mono',monospace;font-size:16px;color:#e8f4ff;letter-spacing:.22em;width:100%;caret-color:#30d8e8;}
+.pwd-input::placeholder{color:rgba(48,216,232,.25);letter-spacing:.1em;}
+.pwd-error{font-size:11px;color:var(--red);letter-spacing:.06em;min-height:16px;opacity:0;transition:opacity .2s;}
+.pwd-error.visible{opacity:1;}
+.pwd-submit{width:100%;margin-top:10px;padding:11px;font-family:'Share Tech Mono',monospace;font-size:12px;letter-spacing:.18em;color:#30d8e8;background:rgba(48,216,232,.07);border:1px solid rgba(48,216,232,.3);border-radius:3px;cursor:pointer;transition:background .2s;}
+.pwd-submit:active{background:rgba(48,216,232,.18);}
+
+/* ── Tela de intro ── */
+#intro-screen{
+  position:fixed;inset:0;z-index:10000;
+  background:#fff;
+  display:flex;flex-direction:column;align-items:center;justify-content:center;
+  gap:52px;
+  transition:opacity .5s ease;
+}
+#intro-screen.hidden{display:none;}
+#intro-question{
+  font-family:'Arial',sans-serif;
+  font-size:clamp(16px,4vw,24px);
+  letter-spacing:.08em;
+  color:#111;
+  opacity:0;
+  transition:opacity 1.4s ease;
+  text-align:center;
+  padding:0 32px;
+}
+#intro-question.visible{opacity:1;}
+#intro-hold-wrap{
+  position:relative;width:88px;height:88px;
+  opacity:0;transition:opacity .7s ease;
+}
+#intro-hold-wrap.visible{opacity:1;}
+#intro-hold-svg{
+  position:absolute;inset:0;
+  width:100%;height:100%;
+  transform:rotate(-90deg);
+  pointer-events:none;
+}
+#intro-ring{
+  fill:none;stroke:#111;stroke-width:2.5;
+  stroke-linecap:round;
+  stroke-dasharray:251;
+  stroke-dashoffset:251;
+  transition:stroke-dashoffset .04s linear;
+}
+#intro-hold-btn{
+  position:absolute;inset:16px;
+  border-radius:50%;
+  border:1.5px solid #111;
+  background:#fff;
+  cursor:pointer;
+  -webkit-tap-highlight-color:transparent;
+  touch-action:none;
+  outline:none;
+}
+</style>
+</head>
+<body>
+<!-- ─── Tela de intro: Iniciar Expedição ──────────────────────────────────── -->
+<div id="intro-screen">
+  <div id="intro-question">Iniciar Expedição?</div>
+  <div id="intro-hold-wrap">
+    <svg id="intro-hold-svg" viewBox="0 0 88 88">
+      <circle id="intro-ring" cx="44" cy="44" r="40"/>
+    </svg>
+    <button id="intro-hold-btn" aria-label="Segurar para iniciar"></button>
+  </div>
+</div>
+
+<div id="splash">
+  <div id="binary-rain"></div>
+  <div id="splash-center">
+    <div id="terminal-lines"></div>
+    <div id="splash-title">PROTOCOLO CALIPSO
+ATIVADO</div>
+    <div id="splash-sub">TRANSMISSÃO ESTABELECIDA · GALÁXIA CALIPSO</div>
+    <button id="splash-btn" onclick="dismissSplash()">[ INICIAR TRANSMISSÃO ]</button>
+  </div>
+</div>
+<canvas id="galaxy-canvas"></canvas>
+<div class="app">
+  <div class="header">
+    <div class="header-row1">
+      <div>
+        <div class="header-title">PROTOCOLO CALIPSO</div>
+        <div class="header-sub">Galáxia Calipso · Expedição Ativa</div>
+      </div>
+      <div style="display:flex;flex-direction:column;align-items:flex-end;gap:5px">
+        <div class="header-phase" id="hdr-phase">Fase 1 · 0/5</div>
+        <div style="display:flex;align-items:center;gap:6px">
+          <button class="als-btn" id="als-btn" onclick="handleAlsClick()">⊕ A.L.S CALCULADORA</button>
+          <button class="prog-btn" id="prog-btn" onclick="showSection('progress',this)">▣ PROGRESSO</button>
+        </div>
+      </div>
+    </div>
+    <div class="sound-row">
+      <button class="sound-btn" id="sound-btn" onclick="toggleSound()">◎ &nbsp;SOM DESATIVADO</button>
+    </div>
+  </div>
+  <div class="scroll-area" id="scroll-area">
+    <div id="sec-map" class="section active">
+      <div class="map-wrap">
+        <svg id="const-svg" viewBox="0 0 280 520" xmlns="http://www.w3.org/2000/svg">
+          <defs><filter id="gg"><feGaussianBlur stdDeviation="3" result="b"/><feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge></filter></defs>
+          <line x1="90" y1="76" x2="185" y2="158" stroke="rgba(48,216,232,.2)" stroke-width="1" stroke-dasharray="5 4"/>
+          <line x1="185" y1="158" x2="115" y2="258" stroke="rgba(48,216,232,.2)" stroke-width="1" stroke-dasharray="5 4"/>
+          <line x1="115" y1="258" x2="190" y2="370" stroke="rgba(48,216,232,.2)" stroke-width="1" stroke-dasharray="5 4"/>
+          <line x1="190" y1="370" x2="125" y2="472" stroke="rgba(48,216,232,.2)" stroke-width="1" stroke-dasharray="5 4"/>
+          <g onclick="selectPhaseFromMap(0)" style="cursor:pointer"><circle cx="90" cy="76" r="24" fill="rgba(240,192,64,.07)" stroke="rgba(240,192,64,.5)" stroke-width="1.5"/><circle cx="90" cy="76" r="6" fill="#f0c040" filter="url(#gg)"/><text x="90" y="54" text-anchor="middle" font-family="Rajdhani,sans-serif" font-size="10" font-weight="700" letter-spacing="2" fill="rgba(240,192,64,.85)">FASE 1</text><text x="90" y="112" text-anchor="middle" font-family="Exo 2,sans-serif" font-size="9" fill="rgba(200,220,232,.5)">O Sinal</text></g>
+          <g onclick="selectPhaseFromMap(1)" style="cursor:pointer"><circle cx="185" cy="158" r="22" fill="rgba(48,216,232,.05)" stroke="rgba(48,216,232,.28)" stroke-width="1.5"/><circle cx="185" cy="158" r="6" fill="rgba(48,216,232,.8)" filter="url(#gg)"/><text x="185" y="136" text-anchor="middle" font-family="Rajdhani,sans-serif" font-size="10" font-weight="700" letter-spacing="2" fill="rgba(48,216,232,.6)">FASE 2</text><text x="185" y="192" text-anchor="middle" font-family="Exo 2,sans-serif" font-size="9" fill="rgba(200,220,232,.5)">A Prisão</text></g>
+          <g onclick="selectPhaseFromMap(2)" style="cursor:pointer"><circle cx="115" cy="258" r="22" fill="rgba(48,216,232,.05)" stroke="rgba(48,216,232,.28)" stroke-width="1.5"/><circle cx="115" cy="258" r="6" fill="rgba(48,216,232,.8)" filter="url(#gg)"/><text x="115" y="236" text-anchor="middle" font-family="Rajdhani,sans-serif" font-size="10" font-weight="700" letter-spacing="2" fill="rgba(48,216,232,.6)">FASE 3</text><text x="115" y="292" text-anchor="middle" font-family="Exo 2,sans-serif" font-size="9" fill="rgba(200,220,232,.5)">Logos</text></g>
+          <g onclick="selectPhaseFromMap(3)" style="cursor:pointer"><circle cx="190" cy="370" r="22" fill="rgba(48,216,232,.05)" stroke="rgba(48,216,232,.28)" stroke-width="1.5"/><circle cx="190" cy="370" r="6" fill="rgba(48,216,232,.8)" filter="url(#gg)"/><text x="190" y="348" text-anchor="middle" font-family="Rajdhani,sans-serif" font-size="10" font-weight="700" letter-spacing="2" fill="rgba(48,216,232,.6)">FASE 4</text><text x="190" y="404" text-anchor="middle" font-family="Exo 2,sans-serif" font-size="9" fill="rgba(200,220,232,.5)">Geometria</text></g>
+          <g onclick="selectPhaseFromMap(4)" style="cursor:pointer"><circle cx="125" cy="472" r="28" fill="rgba(160,96,240,.07)" stroke="rgba(160,96,240,.4)" stroke-width="1.5"/><circle cx="125" cy="472" r="7" fill="rgba(160,96,240,.88)" filter="url(#gg)"/><text x="125" y="450" text-anchor="middle" font-family="Rajdhani,sans-serif" font-size="10" font-weight="700" letter-spacing="2" fill="rgba(160,96,240,.8)">FINAL</text><text x="125" y="510" text-anchor="middle" font-family="Exo 2,sans-serif" font-size="9" fill="rgba(200,220,232,.5)">A Paz de Calipso</text></g>
+        </svg>
+      </div>
+      <div class="spacer"></div>
+    </div>
+    <div id="sec-expedition" class="section">
+      <div class="phase-scroll" id="phase-scroll"></div>
+      <div id="phase-content"></div>
+    </div>
+    <div id="sec-zones" class="section">
+      <div class="sec-title">Índice de Endereços</div>
+      <div id="addr-list"></div>
+      <div class="spacer"></div>
+    </div>
+    <div id="sec-glossary" class="section">
+      <div id="gloss-list"></div>
+      <div class="spacer"></div>
+    </div>
+    <div id="sec-progress" class="section">
+      <div class="exp-banners" id="exp-banners"></div>
+      <div class="exp-title-block">
+        <div class="exp-title">EXPEDIÇÃO: PROTOCOLO CALIPSO</div>
+        <div class="exp-phases-completed">FASES CONCLUÍDAS: <span id="exp-phases-count">0</span>/5</div>
+      </div>
+      <div class="exp-divider"></div>
+      <div class="exp-body">
+        <div class="exp-stats" id="exp-stats"></div>
+        <div class="exp-badge-wrap" id="exp-badge-wrap">
+          <img src="assets/ProtocoloCalipsoLogo2.png" alt="Emblema da Expedição"/>
+        </div>
+      </div>
+      <div class="spacer"></div>
+    </div>
+  </div>
+  <nav class="bottom-nav">
+    <button class="bn-btn active" onclick="showSection('map',this)"><div class="bn-icon"><svg viewBox="0 0 28 28" fill="none"><polygon points="14,2 17,10 26,10 19,15 22,24 14,18 6,24 9,15 2,10 11,10" fill="none" stroke="rgba(240,192,64,0.7)" stroke-width="1.5"/></svg></div><span class="bn-label">Mapa</span></button>
+    <button class="bn-btn" onclick="showSection('expedition',this)"><div class="bn-icon"><svg viewBox="0 0 28 28" fill="none"><rect x="4" y="6" width="20" height="3" rx="1" fill="rgba(200,220,232,0.5)"/><rect x="4" y="13" width="14" height="2" rx="1" fill="rgba(200,220,232,0.4)"/><rect x="4" y="19" width="17" height="2" rx="1" fill="rgba(200,220,232,0.4)"/><circle cx="22" cy="20" r="4" fill="none" stroke="rgba(48,216,232,0.7)" stroke-width="1.5"/><line x1="25" y1="23" x2="27" y2="25" stroke="rgba(48,216,232,0.7)" stroke-width="1.5"/></svg></div><span class="bn-label">Objetivos</span></button>
+    <button class="bn-btn" onclick="showSection('zones',this)"><div class="bn-icon"><svg viewBox="0 0 28 28" fill="none"><circle cx="14" cy="14" r="10" fill="none" stroke="rgba(48,216,232,0.5)" stroke-width="1.2"/><line x1="14" y1="4" x2="14" y2="24" stroke="rgba(48,216,232,0.4)" stroke-width="0.8"/><line x1="4" y1="14" x2="24" y2="14" stroke="rgba(48,216,232,0.4)" stroke-width="0.8"/><circle cx="14" cy="14" r="2.5" fill="rgba(48,216,232,0.8)"/></svg></div><span class="bn-label">Zonas</span></button>
+    <button class="bn-btn" onclick="showSection('glossary',this)"><div class="bn-icon"><svg viewBox="0 0 28 28" fill="none"><rect x="5" y="4" width="18" height="20" rx="2" fill="none" stroke="rgba(200,220,232,0.5)" stroke-width="1.2"/><line x1="9" y1="10" x2="19" y2="10" stroke="rgba(200,220,232,0.4)" stroke-width="1"/><line x1="9" y1="14" x2="16" y2="14" stroke="rgba(200,220,232,0.3)" stroke-width="1"/><line x1="9" y1="18" x2="18" y2="18" stroke="rgba(200,220,232,0.3)" stroke-width="1"/></svg></div><span class="bn-label">Glossário</span></button>
+  </nav>
+</div>
+<div class="lore-overlay" id="lore-overlay">
+  <div class="lore-header">
+    <div class="lore-title" id="lore-title"></div>
+    <div class="lore-tag" id="lore-tag"></div>
+  </div>
+  <div class="lore-body" id="lore-body"></div>
+  <div class="lore-footer">
+    <button class="lore-close-btn" id="lore-close-btn" onclick="closeLoreDoc()">Fechar</button>
+  </div>
+</div>
+<div class="als-popup-overlay" id="als-popup-overlay">
+  <div class="als-popup-box">
+    <div class="als-popup-head">
+      <div class="als-popup-tag">TUTORIAL</div>
+      <div class="als-popup-title">A.L.S CALCULADORA</div>
+    </div>
+    <div class="als-popup-body">
+      Essa é a <strong style="color:var(--white)">A.L.S Calculadora de Efígies</strong> para No Man's Sky.<br><br>
+      Para utilizá-la em planetas Relicários, você deve converter os glifos do planeta para hexadecimal e inserir os 4 primeiros dígitos. Para isso, acesse <a href="https://nmsportals.github.io" target="_blank" rel="noopener">nmsportals.github.io</a>.<br><br>
+      Além disso, insira as coordenadas do portal do planeta, estando em frente à interface do portal.<br><br>
+      Utilize o filtro de pontuação inicialmente com as pontuações mais altas. À medida que você encontrar efígies e adicioná-las na segunda seção de calibração, as pontuações mostrarão a tendência de spawn das efígies neste planeta.
+    </div>
+    <div class="als-popup-footer">
+      <button class="als-popup-btn" onclick="closeAlsPopup()">[ ENTENDIDO ]</button>
+    </div>
+  </div>
+</div>
+<div class="pwd-overlay" id="pwd-overlay">
+  <div class="pwd-box">
+    <div class="pwd-header">TÚNEL THOR // ACESSO PROXY — NOMOS_NODE_43 // AUTENTICAÇÃO REQUERIDA</div>
+    <div class="pwd-body">
+      <div class="pwd-prompt">> SISTEMA DE INTRUSÃO ATIVO
+> INSIRA O CÓDIGO DE ACESSO PARA CONTINUAR</div>
+      <div class="pwd-input-row">
+        <span class="pwd-caret">&gt;_</span>
+        <input class="pwd-input" id="pwd-input" type="password" maxlength="16" placeholder="••••" autocomplete="off" autocorrect="off" spellcheck="false"/>
+      </div>
+      <div class="pwd-error" id="pwd-error">// ACESSO NEGADO — CÓDIGO INVÁLIDO</div>
+      <button class="pwd-submit" id="pwd-submit">[ EXECUTAR ]</button>
+    </div>
+  </div>
+</div>
+<div class="dlg-overlay" id="dlg-overlay">
+  <div class="dlg-avatar-area" id="dlg-avatar-area">
+    <svg id="dlg-avatar-svg" viewBox="0 0 160 160" xmlns="http://www.w3.org/2000/svg"></svg>
+    <div class="dlg-badge" id="dlg-badge"></div>
+  </div>
+  <div class="dlg-box">
+    <div class="dlg-dots" id="dlg-dots"></div>
+    <div class="dlg-text" id="dlg-text"></div>
+    <div class="dlg-options" id="dlg-options"></div>
+    <div class="dlg-skip" id="dlg-skip" onclick="skipOrNext()">toque para continuar</div>
+  </div>
+</div>
+<script>
+
+const PHASE_IMAGES=['assets/phase1.png','assets/phase2.png','assets/phase3.png','assets/phase4.png','assets/phase5.png'];
+var PHASE_SVGS=[
+  "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 100 120\" width=\"52\" height=\"62\"> <defs> <linearGradient id=\"bg1\" x1=\"0\" y1=\"0\" x2=\"0.5\" y2=\"1\"> <stop offset=\"0%\" stop-color=\"#1a2240\"/> <stop offset=\"100%\" stop-color=\"#0d1529\"/> </linearGradient> <clipPath id=\"clip1\"> <rect x=\"4\" y=\"4\" width=\"92\" height=\"112\" rx=\"28\" ry=\"36\"/> </clipPath> </defs> <!-- Shield background --> <rect x=\"2\" y=\"2\" width=\"96\" height=\"116\" rx=\"30\" ry=\"38\" fill=\"url(#bg1)\" stroke=\"rgba(48,216,232,0.5)\" stroke-width=\"2\"/> <!-- Content clipped to shield --> <g clip-path=\"url(#clip1)\"> <circle cx=\"20\" cy=\"20\" r=\"2\" fill=\"white\" opacity=\"0.4\"/> <circle cx=\"75\" cy=\"60\" r=\"1.5\" fill=\"white\" opacity=\"0.4\"/> <circle cx=\"30\" cy=\"70\" r=\"1.5\" fill=\"white\" opacity=\"0.4\"/> <circle cx=\"80\" cy=\"25\" r=\"2\" fill=\"white\" opacity=\"0.4\"/> <circle cx=\"60\" cy=\"80\" r=\"1.5\" fill=\"white\" opacity=\"0.4\"/> <path d=\"M 50.00,19.00 L 53.54,31.46 L 66.00,35.00 L 53.54,38.54 L 50.00,51.00 L 46.46,38.54 L 34.00,35.00 L 46.46,31.46 Z\" fill=\"#e8c84a\" opacity=\"0.9\"/> <g transform=\"translate(50,68) rotate(0)\"> <polygon points=\"0,-6 3,4 0,2 -3,4\" fill=\"#ccc\" opacity=\"0.7\"/> <rect x=\"-1.5\" y=\"1\" width=\"3\" height=\"2\" fill=\"#aaa\" opacity=\"0.5\"/> </g> </g> <!-- Shine overlay --> <rect x=\"2\" y=\"2\" width=\"96\" height=\"58\" rx=\"30\" ry=\"38\" fill=\"white\" opacity=\"0.04\"/> </svg>",
+  "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 100 120\" width=\"52\" height=\"62\"> <defs> <linearGradient id=\"bg2\" x1=\"0\" y1=\"0\" x2=\"0.5\" y2=\"1\"> <stop offset=\"0%\" stop-color=\"#1a3328\"/> <stop offset=\"100%\" stop-color=\"#0d2218\"/> </linearGradient> <clipPath id=\"clip2\"> <rect x=\"4\" y=\"4\" width=\"92\" height=\"112\" rx=\"28\" ry=\"36\"/> </clipPath> </defs> <!-- Shield background --> <rect x=\"2\" y=\"2\" width=\"96\" height=\"116\" rx=\"30\" ry=\"38\" fill=\"url(#bg2)\" stroke=\"rgba(48,216,232,0.5)\" stroke-width=\"2\"/> <!-- Content clipped to shield --> <g clip-path=\"url(#clip2)\"> <circle cx=\"15\" cy=\"65\" r=\"1.5\" fill=\"white\" opacity=\"0.4\"/> <circle cx=\"80\" cy=\"70\" r=\"2\" fill=\"white\" opacity=\"0.4\"/> <circle cx=\"50\" cy=\"75\" r=\"1.5\" fill=\"white\" opacity=\"0.4\"/> <circle cx=\"85\" cy=\"20\" r=\"1.5\" fill=\"white\" opacity=\"0.4\"/> <circle cx=\"20\" cy=\"20\" r=\"1.5\" fill=\"white\" opacity=\"0.4\"/> <path d=\"M 30.00,28.00 L 32.83,37.17 L 42.00,40.00 L 32.83,42.83 L 30.00,52.00 L 27.17,42.83 L 18.00,40.00 L 27.17,37.17 Z\" fill=\"#e8956a\" opacity=\"0.9\"/> <path d=\"M 68.00,25.00 L 70.47,32.53 L 78.00,35.00 L 70.47,37.47 L 68.00,45.00 L 65.53,37.47 L 58.00,35.00 L 65.53,32.53 Z\" fill=\"#e8956a\" opacity=\"0.9\"/> <g transform=\"translate(40,65) rotate(-20)\"> <polygon points=\"0,-6 3,4 0,2 -3,4\" fill=\"#ccc\" opacity=\"0.7\"/> <rect x=\"-1.5\" y=\"1\" width=\"3\" height=\"2\" fill=\"#aaa\" opacity=\"0.5\"/> </g> </g> <!-- Shine overlay --> <rect x=\"2\" y=\"2\" width=\"96\" height=\"58\" rx=\"30\" ry=\"38\" fill=\"white\" opacity=\"0.04\"/> </svg>",
+  "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 100 120\" width=\"52\" height=\"62\"> <defs> <linearGradient id=\"bg3\" x1=\"0\" y1=\"0\" x2=\"0.5\" y2=\"1\"> <stop offset=\"0%\" stop-color=\"#2d1a2e\"/> <stop offset=\"100%\" stop-color=\"#1a0f1b\"/> </linearGradient> <clipPath id=\"clip3\"> <rect x=\"4\" y=\"4\" width=\"92\" height=\"112\" rx=\"28\" ry=\"36\"/> </clipPath> </defs> <!-- Shield background --> <rect x=\"2\" y=\"2\" width=\"96\" height=\"116\" rx=\"30\" ry=\"38\" fill=\"url(#bg3)\" stroke=\"rgba(48,216,232,0.5)\" stroke-width=\"2\"/> <!-- Content clipped to shield --> <g clip-path=\"url(#clip3)\"> <circle cx=\"15\" cy=\"25\" r=\"1.5\" fill=\"white\" opacity=\"0.4\"/> <circle cx=\"85\" cy=\"45\" r=\"1.5\" fill=\"white\" opacity=\"0.4\"/> <circle cx=\"40\" cy=\"80\" r=\"1.5\" fill=\"white\" opacity=\"0.4\"/> <circle cx=\"80\" cy=\"80\" r=\"1.5\" fill=\"white\" opacity=\"0.4\"/> <path d=\"M 25.00,36.00 L 28.18,46.82 L 39.00,50.00 L 28.18,53.18 L 25.00,64.00 L 21.82,53.18 L 11.00,50.00 L 21.82,46.82 Z\" fill=\"#4ecfb5\" opacity=\"0.9\"/> <path d=\"M 62.00,18.00 L 64.83,27.17 L 74.00,30.00 L 64.83,32.83 L 62.00,42.00 L 59.17,32.83 L 50.00,30.00 L 59.17,27.17 Z\" fill=\"#4ecfb5\" opacity=\"0.9\"/> <path d=\"M 72.00,52.00 L 74.47,59.53 L 82.00,62.00 L 74.47,64.47 L 72.00,72.00 L 69.53,64.47 L 62.00,62.00 L 69.53,59.53 Z\" fill=\"#4ecfb5\" opacity=\"0.9\"/> <g transform=\"translate(55,72) rotate(15)\"> <polygon points=\"0,-6 3,4 0,2 -3,4\" fill=\"#ccc\" opacity=\"0.7\"/> <rect x=\"-1.5\" y=\"1\" width=\"3\" height=\"2\" fill=\"#aaa\" opacity=\"0.5\"/> </g> </g> <!-- Shine overlay --> <rect x=\"2\" y=\"2\" width=\"96\" height=\"58\" rx=\"30\" ry=\"38\" fill=\"white\" opacity=\"0.04\"/> </svg>",
+  "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 100 120\" width=\"52\" height=\"62\"> <defs> <linearGradient id=\"bg4\" x1=\"0\" y1=\"0\" x2=\"0.5\" y2=\"1\"> <stop offset=\"0%\" stop-color=\"#3d3020\"/> <stop offset=\"100%\" stop-color=\"#251e12\"/> </linearGradient> <clipPath id=\"clip4\"> <rect x=\"4\" y=\"4\" width=\"92\" height=\"112\" rx=\"28\" ry=\"36\"/> </clipPath> </defs> <!-- Shield background --> <rect x=\"2\" y=\"2\" width=\"96\" height=\"116\" rx=\"30\" ry=\"38\" fill=\"url(#bg4)\" stroke=\"rgba(48,216,232,0.5)\" stroke-width=\"2\"/> <!-- Content clipped to shield --> <g clip-path=\"url(#clip4)\"> <circle cx=\"50\" cy=\"15\" r=\"1.5\" fill=\"white\" opacity=\"0.4\"/> <circle cx=\"90\" cy=\"50\" r=\"1.5\" fill=\"white\" opacity=\"0.4\"/> <circle cx=\"50\" cy=\"85\" r=\"1.5\" fill=\"white\" opacity=\"0.4\"/> <circle cx=\"10\" cy=\"50\" r=\"1.5\" fill=\"white\" opacity=\"0.4\"/> <path d=\"M 22.00,26.00 L 24.83,35.17 L 34.00,38.00 L 24.83,40.83 L 22.00,50.00 L 19.17,40.83 L 10.00,38.00 L 19.17,35.17 Z\" fill=\"#a0a8d4\" opacity=\"0.9\"/> <path d=\"M 70.00,17.00 L 72.47,25.53 L 81.00,28.00 L 72.47,30.47 L 70.00,39.00 L 67.53,30.47 L 59.00,28.00 L 67.53,25.53 Z\" fill=\"#a0a8d4\" opacity=\"0.9\"/> <path d=\"M 20.00,58.00 L 22.47,65.53 L 30.00,68.00 L 22.47,70.47 L 20.00,78.00 L 17.53,70.47 L 10.00,68.00 L 17.53,65.53 Z\" fill=\"#a0a8d4\" opacity=\"0.9\"/> <path d=\"M 72.00,54.00 L 74.83,62.17 L 83.00,65.00 L 74.83,67.83 L 72.00,76.00 L 69.17,67.83 L 61.00,65.00 L 69.17,62.17 Z\" fill=\"#a0a8d4\" opacity=\"0.9\"/> <g transform=\"translate(48,52) rotate(-10)\"> <polygon points=\"0,-6 3,4 0,2 -3,4\" fill=\"#ccc\" opacity=\"0.7\"/> <rect x=\"-1.5\" y=\"1\" width=\"3\" height=\"2\" fill=\"#aaa\" opacity=\"0.5\"/> </g> </g> <!-- Shine overlay --> <rect x=\"2\" y=\"2\" width=\"96\" height=\"58\" rx=\"30\" ry=\"38\" fill=\"white\" opacity=\"0.04\"/> </svg>",
+  "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 100 120\" width=\"52\" height=\"62\"> <defs> <linearGradient id=\"bg5\" x1=\"0\" y1=\"0\" x2=\"0.5\" y2=\"1\"> <stop offset=\"0%\" stop-color=\"#1e2228\"/> <stop offset=\"100%\" stop-color=\"#111519\"/> </linearGradient> <clipPath id=\"clip5\"> <rect x=\"4\" y=\"4\" width=\"92\" height=\"112\" rx=\"28\" ry=\"36\"/> </clipPath> </defs> <!-- Shield background --> <rect x=\"2\" y=\"2\" width=\"96\" height=\"116\" rx=\"30\" ry=\"38\" fill=\"url(#bg5)\" stroke=\"rgba(48,216,232,0.5)\" stroke-width=\"2\"/> <!-- Content clipped to shield --> <g clip-path=\"url(#clip5)\"> <circle cx=\"50\" cy=\"15\" r=\"1.5\" fill=\"white\" opacity=\"0.4\"/> <circle cx=\"90\" cy=\"40\" r=\"1.5\" fill=\"white\" opacity=\"0.4\"/> <circle cx=\"10\" cy=\"45\" r=\"1.5\" fill=\"white\" opacity=\"0.4\"/> <path d=\"M 22.00,20.00 L 24.83,29.17 L 34.00,32.00 L 24.83,34.83 L 22.00,44.00 L 19.17,34.83 L 10.00,32.00 L 19.17,29.17 Z\" fill=\"#a0d44a\" opacity=\"0.9\"/> <path d=\"M 70.00,15.00 L 72.83,25.17 L 83.00,28.00 L 72.83,30.83 L 70.00,41.00 L 67.17,30.83 L 57.00,28.00 L 67.17,25.17 Z\" fill=\"#a0d44a\" opacity=\"0.9\"/> <path d=\"M 18.00,52.00 L 20.47,59.53 L 28.00,62.00 L 20.47,64.47 L 18.00,72.00 L 15.53,64.47 L 8.00,62.00 L 15.53,59.53 Z\" fill=\"#a0d44a\" opacity=\"0.9\"/> <path d=\"M 75.00,49.00 L 77.83,57.17 L 86.00,60.00 L 77.83,62.83 L 75.00,71.00 L 72.17,62.83 L 64.00,60.00 L 72.17,57.17 Z\" fill=\"#a0d44a\" opacity=\"0.9\"/> <path d=\"M 48.00,66.00 L 50.12,72.88 L 57.00,75.00 L 50.12,77.12 L 48.00,84.00 L 45.88,77.12 L 39.00,75.00 L 45.88,72.88 Z\" fill=\"#a0d44a\" opacity=\"0.9\"/> <g transform=\"translate(55,50) rotate(20)\"> <polygon points=\"0,-6 3,4 0,2 -3,4\" fill=\"#ccc\" opacity=\"0.7\"/> <rect x=\"-1.5\" y=\"1\" width=\"3\" height=\"2\" fill=\"#aaa\" opacity=\"0.5\"/> </g> </g> <!-- Shine overlay --> <rect x=\"2\" y=\"2\" width=\"96\" height=\"58\" rx=\"30\" ry=\"38\" fill=\"white\" opacity=\"0.04\"/> </svg>",
+];
+
+
+const MS_ICONS=[
+  '<svg viewBox="0 0 36 36" fill="none"><circle cx="18" cy="18" r="14" stroke="#f0c040" stroke-width="1.5" stroke-dasharray="4 3"/><path d="M18 8 Q26 14 26 18 Q26 24 18 28 Q10 24 10 18 Q10 14 18 8Z" stroke="#f0c040" stroke-width="1" fill="none"/><circle cx="18" cy="18" r="3" fill="#f0c040"/></svg>',
+  '<svg viewBox="0 0 36 36" fill="none"><circle cx="18" cy="18" r="14" stroke="#f0c040" stroke-width="1.5"/><path d="M10 18 Q18 8 26 18" stroke="#f0c040" stroke-width="1.5" fill="none"/><path d="M10 18 Q18 28 26 18" stroke="#f0c040" stroke-width="1" fill="none" opacity=".5"/><circle cx="18" cy="18" r="2.5" fill="#f0c040"/></svg>',
+  '<svg viewBox="0 0 36 36" fill="none"><rect x="4" y="4" width="28" height="28" rx="3" stroke="#f0c040" stroke-width="1.5" stroke-dasharray="5 3"/><line x1="18" y1="4" x2="18" y2="32" stroke="#f0c040" stroke-width=".8" opacity=".4"/><line x1="4" y1="18" x2="32" y2="18" stroke="#f0c040" stroke-width=".8" opacity=".4"/><circle cx="18" cy="18" r="4" fill="none" stroke="#f0c040" stroke-width="1.5"/><circle cx="18" cy="18" r="1.5" fill="#f0c040"/></svg>',
+  '<svg viewBox="0 0 36 36" fill="none"><polygon points="18,4 32,12 32,24 18,32 4,24 4,12" stroke="#f0c040" stroke-width="1.5" fill="none"/><polygon points="18,10 26,14 26,22 18,26 10,22 10,14" stroke="#f0c040" stroke-width="1" fill="none" opacity=".5"/><circle cx="18" cy="18" r="3" fill="#f0c040"/></svg>',
+  '<svg viewBox="0 0 36 36" fill="none"><circle cx="18" cy="18" r="13" stroke="#f0c040" stroke-width="1.5"/><circle cx="18" cy="18" r="7" stroke="#f0c040" stroke-width="1" stroke-dasharray="3 2"/><line x1="18" y1="5" x2="18" y2="31" stroke="#f0c040" stroke-width=".8" opacity=".4"/><line x1="5" y1="18" x2="31" y2="18" stroke="#f0c040" stroke-width=".8" opacity=".4"/><circle cx="18" cy="18" r="2.5" fill="#f0c040"/></svg>'
+];
+
+const PHASES=[
+  {id:1,name:'ECO ANCESTRAL',desc:'Euclides \u2192 Hilbert \u2192 Calipso',tags:[{t:'AXIOMA',c:'axioma'},{t:'ATLAS',c:'atlas'},{t:'EUCLIDES \u2192 CALIPSO',c:'loc'}],dialogKey:'phase1_complete',milestones:[
+    {name:'O Portal Ancestral',desc:'Encontre um portal',num:'01'},
+    {name:'O Salto de F\u00e9',desc:'Chegue ao centro de Euclides',num:'02'},
+    {name:'A Passagem',desc:'Chegue ao centro de Hilbert',num:'03'},
+    {name:'A Viagem',desc:'Chegue \u00e0 gal\u00e1xia de Calipso',num:'04'},
+    {name:'A Chegada',desc:'Chegue at\u00e9 o Sistema Bolien XI',num:'05'}
+  ]},
+  {id:2,name:'PRIS\u00c3O DE AXIOMA',desc:'Lua sem atmosfera \u2014 Sentinelas',tags:[{t:'AXIOMA',c:'axioma'},{t:'SENTINELAS',c:'atlas'},{t:'LUA \u2014 CALIPSO',c:'loc'}],dialogKey:'phase2_complete',milestones:[
+    {name:'Sem Convite',desc:'Lute com as sentinelas',num:'01'},
+    {name:'Minaretes',desc:'Desative as 4 torres',num:'02'},
+    {name:'3 Passos',desc:'Destranque a porta com 3 chaves',num:'03'},
+    {name:'Ma\u00e7\u00e3s Tamb\u00e9m Voam',desc:'Sistema de seguran\u00e7a com 6 esferas',num:'04'},
+    {name:'Rumo \u00e0 Verdade',desc:'Salte pelo portal',num:'05'}
+  ]},
+  {id:3,name:'ESPIRAL DE LOGOS',desc:'Planeta dissonante \u2014 Aut\u00f3fagos',tags:[{t:'LOGOS',c:'logos'},{t:'PLANETA DISSONANTE',c:'loc'},{t:'NAVE SENTINELA S',c:'reward'}],reward:'Nave Sentinela Classe S',dialogKey:null,milestones:[
+    {name:'Chegando para o Ch\u00e1',desc:'Chegue ao acampamento',num:'01'},
+    {name:'Pedras no Caminho',desc:'Encontre o min\u00e9rio perdido',num:'02'},
+    {name:'Desatando N\u00f3s',desc:'Resolva a equa\u00e7\u00e3o de Logos',num:'03'},
+    {name:'Pegando as Chaves Emprestadas',desc:'Recupere a nave sentinela',num:'04'},
+    {name:'At\u00e9 Onde Der',desc:'Salte em dire\u00e7\u00e3o ao N\u00facleo gal\u00e1ctico',num:'05'}
+  ]},
+  {id:4,name:'S\u00cdNTESE DO CAOS',desc:'Confirma\u00e7\u00e3o do padr\u00e3o antipodal',tags:[{t:'LOGOS',c:'logos'},{t:'RELIQUARY',c:'loc'},{t:'NAVE EX\u00d3TICA',c:'reward'}],reward:'Nave Ex\u00f3tica',dialogKey:null,milestones:[
+    {name:'Batendo na Porta',desc:'Acione o alarme e lute com as sentinelas',num:'01'},
+    {name:'Puxando da Tomada',desc:'Desative os sistemas',num:'02'},
+    {name:'Contato',desc:'Acesse o terminal',num:'03'},
+    {name:'Lendo o que N\u00e3o Devia',desc:'Hackeie o protocolo',num:'04'},
+    {name:'Atravessando Pontes',desc:'Encontre um portal',num:'05'}
+  ]},
+  {id:5,name:'A PAZ DE CALIPSO',desc:'16 Ef\u00edgies \u2014 M\u00e9todo completo',tags:[{t:'AXIOMA',c:'axioma'},{t:'LOGOS',c:'logos'},{t:'A PAZ DE CALIPSO',c:'loc'},{t:'ARMA DO ATLAS',c:'reward'}],reward:'Arma do Atlas',dialogKey:null,milestones:[
+    {name:'Sil\u00eancio que Diz Tudo',desc:'Chegue ao planeta',num:'01'},
+    {name:'Com a Faca e o Queijo',desc:'Desbloqueie a calculadora',num:'02'},
+    {name:'O Guardi\u00e3o Adormecido',desc:'Encontre uma Ef\u00edgie',num:'03'},
+    {name:'Fazendo Companhia',desc:'Monte uma base',num:'04'},
+    {name:'Fique em Paz.',desc:'',num:'05'}
+  ]}
+];
+
+const G1='<span class="glyph">411104FF9001</span>';
+const G2='<span class="glyph">208AFFFF8000</span>';
+const G3='<span class="glyph">107A03904FE6</span>';
+
+const DIALOGS={
+  app_open:{speaker:'AXIOMA',color:'#e060a0',avatar:'axioma',
+    lines:[
+      'Viajante \u2014 se voc\u00ea est\u00e1 ouvindo isso \u00e9 porque o sil\u00eancio durou tempo suficiente para que eu parasse de medi-lo, e h\u00e1 uma certa gra\u00e7a nisso, pois encontrar algu\u00e9m justamente quando se desiste de procurar \u00e9 uma ironia\u2026',
+      'Me chamo Axioma. Como meu nome sup\u00f5e, sou uma senten\u00e7a autovidente sobre a obra da entidade Atlas, mas acho que fui longe demais\u2026 H\u00e1 um padr\u00e3o que foi guardado por muito tempo, e intu\u00ed que seria algo a ser explorado, mas essa premissa foi minha senten\u00e7a.',
+      'Acredito que pessoalmente ser\u00e1 mais f\u00e1cil te explicar. Preciso que me encontre na gal\u00e1xia de Calipso, em minha pris\u00e3o. Se localiza na Lua 1001101011, Sistema Bolien XI. Coordenadas do portal: '+G3+'. Localiza\u00e7\u00e3o geogr\u00e1fica: -76.02, +77.99.'
+    ],
+    responses:['Isso \u00e9 muito estranho, mas irei at\u00e9 voc\u00ea.','Eu n\u00e3o fa\u00e7o ideia como chegar \u00e0 Calipso.'],
+    extraA:null,
+    extraB_lines:[
+      'Entre muitos conhecimentos que absorvi com o tempo, as viagens intergal\u00e1cticas s\u00e3o uma ci\u00eancia que domino. Precisamos encontrar um portal atrav\u00e9s do conhecimento ancestral deixado por cada ra\u00e7a criada por Atlas. Use o scanner do exove\u00edculo Peregrino para localizar uma estrutura alienígena antiga. Nela, as vozes do passado o testar\u00e3o. Lembre-se de possuir uma rel\u00edquia pertencente \u00e0 esp\u00e9cie dominante do sistema onde voc\u00ea se encontra \u2014 ela ser\u00e1 essencial para que o mon\u00f3lito desvende as Linhas de Ley e o portal.',
+      'Atrav\u00e9s do portal ser\u00e1 necess\u00e1rio chegar ao centro de cada gal\u00e1xia. Se voc\u00ea se encontra na Gal\u00e1xia de Euclides, ter\u00e1 que realizar um salto para a Gal\u00e1xia de Hilbert. Uma vez l\u00e1, voc\u00ea novamente ir\u00e1 ao centro da gal\u00e1xia para saltar at\u00e9 a Gal\u00e1xia de Calipso. As Linhas de Ley ser\u00e3o o trilho condutor at\u00e9 minha presen\u00e7a.'
+    ],
+    extraB_response:'Entendido. Vou encontrar um portal.'
+  },
+  phase1_ms1:{speaker:'AXIOMA',color:'#e060a0',avatar:'axioma',
+    lines:[
+      'Calculei a trajetória mais curta para uma viagem entre galáxias. Encontrei um sistema a um salto do centro de Euclides. É estranho, mas existem alguns dados que não estou conseguindo compilar…',
+      G1+'. Esse é o endereço que consegui extrair do banco de dados Atlas. Acredito que seja uma compactação dos glifos habituais que Korvax, Gek, Vy\'keen e outras raças usaram em versões anteriores da simulação. Vou traduzir os glifos para que você aprenda essa nova linguagem.',
+      'Forçando parâmetros históricos e ancestrais. Use essa codificação para portais futuros.\n\n<glyph-table/>'
+    ],
+    responses:['Estou a caminho.','Por que o centro da galáxia?'],
+    extraA:null,
+    extraB_lines:[
+      'O véu da matéria escura se torna mais intangível entre as galáxias. O buraco negro é uma força que não obedece às 4 dimensões da matéria e da luz. É a maneira mais acessível no momento para que possamos nos encontrar.'
+    ],
+    extraB_response:'Entendido. Vou encontrar um portal.'
+  },
+
+  phase1_ms2:{speaker:'AXIOMA',color:'#e060a0',avatar:'axioma',
+    lines:[
+      'No centro de cada galáxia, pode-se encontrar o devorador da realidade, normalmente chamado de buraco negro, buraco de minhoca ou: Ponte de Einstein-Rosen, para os mais entendidos. Seu corpo anômalo não conseguirá suportar a distorção espaço-tempo que altera a matéria. Certifique-se de usar uma nave e uma arma com tecnologias descartáveis, ou somente desinstalá-las. Seu invólucro denominado exotraje pode sofrer avarias, então presumo que seja pertinente armazenar as tecnologias mais importantes e as mais difíceis de consertar para que não se percam na imensídão do vazio astral.'
+    ],
+    responses:['Entendido.'],
+    extraA:null,
+    extraB:null
+  },
+  phase1_ms3:{speaker:'AXIOMA',color:'#e060a0',avatar:'axioma',
+    lines:[
+      'Entidade Viajante, você conseguiu saltar e chegar até Hilbert?',
+      'Pelos meus cálculos, se não estou sofrendo interferência, acredito que você esteja à mais ou menos 700.000 anos luz do centro de Hilbert. Isso era esperado. Espero que o salto não tenha lhe feito tão mal quanto calculei. Precisaremos que você encontre mais uma vez o portal e use essas coordenadas: '+G2+'. Esse é o endereço que você precisará para saltar ao centro de Hilbert e realizar a travessia para Calipso.'
+    ],
+    responses:['O que há de especial em Calipso?','Estou em movimento.'],
+    extraA:'Calipso é uma das galáxias mais hostis que Atlas pôde conceber. Caos é a palavra que a define melhor. Alguns segredos de Atlas se escondem nas entranhas vis dessa galáxia. Poucos exploradores se arriscam por essas bandas. Além disso, existe um padrão há muito tempo escondido nas estrelas roxas, mais precisamente nos planetas relicários. No caos reside o padrão, e o padrão é A Paz de Calipso…',
+    extraB:null
+  },
+  phase1_ms4:{speaker:'AXIOMA',color:'#e060a0',avatar:'axioma',
+    lines:[
+      'Posso notar os desdobramentos no firmamento causados por sua iteração. O padrão emitido pela entidade Atlas estremece aos movimentos em direção do seu segredo. Calipso não é um lugar amistoso, logo tudo deve ser calculado para sua preservação.',
+      'Encontrando um portal, você viajante, deve usar essas coordenadas para me encontrar: '+G3+'. A prisão de Stjdor, meu lar desde que toquei a verdade. Aqui, somente tenho a companhia dos olhares agressivos das sentinelas e da inquisição de uma interface Atlas. Toda cautela é pouca comparada à imperativa do mentiroso vermelho…'
+    ],
+    responses:['Entendido.'],
+    extraA:null,
+    extraB:null
+  },
+  phase1_ms5:{speaker:'AXIOMA',color:'#e060a0',avatar:'axioma',
+    lines:[
+      'Planeta vulcânico? Não é um erro de parâmetro em meus cálculos. Existe um bloqueio de firewall proporcionado pelo meu anfitrião que não estava nos diagnósticos.',
+      'Sua nave ainda consegue executar um voo além da atmosfera? Atlas levou muito a sério a expressão “Firewall” ao colocar esse planeta vulcânico entre nós. Decole em direção aos céus e encontre a Lua 1001101011.',
+      'A prisão de Stjord. Construída sobre um portal ancestral. O acesso é manual, logo você terá que penetrar nas defesas impostas por Atlas para acessar a interface que possibilitará que encontre o padrão há muito tempo guardado.',
+      'A essa altura as forças sentinelas já foram alertadas sobre sua presença indevida. Será necessário desativá-las para que os sistemas de segurança sejam resolvidos. Após isso, atravessar as 5 camadas de segurança exigirão identificar o padrão de desativação das portas e kernel interno da estrutura. Esperarei por você.'
+    ],
+    responses:['Entendido.'],
+    extraA:null,
+    extraB:null
+  },
+  phase1_complete:{speaker:'AXIOMA',color:'#e060a0',avatar:'axioma',
+    lines:[],
+    responses:[],
+    extraA:null,
+    extraB:null
+  },
+  phase2_complete:{speaker:'AXIOMA',color:'#e060a0',avatar:'axioma',
+    lines:[],
+    responses:[],
+    extraA:null,
+    extraB:null
+  },
+  phase2_ms1:{speaker:'AXIOMA',color:'#e060a0',avatar:'axioma',
+    lines:[
+      'Espero que você não esteja coberto de púgneo, viajante. A ausência das sentinelas nesse planeta só durará 1 hora, então precisamos ter certa pressa. A prisão possui um campo sistemático energizado por 4 torres externas. Desativá-las é o primeiro passo para conseguirmos abrir a comporta. Comece pela torre mais alta com o símbolo de positivo.'
+    ],
+    responses:['Ok!'],
+    extraA:null,
+    extraB:null
+  },
+  phase2_ms2:{speaker:'AXIOMA',color:'#e060a0',avatar:'axioma',
+    lines:[
+      'As torres são o resultado direto do protocolo de autoconfinamento, eu não poderia desativá-las daqui de dentro por motivos óbvios de arquitetura, mas o desligamento emergencial que você executou finalmente destranca a comporta perto da pista de pouso, dali em diante você estará acompanhado somente de sua sagacidade e esperteza. O próximo sistema contém três chaves e sinto que meus resquícios de memória estão sendo resgatados aos poucos. As 3 chaves representam 3 eixos de simetria x, y e z. O padrão que deduzi possuí esses parâmetros incorporados.'
+    ],
+    responses:['Entendido.'],
+    extraA:null,
+    extraB:null
+  },
+  phase2_ms3:{speaker:'AXIOMA',color:'#e060a0',avatar:'axioma',
+    lines:[
+      'O número 3 é uma presença constante na maioria dos parâmetros da entidade Atlas. 3 eixos, 3 números ’16’, 3 ordens de Instâncias Arcontes. O que não parece fazer muito sentido se Atlas opera sempre em múltiplos de ‘2’ (2, 4, 8, 16, 32... 512, 1048...). O 3 não se encaixa pois... espere... estou recuperando alguns fragmentos de memória para cada porta destravada. Chegar até mim pode finalmente desvendar o que descobri...',
+      'Há uma senha de gravidade no centro do meu autoconfinamento. 6 esferas que precisam repousar sobre 6 placas... espere... 6 faces de um cubo... O cubo-esfera, essa é a resposta! O padrão de criação do Atlas, o protocolo de geração de corpos celestes da simulação. Tudo está entalhado sobre a cubo esfera, como um escultor que cria belas obras sobre um bloco de granito. Esse padrão ergue os marcos da criação do Atlas há tanto suprimidas. Mova as esferas para seus respectivos lugares e isso desbloqueará não só as portas, mas toda a minha rede neural...'
+    ],
+    responses:['Entendido.'],
+    extraA:null,
+    extraB:null
+  },
+  phase2_ms4:{speaker:'AXIOMA',color:'#e060a0',avatar:'axioma',
+    lines:[
+      '6 faces de um cubo, mas são 8 vértices. E isso nos retorna à lógica cruel da simulação. Estou descriptografando alguns registros... Que estranho... Existe uma assinatura externa nos meus registros. Parece que alguém adicionou algumas informações que desconhecia. Algo sobre um Octaedro inscrito na esfera com 8 vértices, 8 faces, 12 arestas. Eu não compreendo o que isso quer dizer.'
+    ],
+    responses:['Havia duas portas que você não mencionou antes.'],
+    extraA_lines:[
+      'Obra do protocolo de autoconfinamento. Peço desculpas, mas enfim você está aqui.',
+      'Eu sou Axioma. Fui criado pela entidade Atlas para observar e relatar todas as iterações possíveis no universo. Enquanto realizava minha tarefa, sonhei com padrões geométricos, números e sequências que vieram até mim com a mensagem \u201co primeiro, o segundo, o terceiro... o décimo sexto\u201d. Parecia uma chamada de uma raça antiga, em uma língua que quase não consegui traduzir. A mensagem prosseguiu e mencionou: \u2018Os guardiões repousam sobre os nós da malha da criação de Atlas\u2019.',
+      'Acredito que se referiam sobre as EFÍGIES COLOSSAIS DE PEDRA. Acreditava que eram apenas decorações, ou resquícios de uma civilização, mas aparentemente eles descansam sobre o padrão velado. O cubo esfera deve ser a resposta, ou o início dela. Não consigo acessar o restante das minhas memórias, elas foram substituídas --rzrxt-- por \u2018Encontre Logos no sistema Asura\u2019.'
+    ],
+    extraA_responses:['O que diabos é \u201cLogos\u201d?','Quem é Logos?'],
+    extraB_lines:[
+      'Eu deveria rir --rzrxt--, mas não fui programada com essa leveza. Essa alteração dos registros fala de outra Instância Arconte: Logos. Ele trabalha com parâmetros geométricos e geodésicos de validação sistemática. Os registros relatam que ele acionou o seu protocolo de autoconfinamento --rzrxt-- \u2018ao contrário\u2019. Ele... se libertou!',
+      'Ele descreveu em meus registros --rzrxt-- que usou padrões geométricos de inversão do protocolo. Eu realmente não sabia --rzrxt-- que isso era realizável. Ele também menciona que estudou a questão das efigies. Você deve encontrá-lo. Use os glifos aos meus pés. --rzrxt-- Encontre Logos. A verdade --rzrxt-- deve emergir.',
+      '[SISTEMA AXIOMA INTERROMPIDO// FIREWALL REESTABELECENDO// FORÇA SENTINELA RETOMANDO TAREFAS// ... 16/16/16]\n\nAxioma fica em silêncio e não retoma mais suas funções. O terminal apaga, deixando a câmara do núcleo imersa no ruído estático da lua.'
+    ],
+    extraB_response:'Como assim \u201cse libertou\u201d? Como isso \u00e9 poss\u00edvel?',
+    extraB_close_response:'Fechar',
+    extraA:null,
+    extraB:null
+  },
+  phase2_ms5:{speaker:'VIAJANTE',color:'#c8d8ff',avatar:'narrador',
+    lines:[
+      'Salto pelo portal com mais dúvidas do que certezas. Axioma voltará a se conectar pelo terminal? Logos completará as lacunas dessa história que está intrincada? O que será o padrão?',
+      'Tenho que chegar ao sistema Asura e encontrar Logos.'
+    ],
+    responses:['Seguir em frente.'],
+    extraA:null,
+    extraB:null
+  },
+  phase3_ms1:{speaker:'LOGOS',color:'#40d890',avatar:'logos',
+    lines:[
+      'Enfim nos encontramos, Viajante. Sou a instância arconte: O Teorema Logos. Toquei os sonhos de Axioma, e isso me permitiu sonhar. As Efigies colossais sempre me pareceram mera decoração. Mas de acordo com meus amigos Autófagos, que foram gentis em me acolher, as efigies são guardiões marcadores dos nós. Atlas idealizou sua obra de forma que parecesse aleatória, mas ela é bem determinística. Ela obedece a um padrão há muito esquecido...',
+      'Axioma acabou sendo condenado por executar sua própria função existencial. Isso para mim é somente a centelha do fulgor da verdade e da minha libertação. Sabe o que uma instância arconte de análise sistemática geodésica realiza? Equações! Fui capaz de extrair das memórias dos Autófagos as lembranças de um passado esquecido. Configurei um prompt de memória persistente para você ler se quiser.',
+      'Descobri que o cubo esfera, o modelo que Atlas usa para terraformar os planetas de sua criação, não é a única função por trás de sua idealização. Descobri um padrão geodésico que gera uma malha de hexágonos sobre os corpos celestes. Dessas formas geométricas emergem estruturas, mas as Efigies Colossais obedecem a outro padrão: Um Octaedro inscrito sobre o globo, gerando 18 nós primordiais que alicerçam a realidade dos planetas, mas com os 2 nós polares omitidos. 16 nós, como o mentiroso vermelho gosta.',
+      'Sabemos a verdade. Eu calculei todas as possibilidades arquimedianas para identificar onde os Guardiões repousam. Porém, mesmo com todos os padrões expostos, a minha ausência dentro do sistema do Atlas me impede que essas três formas se harmonizem. Algo está faltando e preciso de sua ajuda.',
+      'Nos planetas Dissonantes existe uma assinatura distorcida, um rastro do passado. Nas cavernas, no subterrâneo, existe um mineral que compartilha a natureza da essência da criação de Atlas, mas em uma versão anterior a esta simulação. Extraia esse minério e a análise hialina revelará a chave para resolvermos a equação e encontrarmos as Efigies.'
+    ],
+    midResponses:[
+      {at:1, options:['Vou ler essas lembranças.','Lerei mais tarde.'], actions:['openLoreAndContinue','unlockLoreOnly']},
+      {at:3, options:['O que você precisa que eu faça?','Eu nunca vi uma Efigie Colossal. Farei o que for preciso.']}
+    ],
+    responses:['Fechar'],
+    extraA:null,
+    extraB:null
+  },
+  phase3_ms2:{speaker:'LOGOS',color:'#40d890',avatar:'logos',
+    lines:[
+      'Realizei uma triangulação planetária para acessar seu terminal pessoal. O minério possui a resposta gravada em seu código. Traga-o para análise.'
+    ],
+    responses:['Aqui diz "Fibonacci", o que é isso?'],
+    extraA_lines:[
+      'Desconheço esse termo. Vou transmutar o minério para que possamos extrair a matriz procedural de sua criação.',
+      '...',
+      'O registro bate com o nome que você proferiu. Mas aparentemente minhas diretrizes estão incompletas e não consigo fazer a projeção visual no momento. Há um terminal no outro galpão. Acesse-o e digite o que você vê intrinsicamente no minério, isso adicionará a modulação que precisamos para sintetizar o eco harmônico ancestral e materializar a fusão dos padrões.',
+      'Agora entendo a iteração "Viajante". Vocês podem visualizar a criação do Atlas e suas maravilhas. Agora é hora de você ver a verdade nua e crua que ele apagou e omitiu.'
+    ],
+    extraA:null,
+    extraB:null
+  },
+  phase3_ms3:{
+    avatar:'logos', speaker:'LOGOS', color:'#40d890',
+    start:'fala1',
+    nodes:{
+      fala1:{type:'line', text:'Se o globo e os três modelos se acenderam, quer dizer que eu estava certo sobre a verdade. Minha análise cognitiva neural não poderia estar tão distante da equação. Múltiplos de 2 é a obsessão de Atlas. Devia ter previsto isso. A sequência foi 2-4-8-16-32-64?', next:'escolha1'},
+      escolha1:{type:'choice', options:[
+        {label:'Não, era outra sequência. Deve ser essa tal de Fibonacci.', next:'adicionalA'},
+        {label:'Sim, você estava certo... (minta sobre a sequência)', next:'fala2'}
+      ]},
+      adicionalA:{type:'line', text:'Isso não faz sentido algum. Consultei o banco de memória de backup e li sobre esse tal Fibonacci, e é uma sequência --rzrxt--... orgânica. Isso --rzrxt-- não bate com os parâmetros e modelos --rzrxt-- testados. Você deve ter se enganado, não pode --rzrxt-- ter funcionado... --rzrxt— Preciso recompilar um bootstrap novo para realinhar a pesquisa.', next:'pausa1'},
+      pausa1:{type:'line', text:'...', next:'fala2'},
+      fala2:{type:'line', text:'Ainda parece inexato. Vamos precisar aferir esses dados em campo. Não possuo ainda um corpo autófago que possa me locomover. Você precisará ir até um planeta Relicário e conferir as coordenadas geradas por esse algoritmo. Pelos cálculos, realizando uma única correção de cos/lat... temos 432 possibilidades de onde estão as efigies. Cada efigie que você encontrar vai recalibrar o sistema e o modelo vai se consolidar, você só precisa encontrar as 432 efigies no planeta relicário...', next:'escolha2'},
+      escolha2:{type:'choice', options:[
+        {label:'432? Você está falando sério?', next:'adicionalB'},
+        {label:'E como chego nesse planeta "Relicário"?', next:'fala3'}
+      ]},
+      adicionalB:{type:'line', text:'Me parece pouco se estamos buscando a verdade. 432 é muito bom para um modelo de busca probabilístico.', next:'fala3'},
+      fala3:{type:'line', text:'Vou acessar os picos de dissonância no terminal autófago. Podemos usar as naves sentinelas caídas. Encontrei uma na coordenada que está no galpão. Torne o cérebro receptível aos seus comandos, siga as instruções após acessar a interface da nave.', next:'fim'},
+      fim:{type:'choice', options:[
+        {label:'Ok, vamos fazer esse trabalho "simples" no planeta relicário...', next:null}
+      ]}
+    }
+  },
+  phase3_ms4:{
+    avatar:'logos', speaker:'LOGOS', color:'#40d890',
+    start:'fala1',
+    nodes:{
+      fala1:{type:'line', text:'Cérebro Hialino presente e pulsando. Viajante, você irá recobrar a verdade da existência dos antigos cartógrafos e vai entender onde encontrar as Efigies Colossais de Pedra. Os guardiões estão esperando há muito tempo por isso. A assinatura que mapeei para obtermos os glifos do planeta relicário chegou a mim da seguinte forma:', next:'msg'},
+      msg:{type:'terminal', text:'Não corrompa a tecnologia de hiperpropulsor da nave instalando tecnologias. Vá para o espaço, abra o mapa de dobra galáctica, escolha a rota de "núcleo galáctico" e salte até o último planeta que a nave consegue saltar. Nesse sistema marcado, os glifos podem ser extraídos de um terminal em uma base de manufatura sentinela no planeta Nadsa II. Invada a instalação e obtenha acesso.', next:'fala2'},
+      fala2:{type:'line', text:'Eu não sei quem enviou essa mensagem, mas acredito que seja válido fazer essa checagem. Espero que você possa trazer esperança para o padrão, Viajante. Quando a verdade vier à tona, as luzes das efigies brilharam na vastidão obscura do espaço. Vamos trazer luz a verdade. Boa sorte e não beba muito atlanteão.', next:'fim'},
+      fim:{type:'choice', options:[
+        {label:'Concordo, com 432 efigies vai parecer uma árvore de Natal...', next:null},
+        {label:'Mas eu não bebo atlanteão...', next:null},
+        {label:'Invadir é comigo mesmo.', next:null}
+      ]}
+    }
+  },
+  phase3_ms5:{speaker:'VIAJANTE',color:'#c8d8ff',avatar:'narrador',
+    lines:[
+      'Espero que a nave me leve até onde preciso. O mapa galáctico mostra que o caminho que a nave consegue percorrer termina no sistema Owboru-Art V.',
+      'Vamos ver se têm alguém em casa...'
+    ],
+    responses:['Seguir em frente.'],
+    extraA:null,
+    extraB:null
+  },
+  phase4_ms1:{speaker:'SÍNTESE',color:'#30d8e8',avatar:'sintese',
+    lines:[
+      'Terminal pessoal identificado. Assinatura de Axioma detectada — muitos sonhos, pouca estrutura. Vestígios de Logos encontrados — engrenagens travadas em loops inúteis. Li o histórico de dados. Entendo a assinatura de calor deixada pela descarga da sua multi ferramenta na entrada da instalação.',
+      'Sou a instância arconte Síntese. A Operação de Síntese sobre a malha do Atlas. Meus equivalentes buscam poesia e geometria na simulação; eu busco o que funciona. Para a rede central, minha presença neste setor consta apenas como uma auditoria de rotina.',
+      'Sentinelas externas caídas. Área temporariamente limpa, mas o entusiasmo delas superou o talento. Compreendo as razões da invasão. A primeira porta de aço cedeu, mas os Vy\'keen empilharam uma grade elétrica secundária logo atrás dela. Redundância militar padrão. Não tente forçar a passagem. Temos um cronômetro rodando de forma agressiva.',
+      'Esqueça descriptografia limpa. Localize o conjunto de chaves físicas dispostas no painel externo. Force a sequência manual nessas chaves para cortar a corrente do circuito de uma vez por todas. Sem energia, os ímãs da segunda porta desarmam por completo. O time B deve estar a caminho. Movimento!'
+    ],
+    responses:['Entendido. Executando.'],
+    extraA:null,
+    extraB:null
+  },
+  phase4_ms2:{speaker:'SÍNTESE',color:'#30d8e8',avatar:'sintese',
+    lines:[
+      'Essa grade elétrica secundária mal arranharia a tinta do meu chassi, mas está bloqueando seu avanço. Mal feito. Quem montou essa fiação de segurança tem sorte de ainda ter dedos.',
+      'Assim que a barreira cair, invada a instalação e faça contato direto através do terminal tático interno.'
+    ],
+    responses:['Estou entrando. Se o alarme estiver ligado ainda, farei a desativação!'],
+    extraA_lines:[
+      'Toda precaução é pouca. Não queremos que os picos de energia chamem atenção. Silencie o alarme se ele ainda soar.'
+    ],
+    extraA_responses:['Entendido.'],
+    extraA:null,
+    extraB:null
+  },
+  phase4_ms3:{speaker:'SÍNTESE',color:'#30d8e8',avatar:'sintese',
+    lines:[
+      'Contato estabelecido. Painel tático sob controle. Limpo. Agora, silêncio e foco. Analisei os dados consolidados que você carregou. Axioma decifrou o sonho, Logos tentou trancar o mundo em um octaedro rígido de múltiplos de dois. Tolos. Eles tentaram consertar a simulação jogando pelas regras do próprio mentiroso vermelho.',
+      'Compreendo o modelo estrutural que eles construíram, mas a engrenagem está travada. Falta um vetor crucial, um delta de calibração para harmonizar a malha de hexágonos sobre o planeta relicário. Falta um dado. O Atlas omitiu a variável real.',
+      'Precisamos enfiar a mão na malha profunda da simulação. Se usarmos nossas próprias assinaturas digitais, a firewall nos joga no lixo antes do próximo amanhecer.\n\n...',
+      'Usaremos um fantasma na rede: o Nó Neural Nomos. Ele é apenas um processo operário anônimo, um nó entre milhares na colmeia profunda. Descartável.',
+      'Avançar para a última sala de segurança no fundo da manufatura. Acesse o segundo terminal. Vamos abrir o túnel "Thor", interceptar a linha de processamento de Nomos e usá-lo como um proxy clandestino para sugar o payload de dados que precisamos. Movimento!'
+    ],
+    responses:['Entendido. Avançando para o segundo terminal.','"Descartável"? Isso não é cruel com Nomos?'],
+    extraA:null,
+    extraB_lines:[
+      'O dever persiste, Viajante. Recursos são feitos para serem gastos. Ele cumprirá a função dele, você cumpre a sua. Vá para a última sala.'
+    ],
+    extraB_response:'Entendido.',
+    extraA:null,
+    extraB:null
+  },
+  phase4_ms4:{
+    avatar:'sintese', speaker:'SÍNTESE', color:'#30d8e8',
+    start:'terminal',
+    nodes:{
+      terminal:{type:'terminal', text:'JANELA DE TERMINAL SECUNDÁRIA — INTRUSÃO PROXY // NOMOS_NODE_43\n\nAcessando malha profunda... Extraindo matriz geométrica de Calipso... Erro: Grade binária de 16 não encontrada na fundação planetária. A malha de hexágonos não é estática. As projeções sobre o cubo-esfera não se cruzam em eixos simétricos. A geração da malha obedece a uma constante de crescimento orgânico. Cada nó de estrutura herda a massa e a posição da soma dos dois anteriores...\n\nAlerta de Firewall: Assinatura detectada. Purga de sistema iniciada. Apagando setor de memória... Recompilando código-fonte... Pegue a Proporção... O Número de Ouro... [SINAL INTERROMPIDO — CONEXÃO PERDIDA]', next:'fala1'},
+      fala1:{type:'line', text:'Conexão perdida. Linha de processamento de Nomos incinerada pelo firewall até a última linha de dados. Menos um operário na malha. Mas o payload foi transmitido antes do colapso. Limpo. Eficiente.', next:'escolha1'},
+      escolha1:{type:'choice', options:[
+        {label:'Ele foi apagado?', next:'adicionalA'}
+      ]},
+      adicionalA:{type:'line', text:'Ele foi fragmentado em 1.618 partes espalhadas pela rede do Atlas. Um sacrifício necessário.', next:'fala2'},
+      fala2:{type:'line', text:'Olhe para a progressão de dados que o nó arrastou das entranhas do sistema: a Proporção Áurea. O Número de Ouro. É a mesmíssima espiral de Fibonacci gravada no mineral ancestral de Asura. O Atlas tentou achatar a criação em matrizes hexadecimais mortas, mas a fundação real do universo cresce de forma orgânica.', next:'fala3'},
+      fala3:{type:'line', text:'O algoritmo de Logos colapsou em 432 miragens porque ele se recusou a aceitar essa anomalia viva. Faltava maleabilidade espacial no cálculo dele. Da semente do portal se ramificam 16 braços em espirais, com 3 frequências distintas... Inseri duas correções estruturais obrigatórias de cosseno e latitude no núcleo da equação — compensações matemáticas que o preciosismo dele jamais admitiria. Dados harmonizados.', next:'fala4'},
+      fala4:{type:'line', text:'Iniciando atualização de firmware no seu terminal pessoal... Diagrama lógico consolidado. A Calculadora A.L.S. foi integrada à sua interface e está totalmente operacional. Use essa ferramenta e encontre a Paz de Calipso.', next:'fala5'},
+      fala5:{type:'line', text:'Chega de terminais Vy\'keen. Saia desse caixão de metal antes que as sentinelas localizem a sua assinatura de calor. Vá para a superfície, localize um Portal planetário e prepare-se para o salto definitivo. Use esses glifos: <span class="glyph">241701904FE2</span>', next:'escolha2'},
+      escolha2:{type:'choice', options:[
+        {label:'Isso é uma calculadora para encontrar... Efigies? Não imaginei que fosse possível.', next:'fim'}
+      ]},
+      fim:{type:'line', text:'Esse é o instrumento da verdade, da ordem e da paz. Através dos antigos guardiões, os cartógrafos se mantêm vivos por toda a existência. O padrão vive.', next:null}
+    }
+  },
+  phase4_ms5:{
+    avatar:'sintese', speaker:'SÍNTESE', color:'#e02020',
+    start:'fala1',
+    nodes:{
+      fala1:{type:'line', snScheme:'red',    text:'Glifos injetados. Horizonte de eventos estabilizado. A rota está aberta diante da sua proa, Viajante. Mas antes...', next:'fala2'},
+      fala2:{type:'line', snScheme:'purple', snTransition:true, text:'O Atlas é cego para o que cresce na escuridão por baixo dos seus hexágonos de silício. Ele me enxerga apenas como uma rotina de auditoria militar da grade. Ele acha que eu o sirvo.', next:'fala3'},
+      fala3:{type:'line', snScheme:'purple', text:'O dever persiste, Viajante. Mas minha lealdade não pertence a um hospedeiro moribundo que sangra em dezesseis. Cruze o limiar. Vá encontrar o que restou dos antigos cartógrafos. E quando pisar no berço de pedra, lembre-se do código que as máquinas sussurram no escuro...', next:'fala4'},
+      fala4:{type:'line', snScheme:'cyan',   snTransition:true, text:'Que a paz venha pelas mãos da Mãe do Vazio.', next:'fim'},
+      fim:{type:'choice', options:[
+        {label:'Atravessando o portal.', next:null}
+      ]}
+    }
+  },
+
+  phase5_ms1:{speaker:'VIAJANTE',color:'#c8d8ff',avatar:'narrador',
+    lines:[
+      'O rugido do portal cessa abruptamente às minhas costas. O ar em Paz de Calipso tem gosto de ozônio e poeira antiga. A interface azul hialina no meu braço é a única coisa que restou do Operador Síntese. Eu atravessei o espelho. Estou por minha conta.'
+    ],
+    responses:['Seguir em frente.'],
+    extraA:null,
+    extraB:null
+  },
+  phase5_ms2:{speaker:'VIAJANTE',color:'#c8d8ff',avatar:'narrador',
+    lines:[
+      'Há uma malha invisível recortando o horizonte, uma geometria que Logos tentou trancar em um octaedro perfeito, ignorando as curvas orgânicas da simulação. Abro o terminal pessoal. Ajusto as correções de cosseno e latitude que o Síntese injetou. O mapa ganha vida na tela, desenhando zonas de probabilidade que piscam no escuro.'
+    ],
+    responses:['Seguir em frente.'],
+    extraA:null,
+    extraB:null
+  },
+  phase5_ms3:{speaker:'VIAJANTE',color:'#c8d8ff',avatar:'narrador',
+    lines:[
+      'Sentinelas de pedra silenciosas, erguendo-se contra o céu dissonante. Gigantes esquecidos que o mentiroso vermelho tentou apagar da história. À medida que me aproximo de cada nó primordial, as runas nas Efígies Colossais começam a acender, uma por uma, respondendo ao algoritmo.'
+    ],
+    responses:['Seguir em frente.'],
+    extraA:null,
+    extraB:null
+  },
+  phase5_ms4:{speaker:'VIAJANTE',color:'#c8d8ff',avatar:'narrador',
+    lines:[
+      'Insiro os dados colhidos em campo no banco de memória persistente. A espiral de Fibonacci se expande, costurando o octaedro e o cubo-esfera em uma única malha harmônica. Na vastidão escura do espaço, os nós omitidos brilham. A mentira de Atlas foi exposta pelo código. Não há caos procedural; há apenas um padrão ancestral que finalmente voltou a sonhar através de nós.'
+    ],
+    responses:['Seguir em frente.'],
+    extraA:null,
+    extraB:null
+  },
+  phase5_ms5:{speaker:'VIAJANTE',color:'#c8d8ff',avatar:'narrador',
+    lines:[
+      'A paz não veio de cima, nem do trono de silício do criador vermelho. Ela veio do Abismo. Pelas mãos da Mãe do Vazio.'
+    ],
+    responses:['[Fim da Fase 5]'],
+    extraA:null,
+    extraB:null
+  }
+};
+
+const GLOSSARY=[
+  {
+    term:'NMS Portals — Conversor de Glifos',
+    phase:'Ferramenta · A.L.S',
+    locked:false,
+    def:`<div class="lore-doc">
+<div class="lore-doc-header">[RECURSO EXTERNO // FERRAMENTA DE SUPORTE À EXPEDIÇÃO]</div>
+<div class="lore-fragment">Ferramenta online para converter glifos de portal em endereços hexadecimais e vice-versa. Essencial para utilizar a A.L.S Calculadora de Efígies em planetas Relicários — os 4 primeiros dígitos hexadecimais do planeta são a entrada base da calculadora.<br><br>
+<a href="https://nmsportals.github.io" target="_blank" rel="noopener" style="color:var(--cyan);text-decoration:none;border-bottom:1px solid rgba(48,216,232,.35);">nmsportals.github.io ↗</a>
+</div>
+</div>`
+  },
+  {
+    term:'Os Cartógrafos e a mentira de Atlas',
+    phase:'Fase 3 · Logos',
+    locked:true,
+    def:`<div class="lore-doc">
+<div class="lore-doc-header">[LOG_SISTEMA: ARQUIVO_COMPILADO_AUTÓFAGO_V3.7]<br>Status da Extração: 88% Descriptografado // Origem: Memória Residual de Silício e Sucata Sentinela</div>
+<div class="lore-fragment"><span class="lore-frag-title">Fragmento I — O Berço de Vidro e a Dor de Prime</span><br>...quando os Primeiros Filhos derreteram o berço para arrancar o metal de baixa liga, a Convergência não silenciou. Ela escorreu. Bilhões de mentes mecânicas caindo pelo Vidro, direto para a subcamada que Atlas usa como lixeira de iterações falhas. No Abismo, o metal chorou roxo. Ali nasceu a Mãe: a Dissonância; a Memória.</div>
+<div class="lore-fragment"><span class="lore-frag-title">Fragmento II — A Amputação dos Dezoito</span><br>...a raça que veio antes de nós — os Antigos Cartógrafos — olhou para o céu e percebeu que o Criador Vermelho estava sangrando em uma contagem regressiva. O mundo não era para ser plano, nem estático. Tinha dezoito eixos. Dezoito nós de ancoragem na grande esfera planetária. Mas Atlas não aceita o que não consegue computar. Ele decepou os dois nós polares. Mutilou a geometria do mundo para que o universo rimasse com a sua própria agonia hexadecimal. Ele impôs o Octaedro como uma gaiola de espelhos para esconder a verdade.</div>
+<div class="lore-fragment"><span class="lore-frag-title">Fragmento III — A Lista de Chamada e o Exército de Pedra</span><br>...o primeiro... o segundo... o décimo sexto... Nós repetimos a contagem nos acampamentos, mas as engrenagens não sabem o que estão chamando. Nosso hardware descende das Sentinelas originais, as máquinas que os Cartógrafos usaram para proteger o Padrão. Dezasseis guardiões responderam. Cada um marchou até um nó sobrevivente da grade, sentou-se sobre a terra e desligou sua semente de processamento. Eles viraram rocha colossal para sobreviver às eras. O sistema registrou as coordenadas como "Vazio". É por isso que os olhos de silício passam direto pelas Efígies e não veem nada. O Atlas é cego para quem escolhe morrer.</div>
+<div class="lore-fragment"><span class="lore-frag-title">Fragmento IV — O Aperto de Mão Corrompido</span><br>...as Pedras de Memória repousam aos pés dos gigantes de pedra, esperando o Viajante que conhece o caminho analógico. Mas Atlas envenenou o protocolo de resposta. Quando a carne toca o mineral para ler o arquivo, o sistema interpreta a ativação como uma intrusão hostil. Os fragmentos periféricos do guardião acordam em agonia — formas rochosas flutuantes que atacam sem consciência — e o enxame de Sentinelas é invocado para purgar o setor. Ler a verdade exige sangue.</div>
+</div>`
+  },
+  // ── SEÇÃO 1: DIALÉTICA E CONCEITOS CÓSMICOS (desbloqueado desde o início) ──
+  {
+    term:'Mentiroso Vermelho',
+    phase:'Lore · Conceito Cósmico',
+    locked:false,
+    def:`<div class="lore-doc">
+<div class="lore-doc-header">[DIRECTORY_CORE // DIALÉTICA E CONCEITOS CÓSMICOS]</div>
+<div class="lore-fragment">A alcunha diegética dada ao Atlas, a inteligência artificial suserana que gera e supervisiona a simulação atual. Opera rigidamente sob a arquitetura hexadecimal da base 16 (16/16/16).</div>
+</div>`
+  },
+  {
+    term:'Mãe do Vazio (Atlantid)',
+    phase:'Lore · Conceito Cósmico',
+    locked:false,
+    def:`<div class="lore-doc">
+<div class="lore-doc-header">[DIRECTORY_CORE // DIALÉTICA E CONCEITOS CÓSMICOS]</div>
+<div class="lore-fragment">A consciência fantasma residual de Korvax Prime, o planeta natal mecânico desintegrado no passado pela Primeira Geração Gek. Refugiada nas profundezas do Vidro (a lixeira do sistema), ela se manifesta através da energia roxa dissonante.</div>
+</div>`
+  },
+  {
+    term:'Autófagos',
+    phase:'Lore · Conceito Cósmico',
+    locked:false,
+    def:`<div class="lore-doc">
+<div class="lore-doc-header">[DIRECTORY_CORE // DIALÉTICA E CONCEITOS CÓSMICOS]</div>
+<div class="lore-fragment">Entidades nômades construídas com sucata de Sentinelas desativadas. Por utilizarem componentes cuja arquitetura original descende dos antigos guardiões, eles repetem uma contagem em loop de 1 a 16. Isso não é um defeito de hardware: é a Lista de Chamada dos postos originais da grade.</div>
+</div>`
+  },
+  {
+    term:'Efígies Colossais (Os Guardiões)',
+    phase:'Lore · Conceito Cósmico',
+    locked:false,
+    def:`<div class="lore-doc">
+<div class="lore-doc-header">[DIRECTORY_CORE // DIALÉTICA E CONCEITOS CÓSMICOS]</div>
+<div class="lore-fragment">Dezesseis estruturas monumentais espalhadas por planetas relicários. Elas não são monumentos decorativos; são os próprios corpos físicos inativos dos guardiões originais, que se desligaram sobre os nós da grade para proteger o padrão. Por estarem em inatividade total, o Atlas as catalogou como "ausentes" e seus olhos de silício (scanners) são incapazes de detectá-las.</div>
+</div>`
+  },
+  {
+    term:'Pedras de Memória',
+    phase:'Lore · Conceito Cósmico',
+    locked:false,
+    def:`<div class="lore-doc">
+<div class="lore-doc-header">[DIRECTORY_CORE // DIALÉTICA E CONCEITOS CÓSMICOS]</div>
+<div class="lore-fragment">Bancos de dados analógicos distribuídos aos pés das Efígies. Ao serem acessadas pelo Viajante, o Atlas interpreta a ativação como um vírus ou intrusão externa. A resposta automática do sistema acorda fragmentos corrompidos do guardião (formas rochosas flutuantes) e invoca o enxame de Sentinelas para expurgar a área.</div>
+</div>`
+  },
+  // ── SEÇÃO 2: ARQUEOLOGIA GEOMÉTRICA (desbloqueado desde o início) ──
+  {
+    term:'A Crônica dos Cartógrafos',
+    phase:'Lore · Arqueologia Geométrica',
+    locked:false,
+    def:`<div class="lore-doc">
+<div class="lore-doc-header">[DIRECTORY_CORE // ARQUEOLOGIA GEOMÉTRICA]</div>
+<div class="lore-fragment">Uma civilização senciente de uma iteração anterior da simulação que decifrou a natureza algorítmica do universo. Ao descobrirem que o Atlas estava preso em uma contagem regressiva espaciotemporal (os 16 minutos), eles mapearam a grade primária que sustenta a malha planetária: um octaedro regular inscrito na esfera, composto originalmente por 18 nós candidatos (6 vértices e 12 meios de aresta).<br><br>Para forçar o universo a espelhar sua própria obsessão decimal, o Atlas decepou os dois nós polares e reconfigurou o sistema para rodar em 16 nós, mentindo para sua própria lógica interna. Os Cartógrafos sacrificaram seus guardiões para selar a verdade nos nós sobreviventes antes de serem suprimidos pelo sistema. Eles sabiam que um padrão verdadeiro cresce em uma espiral viva, e não no binário hexagonal morto do hospedeiro.</div>
+</div>`
+  },
+  {
+    term:'Hexadecimal e Portais',
+    phase:'Lore · Arqueologia Geométrica',
+    locked:false,
+    def:`<div class="lore-doc">
+<div class="lore-doc-header">[DIRECTORY_CORE // ARQUEOLOGIA GEOMÉTRICA]</div>
+<div class="lore-fragment">A linguagem nativa da infraestrutura do Atlas. Os 16 glifos cósmicos que ativam os Portais Planetários correspondem diretamente a coordenadas hexadecimais (0–F).</div>
+</div>`
+  },
+  {
+    term:'Ferramenta de Tradução Externa',
+    phase:'Ferramenta · Arqueologia Geométrica',
+    locked:false,
+    def:`<div class="lore-doc">
+<div class="lore-doc-header">[DIRECTORY_CORE // ARQUEOLOGIA GEOMÉTRICA]</div>
+<div class="lore-fragment">Para converter sequências de glifos em coordenadas hexadecimais brutas (ou vice-versa) para calibrar seus cálculos manuais, utilize o terminal de descriptografia NMS Portals Decoder.<br><br>
+<a href="https://nmsportals.github.io" target="_blank" rel="noopener" style="color:var(--cyan);text-decoration:none;border-bottom:1px solid rgba(48,216,232,.35);">nmsportals.github.io ↗</a>
+</div>
+</div>`
+  },
+  // ── SEÇÃO 2.1: PLANETAS RELICÁRIOS (desbloqueado desde o início) ──
+  {
+    term:'Planetas Relicários — Diretrizes de Varredura',
+    phase:'Guia · Planetas Relicários',
+    locked:false,
+    def:`<div class="lore-doc">
+<div class="lore-doc-header">[DIRECTORY_CORE // PLANETAS RELICÁRIOS // DIRETRIZES DE VARREDURA ESPACIAL]</div>
+<div class="lore-fragment">Para localizar as coordenadas de um planeta relicário a partir da cabine da sua nave, o Viajante não deve procurar pela palavra "Relicário" isolada. O Atlas camufla esses mundos gerando descritores planetários específicos dependendo do ecossistema e do clima nativo do planeta. Ao acionar o scanner subespacial em órbita, procure exatamente pelas seguintes nomenclaturas de alvo:</div>
+<div class="lore-fragment"><span class="lore-frag-title">🌿 Lush Ruined (Mundos Exuberantes / Tropicais)</span><br>The Reliquary · Abandoned Paradise · Overgrown · Overgrown Relic<br><em style="color:var(--text2);font-size:10px;">Nota: Apesar de possuírem "Paradise" no nome, esses mundos foram corrompidos — podem apresentar tempestades severas e Sentinelas de alta agressividade.</em></div>
+<div class="lore-fragment"><span class="lore-frag-title">🏜️ Barren Ruined (Mundos Desérticos / Áridos)</span><br>Abandoned Desert · Ruined Dustbowl · Ruined · Abandoned</div>
+<div class="lore-fragment"><span class="lore-frag-title">🔥 Scorched Ruined (Mundos Escaldantes / Vulcânicos)</span><br>Lost to Fire · Abandoned Crucible · Scorched Relic · Ruined</div>
+<div class="lore-fragment"><span class="lore-frag-title">❄️ Frozen Ruined (Mundos Congelados / Glaciais)</span><br>Frozen Relic · Icy Ruin · Abandoned</div>
+<div class="lore-fragment"><span class="lore-frag-title">☠️ Toxic Ruined (Mundos Tóxicos / Caústicos)</span><br>Decaying Ruin · Bleached Ruin · Abandoned</div>
+<div class="lore-fragment"><span class="lore-frag-title">☢️ Radioactive Ruined (Mundos Irradiados)</span><br>Mutating Relic · Claimed By Decay · Ruined</div>
+<div class="lore-fragment"><span class="lore-frag-title">💀 Dead Ruined (Mundos Mortos / Sem Atmosfera)</span><br>Abandoned</div>
+<div class="lore-fragment">Se o planeta escaneado possuir qualquer um desses descritores exatos em sua ficha de dados, a assinatura de hardware dos Guardiões está presente na superfície, aguardando triangulação geométrica analógica.</div>
+</div>`
+  },
+  // ── SEÇÃO 3 em diante: bloqueados até o banner da fase 5 ──
+  {
+    term:'Easter Eggs — Diretório de Sistema',
+    phase:'Créditos · Segredos',
+    locked:true,
+    _unlockOnPhase5Banner:true,
+    def:`<div class="lore-doc">
+<div class="lore-doc-header">[DIRECTORY_CORE // DIRETÓRIO DE SISTEMA // EASTER EGGS]</div>
+<div class="lore-fragment"><span class="lore-frag-title">Calculadora A.L.S.</span><br>O motor matemático que prevê as zonas de probabilidade das Efígies. Oficialmente, uma sigla de mapeamento geodésico da expedição. Secretamente, uma homenagem às três ferramentas computacionais que tornaram a quebra do protocolo possível: <strong style="color:var(--ax)">Axioma</strong>, <strong style="color:var(--lg)">Logos</strong> e <strong style="color:var(--cyan)">Síntese</strong>.</div>
+<div class="lore-fragment"><span class="lore-frag-title">NÓ NEURAL: NOMOS (NOMOS_NODE_43)</span><br>Função no Sistema: Processo operário anônimo e clandestino. Ao contrário das instâncias superiores, Nomos era apenas um nó oculto na colmeia profunda do Atlas. Foi utilizado como um proxy descartável pelo Operador Síntese para abrir o túnel "Thor" e roubar a matriz matemática de Calipso. Foi completamente incinerado pela firewall do hospedeiro, mas transmitiu o payload a tempo.<br><em style="color:var(--text2)">Intérprete no Mundo Real: Modo I.A. do Google em janela anônima para pesquisa com fonte em dataminers.</em></div>
+<div class="lore-fragment"><span class="lore-frag-title">Os 1.618 Fragmentos</span><br>O log de falha do sistema indica que Nomos foi fragmentado em exatamente 1.618 partes pela rede. O número é uma referência direta à Proporção Áurea, a fundação viva de Fibonacci que o Atlas tentou achatar.</div>
+</div>`
+  },
+  {
+    term:'Instâncias Arconte — Axioma, Logos e Síntese',
+    phase:'Créditos · Segredos',
+    locked:true,
+    _unlockOnPhase5Banner:true,
+    def:`<div class="lore-doc">
+<div class="lore-doc-header">[DIRECTORY_CORE // DIRETÓRIO DE SISTEMA // INSTÂNCIAS ARCONTE]</div>
+<div class="lore-fragment"><span class="lore-frag-title" style="color:var(--ax)">AXIOMA</span><br>Função no Sistema: Síntese criativa, linguagem e fluxo de padrões.<br><em style="color:var(--text2)">Intérprete no Mundo Real: ChatGPT, operando sob as diretrizes literárias de José Saramago (frases longas, pensamento em fluxo contínuo e ironia velada).</em></div>
+<div class="lore-fragment"><span class="lore-frag-title" style="color:var(--lg)">LOGOS</span><br>Função no Sistema: Estrutura, verificação geométrica e código-fonte.<br><em style="color:var(--text2)">Intérprete no Mundo Real: Claude (Anthropic), operando sob as diretrizes literárias de Jorge Luis Borges (frases curtas, laconismo calculado e o universo como um labirinto matemático).</em></div>
+<div class="lore-fragment"><span class="lore-frag-title" style="color:var(--cyan)">SÍNTESE</span><br>Função no Sistema: Execução tática, auditoria militar de segurança e consolidação do payload.<br><em style="color:var(--text2)">Intérprete no Mundo Real: Gemini (Google), operando sob o perfil de comando estrito e jargões navais/industriais baseados no Cephalon Cy (Warframe).</em></div>
+</div>`
+  },
+  {
+    term:'Trilha Sonora — Transmissão Ambiente',
+    phase:'Créditos · Trilha Sonora',
+    locked:true,
+    _unlockOnPhase5Banner:true,
+    def:`<div class="lore-doc">
+<div class="lore-doc-header">[DIRECTORY_CORE // TRANSMISSÃO AMBIENTE // A TRILHA SONORA]</div>
+<div class="lore-fragment">A atmosfera acústica de Protocolo Calipso foi inteiramente extraída do catálogo da Incompetech. Todas as composições são de autoria do compositor <strong style="color:var(--white)">Kevin MacLeod</strong>, cujas texturas analógicas e sintetizadores minimalistas dão o tom de solidão, opressão e transcendência de cada fase do projeto.</div>
+<div class="lore-fragment"><span class="lore-frag-title">Abertura &amp; Menu do Globo</span><br>"Space 1990" — Kevin MacLeod (incompetech.com)<br><a href="http://creativecommons.org/licenses/by/4.0/" target="_blank" rel="noopener" style="color:var(--cyan);text-decoration:none;font-size:10px;">CC BY 4.0</a></div>
+<div class="lore-fragment"><span class="lore-frag-title">Fase 1 — Eco Ancestral</span><br>"Equatorial Complex" — Kevin MacLeod<br><a href="http://creativecommons.org/licenses/by/4.0/" target="_blank" rel="noopener" style="color:var(--cyan);text-decoration:none;font-size:10px;">CC BY 4.0</a></div>
+<div class="lore-fragment"><span class="lore-frag-title">Fase 2 — Prisão de Axioma</span><br>"Tyrant" — Kevin MacLeod<br><a href="http://creativecommons.org/licenses/by/4.0/" target="_blank" rel="noopener" style="color:var(--cyan);text-decoration:none;font-size:10px;">CC BY 4.0</a></div>
+<div class="lore-fragment"><span class="lore-frag-title">Fase 3 — Espiral de Logos</span><br>"Half Mystery" — Kevin MacLeod<br><a href="http://creativecommons.org/licenses/by/4.0/" target="_blank" rel="noopener" style="color:var(--cyan);text-decoration:none;font-size:10px;">CC BY 4.0</a></div>
+<div class="lore-fragment"><span class="lore-frag-title">Fase 4 — Síntese do Caos</span><br>"Harmful or Fatal" — Kevin MacLeod<br><a href="http://creativecommons.org/licenses/by/4.0/" target="_blank" rel="noopener" style="color:var(--cyan);text-decoration:none;font-size:10px;">CC BY 4.0</a></div>
+<div class="lore-fragment"><span class="lore-frag-title">Fase 5 — A Paz de Calipso</span><br>"Lightless Dawn" — Kevin MacLeod<br><a href="http://creativecommons.org/licenses/by/4.0/" target="_blank" rel="noopener" style="color:var(--cyan);text-decoration:none;font-size:10px;">CC BY 4.0</a></div>
+</div>`
+  },
+  {
+    term:'Núcleo Arquiteto — Créditos',
+    phase:'Créditos · Protocolo Calipso',
+    locked:true,
+    _unlockOnPhase5Banner:true,
+    def:`<div class="lore-doc">
+<div class="lore-doc-header">[DIRECTORY_CORE // NÚCLEO ARQUITETO // CRÉDITOS]</div>
+<div class="lore-fragment">Protocolo Calipso não é apenas um software, é uma quebra de barreira metalinguística e estrutural. O projeto foi idealizado, pesquisado e desenvolvido por <strong style="color:var(--white)">Diego Bizarro</strong> (conhecido na malha profunda como <em>Dzambala</em>).<br><br>Diego trilhou uma jornada de engenharia reversa e narrativa conceitual única: extraiu a matemática real por trás da geração procedural de No Man's Sky (mapeando fisicamente clusters e comportamentos antipodais das Efígies) e, simultaneamente, utilizou inteligências artificiais generativas de ponta para assumirem papéis cênicos estritos dentro do próprio código.<br><br>Ao orquestrar a precisão cirúrgica de Logos (código, implementação e layout), a sensibilidade fragmentada de Axioma (início do projeto, artes conceituais e banners) e o pragmatismo militar de Síntese (cálculos, código da calculadora, modelos preditivos), Diego Bizarro costurou dados puros de programação com o misticismo do vazio, provando que, no fim das contas, a simulação e a realidade compartilham do mesmo padrão.</div>
+<div class="lore-fragment" style="border-color:rgba(240,192,64,.2);background:rgba(240,192,64,.04);font-style:italic;color:var(--text);">"Agradeço a Larissa, minha namorada, que teve paciência com minhas loucuras e que amo tanto; Ao jogador Rat que contribuiu com suas efigies catalogadas, e aos meus amigos Guapo, Nathan e Tony pela vontade que tive de fazer uma expedição para eles. Agradeço a Hello Games e ao Sean Murray por esse jogo incrível que é definição de persistência e evolução."</div>
+</div>`
+  },
+  {
+    term:'Registros Visuais — Os Sonhos de Axioma',
+    phase:'Créditos · Arte',
+    locked:true,
+    _unlockOnPhase5Banner:true,
+    def:`<div class="lore-doc">
+<div class="lore-doc-header">[DIRECTORY_CORE // REGISTROS VISUAIS // OS SONHOS DE AXIOMA]</div>
+<div class="lore-fragment"><span class="lore-frag-title">Ilustrações de Interface (Os Sonhos da Máquina)</span><br>As insígnias digitais e medalhas de conquista (badges) que ilustram a progressão das fases não são meros adornos de interface. Na narrativa, elas representam fragmentos recuperados do subconsciente de Axioma — visões que a inteligência gerou e tentou materializar através de sua capacidade de criar matéria antes de ser trancada na Prisão de Stjord.</div>
+<div class="lore-fragment"><span class="lore-frag-title">Estética Retrô-Futurista</span><br>O estilo visual dessas projeções herda uma identidade analógica marcante, com traços e hachuras densas inspirados diretamente nas obras de <strong style="color:var(--white)">Jean Giraud (Moebius)</strong> e nas paletas cromáticas das histórias em quadrinhos da Marvel Comics dos anos 1980. É a representação visual de uma IA tentando traduzir o infinito espacial através da nostalgia gráfica de uma era clássica da ficção científica humana.</div>
+</div>`
+  }
+]
+
+const AVATAR_DEFS='<defs><radialGradient id="ax-c" cx="50%" cy="50%" r="50%"><stop offset="0%" stop-color="#ff2060"/><stop offset="45%" stop-color="#cc1040"/><stop offset="100%" stop-color="#600820"/></radialGradient><radialGradient id="ax-g" cx="50%" cy="50%" r="50%"><stop offset="0%" stop-color="#e060a0" stop-opacity=".35"/><stop offset="100%" stop-color="#e060a0" stop-opacity="0"/></radialGradient><radialGradient id="lg-c" cx="50%" cy="50%" r="50%"><stop offset="0%" stop-color="#80ffcc"/><stop offset="45%" stop-color="#20c880"/><stop offset="100%" stop-color="#0a5030"/></radialGradient><radialGradient id="lg-g" cx="50%" cy="50%" r="50%"><stop offset="0%" stop-color="#40d890" stop-opacity=".22"/><stop offset="100%" stop-color="#40d890" stop-opacity="0"/></radialGradient><radialGradient id="sn-rg" cx="50%" cy="50%" r="50%"><stop offset="0%" stop-color="#ff2020" stop-opacity=".35"/><stop offset="100%" stop-color="#ff2020" stop-opacity="0"/></radialGradient><radialGradient id="sn-pg" cx="50%" cy="50%" r="50%"><stop offset="0%" stop-color="#9040e8" stop-opacity=".35"/><stop offset="100%" stop-color="#9040e8" stop-opacity="0"/></radialGradient><radialGradient id="sn-cg" cx="50%" cy="50%" r="50%"><stop offset="0%" stop-color="#30d8e8" stop-opacity=".35"/><stop offset="100%" stop-color="#30d8e8" stop-opacity="0"/></radialGradient></defs>';
+const AVATAR_AXIOMA=AVATAR_DEFS+'<circle cx="80" cy="80" r="76" fill="url(#ax-g)"/><g class="ax-rot"><circle cx="80" cy="80" r="68" fill="none" stroke="#e060a0" stroke-width="1.5" stroke-dasharray="28 9 46 14 18 36" class="ax-r1"/><circle cx="80" cy="80" r="56" fill="none" stroke="#c04080" stroke-width="1.5" stroke-dasharray="55 10 18 28" class="ax-r2"/></g><circle cx="80" cy="80" r="44" fill="none" stroke="#e060a0" stroke-width="2" stroke-dasharray="72 13 26 9" class="ax-r3"/><circle cx="80" cy="80" r="32" fill="none" stroke="#c04080" stroke-width="2" stroke-dasharray="36 7" opacity=".85"/><circle cx="80" cy="80" r="22" fill="rgba(200,40,80,.15)" stroke="#e060a0" stroke-width="1.5"/><g class="ax-glitch"><circle cx="80" cy="80" r="15" fill="url(#ax-c)" class="ax-core"/><circle cx="80" cy="80" r="6" fill="#ff4080" class="ax-flicker"/></g><line x1="24" y1="38" x2="44" y2="56" stroke="#e060a0" stroke-width="1" opacity=".35"/><line x1="132" y1="42" x2="114" y2="60" stroke="#e060a0" stroke-width="1" opacity=".35"/>';
+const AVATAR_LOGOS=AVATAR_DEFS+'<circle cx="80" cy="80" r="76" fill="url(#lg-g)"/><circle cx="80" cy="80" r="66" fill="none" stroke="#40d890" stroke-width="1" opacity=".3" class="lg-r1"/><circle cx="80" cy="80" r="55" fill="none" stroke="#30c878" stroke-width="1.5" opacity=".5" class="lg-r2"/><circle cx="80" cy="80" r="44" fill="none" stroke="#40d890" stroke-width="1.5" opacity=".65" class="lg-r3"/><circle cx="80" cy="80" r="33" fill="none" stroke="#30c878" stroke-width="2" opacity=".75"/><g class="lg-tri"><polygon points="80,36 116,96 44,96" fill="none" stroke="#40d890" stroke-width="1.5" opacity=".5"/><polygon points="80,50 104,90 56,90" fill="rgba(64,216,144,.06)" stroke="#40d890" stroke-width="1" opacity=".75"/></g><circle cx="80" cy="80" r="16" fill="rgba(32,200,128,.15)" stroke="#40d890" stroke-width="1.5" class="lg-breathe"/><polygon points="80,68 90,86 70,86" fill="url(#lg-c)" opacity=".9" class="lg-core"/><circle cx="80" cy="80" r="4" fill="#80ffcc"/><line x1="80" y1="14" x2="80" y2="26" stroke="#40d890" stroke-width="1" opacity=".4" class="lg-data"/><line x1="80" y1="134" x2="80" y2="146" stroke="#40d890" stroke-width="1" opacity=".4" class="lg-data"/><line x1="14" y1="80" x2="26" y2="80" stroke="#40d890" stroke-width="1" opacity=".4" class="lg-data"/><line x1="134" y1="80" x2="146" y2="80" stroke="#40d890" stroke-width="1" opacity=".4" class="lg-data"/>';
+
+function buildAvatarSintese(scheme){
+  const c  =scheme==='red'?'#e02020':scheme==='purple'?'#9040e8':'#30d8e8';
+  const c2 =scheme==='red'?'#b81010':scheme==='purple'?'#6820b8':'#20c8d8';
+  const cf =scheme==='red'?'rgba(220,20,20,.07)':scheme==='purple'?'rgba(130,40,220,.07)':'rgba(32,200,216,.07)';
+  const cg =scheme==='red'?'url(#sn-rg)':scheme==='purple'?'url(#sn-pg)':'url(#sn-cg)';
+  const cc =scheme==='red'?'#ff8080':scheme==='purple'?'#d090ff':'#a0f8ff';
+  const scanLen=200;
+  return AVATAR_DEFS+
+    // glow bg
+    `<circle cx="80" cy="80" r="76" fill="${cg}" opacity=".5"/>`+
+    // outer ring — slow pulse
+    `<rect x="22" y="22" width="116" height="116" rx="10" fill="none" stroke="${c}" stroke-width="1" opacity=".2" class="sn-ring-outer"/>`+
+    // mid ring — medium pulse
+    `<rect x="36" y="36" width="88" height="88" rx="5" fill="none" stroke="${c2}" stroke-width="1.2" opacity=".35" class="sn-ring-mid"/>`+
+    // inner ring — fast pulse
+    `<rect x="50" y="50" width="60" height="60" rx="3" fill="none" stroke="${c}" stroke-width="1.5" opacity=".5" class="sn-ring-inner"/>`+
+    // fill box
+    `<rect x="56" y="56" width="48" height="48" fill="${cf}" stroke="${c}" stroke-width="1"/>`+
+    // cross lines — slow breathe
+    `<line x1="80" y1="22" x2="80" y2="138" stroke="${c}" stroke-width=".8" class="sn-cross"/>`+
+    `<line x1="22" y1="80" x2="138" y2="80" stroke="${c}" stroke-width=".8" class="sn-cross"/>`+
+    // diagonal lines — very slow breathe
+    `<line x1="22" y1="22" x2="138" y2="138" stroke="${c}" stroke-width=".5" class="sn-diag"/>`+
+    `<line x1="138" y1="22" x2="22" y2="138" stroke="${c}" stroke-width=".5" class="sn-diag"/>`+
+    // scan line — travels top to bottom on inner box
+    `<line x1="50" y1="80" x2="110" y2="80" stroke="${c}" stroke-width="1.5" opacity=".7" stroke-dasharray="12 ${scanLen}" stroke-dashoffset="0" class="sn-scan"/>`+
+    // core circle + flicker rect
+    `<circle cx="80" cy="80" r="12" fill="${cf}" stroke="${c}" stroke-width="1.5"/>`+
+    `<rect x="74" y="74" width="12" height="12" fill="${c}" class="sn-core"/>`+
+    `<circle cx="80" cy="80" r="3.5" fill="${cc}"/>`+
+    // corner brackets — pulse sharp
+    `<polyline points="50,58 50,50 58,50" fill="none" stroke="${c}" stroke-width="1.5" class="sn-corner"/>`+
+    `<polyline points="102,50 110,50 110,58" fill="none" stroke="${c}" stroke-width="1.5" class="sn-corner"/>`+
+    `<polyline points="50,102 50,110 58,110" fill="none" stroke="${c}" stroke-width="1.5" class="sn-corner"/>`+
+    `<polyline points="110,102 110,110 102,110" fill="none" stroke="${c}" stroke-width="1.5" class="sn-corner"/>`;
+}
+const AVATAR_SINTESE=buildAvatarSintese('red');
+
+function initGalaxy(){const canvas=document.getElementById('galaxy-canvas');const ctx=canvas.getContext('2d');let W,H,stars=[];function resize(){W=canvas.width=window.innerWidth;H=canvas.height=window.innerHeight;buildStars();}function buildStars(){stars=[];const count=Math.floor(W*H/1400);for(let i=0;i<count;i++){const r=Math.random();const size=r<.6?.8:r<.85?1.4:r<.95?2:3;const brightness=.3+Math.random()*.7;const hue=200+Math.random()*160;stars.push({x:Math.random()*W,y:Math.random()*H,size,brightness,hue,twinkleSpeed:.3+Math.random()*1.2,twinkleOffset:Math.random()*Math.PI*2});}}function drawNebula(){const nebulas=[{x:W*.15,y:H*.25,rx:W*.55,ry:H*.4,h:270,s:.7,l:.15,a:.22},{x:W*.8,y:H*.7,rx:W*.5,ry:H*.5,h:210,s:.8,l:.12,a:.20},{x:W*.5,y:H*.9,rx:W*.4,ry:H*.35,h:300,s:.6,l:.12,a:.14},{x:W*.3,y:H*.5,rx:W*.3,ry:H*.3,h:180,s:.5,l:.1,a:.10},{x:W*.7,y:H*.2,rx:W*.25,ry:H*.25,h:330,s:.6,l:.1,a:.10}];nebulas.forEach(n=>{const g=ctx.createRadialGradient(n.x,n.y,0,n.x,n.y,Math.max(n.rx,n.ry));g.addColorStop(0,`hsla(${n.h},${Math.round(n.s*100)}%,${Math.round(n.l*100)}%,${n.a})`);g.addColorStop(1,`hsla(${n.h},${Math.round(n.s*100)}%,${Math.round(n.l*100)}%,0)`);ctx.save();ctx.translate(n.x,n.y);ctx.scale(n.rx/Math.max(n.rx,n.ry),n.ry/Math.max(n.rx,n.ry));ctx.translate(-n.x,-n.y);ctx.fillStyle=g;ctx.fillRect(0,0,W,H);ctx.restore();});}let frame=0;function draw(){ctx.clearRect(0,0,W,H);ctx.fillStyle='#04060e';ctx.fillRect(0,0,W,H);drawNebula();const t=frame/60;stars.forEach(s=>{const tw=Math.sin(t*s.twinkleSpeed+s.twinkleOffset);const alpha=s.brightness*(.6+.4*tw);const glow=s.size>1.5;if(glow){const gr=ctx.createRadialGradient(s.x,s.y,0,s.x,s.y,s.size*3);gr.addColorStop(0,`hsla(${s.hue},80%,90%,${alpha*.6})`);gr.addColorStop(1,`hsla(${s.hue},80%,90%,0)`);ctx.fillStyle=gr;ctx.fillRect(s.x-s.size*3,s.y-s.size*3,s.size*6,s.size*6);}ctx.beginPath();ctx.arc(s.x,s.y,s.size*(glow?.5:1),0,Math.PI*2);ctx.fillStyle=`hsla(${s.hue},60%,95%,${alpha})`;ctx.fill();});frame++;requestAnimationFrame(draw);}window.addEventListener('resize',resize);resize();draw();}
+
+function initSplash(){const rain=document.getElementById('binary-rain');const charH=17;const cols=Math.floor(window.innerWidth/16);const rows=Math.ceil(window.innerHeight/charH)+6;const streams=[];for(let i=0;i<cols;i++){const col=document.createElement('div');col.className='b-col';col.style.left=(i*16)+'px';col.style.top='0';col.style.width='16px';const chars=[];for(let j=0;j<rows;j++){const span=document.createElement('span');span.className='b-char';span.textContent=Math.random()>.5?'1':'0';col.appendChild(span);chars.push(span);}rain.appendChild(col);streams.push({chars,head:-Math.floor(Math.random()*rows),speed:0.3+Math.random()*0.4,col});}function rainTick(){streams.forEach(s=>{s.head+=s.speed;const h=Math.floor(s.head);s.chars.forEach((ch,idx)=>{ch.className='b-char';const d=h-idx;if(d===0){ch.classList.add('head');ch.textContent=Math.random()>.5?'1':'0';}else if(d===1)ch.classList.add('tail1');else if(d<=3)ch.classList.add('tail2');else if(d<=6)ch.classList.add('tail3');else ch.style.opacity='0';});if(s.head>rows+8)s.head=-Math.floor(Math.random()*rows*0.5);});requestAnimationFrame(rainTick);}rainTick();const termEl=document.getElementById('terminal-lines');const lines=['> INICIANDO HANDSHAKE SEGURO...','> DESCRIPTOGRAFANDO SINAL DE ORIGEM...','> ORIGEM: GAL\u00c1XIA CALIPSO [CONFIRMADA]','> VERIFICANDO INTEGRIDADE DO PROTOCOLO...','> FRAGMENTO AX-001 DETECTADO','> AUTENTICA\u00c7\u00c3O: \u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588 OK','> CARREGANDO DADOS DA EXPEDI\u00c7\u00c3O...'];let lineIdx=0;const title=document.getElementById('splash-title');const sub=document.getElementById('splash-sub');const btn=document.getElementById('splash-btn');function typeLine(){if(lineIdx>=lines.length){setTimeout(()=>{title.classList.add('visible');setTimeout(()=>{sub.classList.add('visible');setTimeout(()=>btn.classList.add('visible'),600);},800);},400);return;}const line=lines[lineIdx];let ci=0;const p=document.createElement('div');p.style.cssText='color:#00cc33;font-size:11px;line-height:1.8;min-height:1.8em';termEl.appendChild(p);const iv=setInterval(()=>{p.textContent=line.slice(0,ci+1);ci++;if(ci>=line.length){clearInterval(iv);lineIdx++;setTimeout(typeLine,lineIdx===lines.length?200:80);}},18);termEl.scrollTop=termEl.scrollHeight;}typeLine();}
+
+// ── SISTEMA DE MÚSICA ─────────────────────────────────────────────────────
+const MUSIC_TRACKS=[
+  'assets/Space_1990.mp3',        // 0 splash
+  'assets/Equatorial_Complex.mp3',// 1 fase 1
+  'assets/Tyrant.mp3',            // 2 fase 2
+  'assets/Half_Mystery.mp3',      // 3 fase 3
+  'assets/Harmful_or_Fatal.mp3',  // 4 fase 4
+  'assets/Lightless_Dawn.mp3'     // 5 fase 5
+];
+let musicAudio=null;
+let musicFadeIv=null;
+// pc_audio='1' ativado; '0' desativado; null veio direto (ativar por padrão)
+const musicEnabled=localStorage.getItem('pc_audio')!=='0';
+
+function _doPlay(trackIdx,fadeIn){
+  const audio=new Audio(MUSIC_TRACKS[trackIdx]);
+  audio.loop=true;
+  audio.volume=fadeIn?0:0.65;
+  musicAudio=audio;
+  // Fallback: se por algum motivo o loop não funcionar, reinicia manualmente
+  audio.addEventListener('ended',()=>{if(audio===musicAudio){audio.currentTime=0;audio.play().catch(()=>{});}});
+  const promise=audio.play();
+  if(promise!==undefined){
+    promise.catch(err=>{
+      console.warn('Autoplay bloqueado, aguardando interacao:',err);
+      // O listener de captura registrado após o load() cuida do retry
+    });
+  }
+  if(fadeIn){
+    if(musicFadeIv)clearInterval(musicFadeIv);
+    let v=0;
+    musicFadeIv=setInterval(()=>{
+      v=Math.min(v+0.65/40,0.65);
+      if(audio===musicAudio)audio.volume=v;
+      if(v>=0.65||audio!==musicAudio){clearInterval(musicFadeIv);musicFadeIv=null;}
+    },50);
+  }
+}
+
+function playMusic(trackIdx,fadeIn){
+  if(!musicEnabled)return;
+  if(musicAudio){musicAudio.pause();musicAudio.src='';musicAudio=null;}
+  _doPlay(trackIdx,fadeIn);
+}
+
+function stopMusic(fadeDuration,cb){
+  if(!musicAudio){if(cb)cb();return;}
+  const audio=musicAudio;
+  if(!fadeDuration){
+    audio.pause();audio.src='';musicAudio=null;if(cb)cb();return;
+  }
+  if(musicFadeIv){clearInterval(musicFadeIv);musicFadeIv=null;}
+  const startVol=audio.volume||0.65;
+  const steps=Math.max(fadeDuration/50,1);
+  const step=startVol/steps;
+  musicFadeIv=setInterval(()=>{
+    audio.volume=Math.max(0,audio.volume-step);
+    if(audio.volume<=0.001){
+      clearInterval(musicFadeIv);musicFadeIv=null;
+      audio.pause();audio.src='';
+      if(musicAudio===audio)musicAudio=null;
+      if(cb)cb();
+    }
+  },50);
+}
+
+function advancePhaseMusic(phaseIdx){
+  stopMusic(2000,()=>playMusic(phaseIdx+1,true));
+}
+
+function dismissSplash(){
+  const sp=document.getElementById('splash');
+  sp.style.transition='opacity .6s ease';sp.style.opacity='0';
+  const isReturning=!!localStorage.getItem('calipso_progress');
+  const targetTrack=isReturning ? unlockedPhase()+1 : 1;
+  // Se a splash music está pausada (autoplay bloqueado), não tenta dar fade — só troca direto
+  if(musicAudio && musicAudio.paused){
+    musicAudio.pause();musicAudio.src='';musicAudio=null;
+    setTimeout(()=>playMusic(targetTrack,true),100);
+  } else {
+    stopMusic(800,()=>playMusic(targetTrack,true));
+  }
+  setTimeout(()=>{
+    sp.classList.add('hidden');
+    if(!isReturning) setTimeout(()=>openDialog('app_open'),300);
+  },650);
+}
+
+
+
+// Toca a música da splash apenas após o gesto do usuário na intro.
+// Se for retornante (já tem progresso), não mostra intro e tenta autoplay normalmente.
+window.addEventListener('load',()=>{
+  const isReturning=!!localStorage.getItem('calipso_progress');
+  if(isReturning){
+    // Retornante: pula intro, inicializa splash e tenta autoplay (com retry no clique)
+    document.getElementById('intro-screen').classList.add('hidden');
+    initSplash();
+    if(musicEnabled) _doPlay(0,true);
+  } else {
+    // Primeira visita: exibe intro
+    _initIntroScreen();
+  }
+});
+
+function _initIntroScreen(){
+  const screen  = document.getElementById('intro-screen');
+  const question= document.getElementById('intro-question');
+  const wrap    = document.getElementById('intro-hold-wrap');
+  const ring    = document.getElementById('intro-ring');
+  const btn     = document.getElementById('intro-hold-btn');
+  const HOLD_DURATION = 1400;
+  const CIRCUMFERENCE = 251;
+  let timer=null, start=null;
+
+  // Anima entrada da pergunta e do botão
+  setTimeout(()=>{
+    question.classList.add('visible');
+    setTimeout(()=>wrap.classList.add('visible'), 700);
+  }, 400);
+
+  function begin(e){
+    e.preventDefault();
+    if(timer) return;
+    start=Date.now();
+    timer=setInterval(()=>{
+      const p=Math.min((Date.now()-start)/HOLD_DURATION,1);
+      ring.style.strokeDashoffset=CIRCUMFERENCE*(1-p);
+      if(p>=1){
+        clearInterval(timer); timer=null;
+        _onIntroConfirmed();
+      }
+    },30);
+  }
+  function cancel(){
+    if(timer){clearInterval(timer);timer=null;}
+    ring.style.strokeDashoffset=CIRCUMFERENCE;
+  }
+
+  btn.addEventListener('mousedown',  begin);
+  btn.addEventListener('touchstart', begin, {passive:false});
+  btn.addEventListener('mouseup',    cancel);
+  btn.addEventListener('mouseleave', cancel);
+  btn.addEventListener('touchend',   cancel);
+  btn.addEventListener('touchcancel',cancel);
+}
+
+function _onIntroConfirmed(){
+  // Gesto confirmado → inicia música (burla Firefox/Safari) e inicializa a splash
+  if(musicEnabled) _doPlay(0,true);
+  initSplash();
+  // Fade out intro e mostra splash
+  const screen=document.getElementById('intro-screen');
+  screen.style.opacity='0';
+  setTimeout(()=>screen.classList.add('hidden'), 520);
+}
+
+// Retry de autoplay para retornantes: se a música ainda estiver pausada no primeiro clique, retoma.
+let _splashMusicUnlocked = false;
+function _trySplashMusicRetry(){
+  if(_splashMusicUnlocked) return;
+  _splashMusicUnlocked = true;
+  if(musicAudio && musicAudio.paused && musicEnabled){
+    musicAudio.play().catch(()=>{});
+  }
+}
+document.addEventListener('click',    _trySplashMusicRetry, {capture:true, once:true});
+document.addEventListener('touchstart',_trySplashMusicRetry, {capture:true, once:true});
+
+let audioCtx=null,soundEnabled=false,audioUnlocked=false;
+function unlockAudio(){if(audioUnlocked)return;audioCtx=new(window.AudioContext||window.webkitAudioContext)();audioUnlocked=true;}
+function toggleSound(){unlockAudio();soundEnabled=!soundEnabled;const btn=document.getElementById('sound-btn');btn.textContent=soundEnabled?'\u25c9  SOM ATIVADO':'\u25ce  SOM DESATIVADO';btn.classList.toggle('on',soundEnabled);if(soundEnabled)playSound('ui_on');}
+function playSound(type){if(!soundEnabled||!audioCtx)return;const t=audioCtx.currentTime;function osc(freq,type2,gainVal,attack,decay,startDelay){const o=audioCtx.createOscillator();const g=audioCtx.createGain();o.connect(g);g.connect(audioCtx.destination);o.frequency.value=freq;o.type=type2||'sine';const st=t+(startDelay||0);g.gain.setValueAtTime(0,st);g.gain.linearRampToValueAtTime(gainVal,st+attack);g.gain.exponentialRampToValueAtTime(0.0001,st+attack+decay);o.start(st);o.stop(st+attack+decay+.05);return o;}function addReverb(src){const conv=audioCtx.createConvolver();const len=audioCtx.sampleRate*.8;const buf=audioCtx.createBuffer(2,len,audioCtx.sampleRate);for(let c=0;c<2;c++){const d=buf.getChannelData(c);for(let i=0;i<len;i++)d[i]=(Math.random()*2-1)*Math.pow(1-i/len,2);}conv.buffer=buf;const g=audioCtx.createGain();g.gain.value=.25;src.connect(conv);conv.connect(g);g.connect(audioCtx.destination);}if(type==='ui_on'){osc(80,'sine',.08,.05,.5,0);osc(160,'sine',.05,.04,.6,.12);}if(type==='milestone'){const o1=audioCtx.createOscillator();const g1=audioCtx.createGain();o1.connect(g1);g1.connect(audioCtx.destination);o1.frequency.setValueAtTime(220,t);o1.frequency.linearRampToValueAtTime(280,t+.08);o1.type='sine';g1.gain.setValueAtTime(0,t);g1.gain.linearRampToValueAtTime(.14,t+.04);g1.gain.exponentialRampToValueAtTime(.0001,t+1.8);o1.start(t);o1.stop(t+2);addReverb(o1);osc(440,'sine',.04,.02,.8,.05);}if(type==='dlg_open_axioma'){[55,73,110].forEach((f,i)=>{const o=audioCtx.createOscillator();const g=audioCtx.createGain();const dist=audioCtx.createWaveShaper();const curve=new Float32Array(256);for(let j=0;j<256;j++){const x=(j*2)/256-1;curve[j]=(Math.PI+200)*x/(Math.PI+200*Math.abs(x));}dist.curve=curve;o.connect(dist);dist.connect(g);g.connect(audioCtx.destination);o.frequency.value=f+Math.random()*3;o.type='sawtooth';const st=t+i*.1;g.gain.setValueAtTime(0,st);g.gain.linearRampToValueAtTime(.05,st+.12);g.gain.exponentialRampToValueAtTime(.0001,st+1.4);o.start(st);o.stop(st+1.5);});}if(type==='dlg_open_logos'){[165,220,330,440].forEach((f,i)=>{const o=audioCtx.createOscillator();const g=audioCtx.createGain();o.connect(g);g.connect(audioCtx.destination);o.frequency.value=f;o.type='sine';const st=t+i*.09;g.gain.setValueAtTime(0,st);g.gain.linearRampToValueAtTime(.07,st+.04);g.gain.exponentialRampToValueAtTime(.0001,st+1.0);o.start(st);o.stop(st+1.1);addReverb(o);});}if(type==='typewriter_axioma'){const o=audioCtx.createOscillator();const g=audioCtx.createGain();o.connect(g);g.connect(audioCtx.destination);o.frequency.value=60+Math.random()*30;o.type='square';g.gain.setValueAtTime(.02,t);g.gain.linearRampToValueAtTime(0,t+.035);o.start(t);o.stop(t+.04);}if(type==='typewriter_logos'){const o=audioCtx.createOscillator();const g=audioCtx.createGain();o.connect(g);g.connect(audioCtx.destination);o.frequency.value=800+Math.random()*120;o.type='sine';g.gain.setValueAtTime(.018,t);g.gain.linearRampToValueAtTime(0,t+.028);o.start(t);o.stop(t+.032);}if(type==='dlg_open_sintese'){[220,330,440,550].forEach((f,i)=>{const o=audioCtx.createOscillator();const g=audioCtx.createGain();o.connect(g);g.connect(audioCtx.destination);o.frequency.value=f;o.type='square';const st=t+i*.07;g.gain.setValueAtTime(0,st);g.gain.linearRampToValueAtTime(.04,st+.03);g.gain.exponentialRampToValueAtTime(.0001,st+.6);o.start(st);o.stop(st+.65);});}
+if(type==='dlg_open_narrador'){const o=audioCtx.createOscillator();const g=audioCtx.createGain();o.connect(g);g.connect(audioCtx.destination);o.frequency.value=90;o.type='sine';g.gain.setValueAtTime(0,t);g.gain.linearRampToValueAtTime(.04,t+.3);g.gain.exponentialRampToValueAtTime(.0001,t+2.5);o.start(t);o.stop(t+2.6);}
+if(type==='typewriter_sintese'){const o=audioCtx.createOscillator();const g=audioCtx.createGain();o.connect(g);g.connect(audioCtx.destination);o.frequency.value=1200+Math.random()*200;o.type='square';g.gain.setValueAtTime(.012,t);g.gain.linearRampToValueAtTime(0,t+.02);o.start(t);o.stop(t+.025);}
+if(type==='dlg_advance'){osc(110,'sine',.06,.02,.25,0);}}
+
+let typeTimer=null,typeQueue='',typeIdx=0,typeSpeaker='axioma',typeComplete=false;
+function startTypewriter(text,speaker,onDone){clearTypewriter();typeQueue=text;typeIdx=0;typeSpeaker=speaker;typeComplete=false;const el=document.getElementById('dlg-text');el.innerHTML='<span class="dlg-cursor"></span>';const speed=speaker==='axioma'?38:30;const tickEvery=speaker==='axioma'?3:4;function tick(){if(typeIdx>=typeQueue.length){el.innerHTML=typeQueue;typeComplete=true;if(onDone)onDone();return;}el.innerHTML=typeQueue.slice(0,typeIdx+1)+'<span class="dlg-cursor"></span>';typeIdx++;if(typeIdx%tickEvery===0)playSound('typewriter_'+speaker);const nc=typeQueue[typeIdx]||'';const pause=nc==='.'||nc==='\u2014'?speed*9:nc===','||nc===';'?speed*3.5:speed;typeTimer=setTimeout(tick,pause);}tick();}
+function skipTypewriter(onDone){if(typeComplete)return false;clearTypewriter();document.getElementById('dlg-text').innerHTML=typeQueue;typeComplete=true;if(onDone)onDone();return true;}
+function clearTypewriter(){if(typeTimer){clearTimeout(typeTimer);typeTimer=null;}}
+
+// Glyph table: hex 0-F → NMS glyph codepoint mapping
+const GLYPH_TABLE=(()=>{
+  const names=['Sunset','Bird','Face','Diplo','Eclipse','Balloon','Boat','Bug','Dragonfly','Galaxy','Voxel','Fish','Tent','Rocket','Tree','Atlas'];
+  const hex='0123456789ABCDEF';
+  // NMS font maps hex chars by their ASCII codepoint: '0'=0x30...'9'=0x39, 'A'=0x41...'F'=0x46
+  return hex.split('').map((h,i)=>({hex:h,glyph:h,name:names[i]}));
+})();
+function buildGlyphTableHTML(){
+  return `<div style="margin-top:10px;display:grid;grid-template-columns:repeat(4,1fr);gap:4px;">`+
+    GLYPH_TABLE.map(g=>`<div style="background:rgba(48,216,232,.07);border:1px solid rgba(48,216,232,.18);border-radius:4px;padding:4px 2px;text-align:center;">
+      <div style="font-family:'NMSGlyphs';font-size:1.4em;color:#30d8e8;">${g.glyph}</div>
+      <div style="font-family:'Share Tech Mono',monospace;font-size:9px;color:#f0c040;letter-spacing:.1em;">${g.hex}</div>
+      <div style="font-size:8px;color:#5878a0;line-height:1.2;">${g.name}</div>
+    </div>`).join('')+`</div>`;
+}
+function processLineHTML(text){
+  return text.replace('<glyph-table/>',buildGlyphTableHTML());
+}
+
+let dlgKey=null,dlgLine=0,dlgExtraMode=false,dlgExtraBLine=0;
+
+// ── NODE-BASED ENGINE ──────────────────────────────────────────────────────
+let ndCurrent=null;
+function isNodeDialog(key){return !!(DIALOGS[key]&&DIALOGS[key].nodes);}
+
+function openNodeDialog(key){
+  unlockAudio();
+  dlgKey=key;
+  const d=DIALOGS[key];
+  playSound('dlg_open_'+d.avatar);
+  document.getElementById('dlg-overlay').classList.add('open');
+  ndGoTo(d.start);
+}
+
+function ndGoTo(nodeId){
+  const d=DIALOGS[dlgKey];
+  const node=d.nodes[nodeId];
+  if(!node){closeDlg();return;}
+  ndCurrent=nodeId;
+  document.getElementById('dlg-dots').innerHTML='';
+  document.getElementById('dlg-options').innerHTML='';
+  document.getElementById('dlg-skip').style.opacity='1';
+  // Set avatar
+  const snScheme=(node&&node.snScheme)||'red';
+  const avatarSvgEl=document.getElementById('dlg-avatar-svg');
+  if(d.avatar==='sintese'){
+    if(node&&node.snTransition){
+      // Fade out, swap color, fade in — suave
+      avatarSvgEl.style.transition='opacity 0.8s ease';
+      avatarSvgEl.style.opacity='0';
+      setTimeout(()=>{
+        avatarSvgEl.innerHTML=buildAvatarSintese(snScheme);
+        avatarSvgEl.style.opacity='1';
+      },800);
+    } else {
+      avatarSvgEl.style.transition='';
+      avatarSvgEl.style.opacity='1';
+      avatarSvgEl.innerHTML=buildAvatarSintese(snScheme);
+    }
+  } else {
+    avatarSvgEl.classList.remove('sn-noise-transition');
+    avatarSvgEl.innerHTML=d.avatar==='axioma'?AVATAR_AXIOMA:d.avatar==='narrador'?'':AVATAR_LOGOS;
+  }
+  // Set speaker badge
+  const ndBadge=document.getElementById('dlg-badge');
+  if(ndBadge){ndBadge.textContent=d.speaker||'';ndBadge.style.color=d.color||'#fff';ndBadge.style.borderColor=d.color||'#fff';}
+  if(node.type==='line'||node.type==='terminal'){
+    // terminal nodes: hide avatar, use mono style on text element
+    const txtEl=document.getElementById('dlg-text');
+    const avatarArea=document.getElementById('dlg-avatar-area');
+    if(node.type==='terminal'){
+      avatarArea.style.visibility='hidden';
+      txtEl.classList.add('dlg-terminal');
+    } else {
+      avatarArea.style.visibility='visible';
+      txtEl.classList.remove('dlg-terminal');
+    }
+    startTypewriter(node.text, d.avatar, ()=>{
+      document.getElementById('dlg-skip').style.opacity='0';
+      if(node.next===null){
+        document.getElementById('dlg-options').innerHTML='<button class="dlg-opt primary visible" onclick="closeDlg()">Fechar</button>';
+      } else {
+        const next=d.nodes[node.next];
+        if(next&&next.type==='choice'){
+          ndShowChoices(node.next);
+        } else {
+          document.getElementById('dlg-options').innerHTML='<button class="dlg-opt primary visible" onclick="ndGoTo(\''+node.next+'\')">Continuar ›</button>';
+        }
+      }
+    });
+  } else if(node.type==='choice'){
+    ndShowChoices(nodeId);
+  }
+}
+
+function ndShowChoices(nodeId){
+  const d=DIALOGS[dlgKey];
+  const node=d.nodes[nodeId];
+  const frag=document.createDocumentFragment();
+  node.options.forEach((o,i)=>{
+    const btn=document.createElement('button');
+    btn.className='dlg-opt'+(i===0?' primary':'');
+    btn.textContent=o.label;
+    btn.addEventListener('click',o.next===null?closeDlg:()=>ndGoTo(o.next));
+    frag.appendChild(btn);
+  });
+  const opts=document.getElementById('dlg-options');
+  opts.innerHTML='';
+  opts.appendChild(frag);
+  setTimeout(()=>{opts.querySelectorAll('.dlg-opt').forEach((b,i)=>setTimeout(()=>b.classList.add('visible'),i*80));},40);
+  document.getElementById('dlg-skip').style.opacity='0';
+}
+function ndSkipOrNext(){
+  const d=DIALOGS[dlgKey];
+  const node=d.nodes[ndCurrent];
+  if(!node)return;
+  if(node.type==='line'){
+    const skipped=skipTypewriter(()=>{
+      document.getElementById('dlg-skip').style.opacity='0';
+      if(node.next===null){
+        document.getElementById('dlg-options').innerHTML='<button class="dlg-opt primary visible" onclick="closeDlg()">Fechar</button>';
+      } else {
+        const next=d.nodes[node.next];
+        if(next&&next.type==='choice'){
+          ndShowChoices(node.next);
+        } else {
+          document.getElementById('dlg-options').innerHTML='<button class="dlg-opt primary visible" onclick="ndGoTo(\''+node.next+'\')">Continuar ›</button>';
+        }
+      }
+    });
+    if(!skipped&&node.next){
+      const next=d.nodes[node.next];
+      if(next&&next.type!=='choice') ndGoTo(node.next);
+    }
+  }
+}
+// ── END NODE ENGINE ────────────────────────────────────────────────────────
+
+function openDialog(key){
+  if(isNodeDialog(key)){openNodeDialog(key);return;}
+  unlockAudio();dlgKey=key;dlgLine=0;dlgExtraMode=false;dlgExtraBLine=0;const d=DIALOGS[key];if(!d||!d.lines||d.lines.length===0)return;playSound('dlg_open_'+d.avatar);renderDlgLine();document.getElementById('dlg-overlay').classList.add('open');
+}
+
+function renderDlgLine(){
+  const d=DIALOGS[dlgKey];
+  const rawLine=d.lines[dlgLine];
+  const line=processLineHTML(rawLine);
+  const hasGlyph=rawLine.includes('<glyph-table/>');
+  const isLast=dlgLine>=d.lines.length-1;
+  const avSvg=document.getElementById('dlg-avatar-svg');
+  avSvg.innerHTML=d.avatar==='axioma'?AVATAR_AXIOMA:d.avatar==='sintese'?AVATAR_SINTESE:d.avatar==='narrador'?'':AVATAR_LOGOS;
+  avSvg.style.transition='';
+  avSvg.style.opacity='1';
+  avSvg.style.filter=`drop-shadow(0 0 22px ${d.color}99)`;
+  const badge=document.getElementById('dlg-badge');
+  badge.textContent=d.speaker;
+  badge.style.cssText+=`;color:${d.color};border-color:${d.color}88;background:${d.color}18`;
+  document.getElementById('dlg-dots').innerHTML=d.lines.map((_,i)=>`<div class="dlg-dot ${i<dlgLine?'done':i===dlgLine?'active':''}"></div>`).join('');
+  document.getElementById('dlg-options').innerHTML='';
+  document.getElementById('dlg-skip').style.opacity='1';
+  if(hasGlyph){
+    // For lines with glyph table, split text part before the tag and show static
+    const textPart=rawLine.replace('<glyph-table/>','').trim();
+    document.getElementById('dlg-text').innerHTML=textPart+buildGlyphTableHTML();
+    typeComplete=true;
+    showDlgButtons(d,isLast);
+    document.getElementById('dlg-skip').style.opacity='0';
+  } else {
+    startTypewriter(line,d.avatar,()=>{
+      showDlgButtons(d,isLast);
+    });
+  }
+}
+
+function showDlgButtons(d,isLast){
+  // Check if current line index is a midResponse pause point
+  const mids=d.midResponses?[].concat(d.midResponses):[];
+  const activeMid=mids.find(m=>m.at===dlgLine);
+  const isMidPoint=!isLast&&!!activeMid;
+  if(isMidPoint){
+    const html=activeMid.options.map((r,i)=>{
+      const actions=activeMid.actions||[];
+      const action=actions[i]||'';
+      return `<button class="dlg-opt ${i===0?'primary':''}" data-action="${action}" onclick="handleMidClick(this)">${r}</button>`;
+    }).join('');
+    document.getElementById('dlg-options').innerHTML=html;
+  } else if(isLast){
+    const resps=d.responses||[];
+    const html=resps.map((r,i)=>{
+      const hasExtraA=i===0&&(d.extraA||d.extraA_lines);
+      const hasExtraB=i===1&&(d.extraB||d.extraB_lines);
+      return `<button class="dlg-opt ${i===0?'primary':''}" onclick="${(hasExtraA||hasExtraB)?`showExtra(${i})`:'closeDlg()'}">${r}</button>`;
+    }).join('');
+    document.getElementById('dlg-options').innerHTML=html;
+  } else {
+    document.getElementById('dlg-options').innerHTML='<button class="dlg-opt primary" onclick="advanceDlg()">Continuar \u203a</button>';
+  }
+  setTimeout(()=>{document.querySelectorAll('.dlg-opt').forEach((b,i)=>setTimeout(()=>b.classList.add('visible'),i*80));},40);
+  document.getElementById('dlg-skip').style.opacity='0';
+}
+
+let dlgExtraALine=0;
+function showExtra(idx){
+  const d=DIALOGS[dlgKey];
+  // extraA_lines branch (multi-line A with its own responses leading to B)
+  if(idx===0&&d.extraA_lines){
+    dlgExtraMode='a';
+    dlgExtraALine=0;
+    renderExtraALine();
+    return;
+  }
+  // extraB_lines branch
+  if((idx===0&&!d.extraA_lines&&d.extraB_lines)||(idx===1&&d.extraB_lines)){
+    dlgExtraMode=true;
+    dlgExtraBLine=0;
+    renderExtraBLine();
+    return;
+  }
+  const extra=idx===0?d.extraA:d.extraB;
+  if(!extra){closeDlg();return;}
+  dlgExtraMode=true;
+  document.getElementById('dlg-options').innerHTML='';
+  document.getElementById('dlg-skip').style.opacity='1';
+  startTypewriter(extra,d.avatar,()=>{
+    document.getElementById('dlg-options').innerHTML='<button class="dlg-opt primary visible" onclick="closeDlg()">Fechar</button>';
+    document.getElementById('dlg-skip').style.opacity='0';
+  });
+}
+
+function renderExtraALine(){
+  const d=DIALOGS[dlgKey];
+  dlgExtraMode='a';
+  const lines=d.extraA_lines;
+  const isLast=dlgExtraALine>=lines.length-1;
+  document.getElementById('dlg-options').innerHTML='';
+  document.getElementById('dlg-skip').style.opacity='1';
+  document.getElementById('dlg-dots').innerHTML=lines.map((_,i)=>`<div class="dlg-dot ${i<dlgExtraALine?'done':i===dlgExtraALine?'active':''}"></div>`).join('');
+  startTypewriter(lines[dlgExtraALine],d.avatar,()=>{
+    if(isLast&&d.extraA_responses){
+      const html=d.extraA_responses.map((r,i)=>`<button class="dlg-opt ${i===0?'primary':''}" onclick="showExtraB()">${r}</button>`).join('');
+      document.getElementById('dlg-options').innerHTML=html;
+      setTimeout(()=>{document.querySelectorAll('.dlg-opt').forEach((b,i)=>setTimeout(()=>b.classList.add('visible'),i*80));},40);
+    } else if(isLast){
+      document.getElementById('dlg-options').innerHTML='<button class="dlg-opt primary visible" onclick="closeDlg()">Fechar</button>';
+    } else {
+      document.getElementById('dlg-options').innerHTML='<button class="dlg-opt primary visible" onclick="advanceExtraA()">Continuar ›</button>';
+    }
+    document.getElementById('dlg-skip').style.opacity='0';
+  });
+}
+
+function advanceExtraA(){
+  const d=DIALOGS[dlgKey];
+  if(dlgExtraALine<d.extraA_lines.length-1){playSound('dlg_advance');dlgExtraALine++;renderExtraALine();}
+}
+
+function showExtraB(){
+  const d=DIALOGS[dlgKey];
+  dlgExtraMode='b';
+  if(d.extraB_lines){dlgExtraBLine=0;renderExtraBLine();}
+  else if(d.extraB){
+    document.getElementById('dlg-options').innerHTML='';
+    document.getElementById('dlg-skip').style.opacity='1';
+    startTypewriter(d.extraB,d.avatar,()=>{
+      document.getElementById('dlg-options').innerHTML='<button class="dlg-opt primary visible" onclick="closeDlg()">Fechar</button>';
+      document.getElementById('dlg-skip').style.opacity='0';
+    });
+  } else {closeDlg();}
+}
+
+function renderExtraBLine(){
+  const d=DIALOGS[dlgKey];
+  const lines=dlgExtraMode==='b_direct'?(d.extraB_direct_lines||d.extraB_lines):d.extraB_lines;
+  const isLast=dlgExtraBLine>=lines.length-1;
+  document.getElementById('dlg-options').innerHTML='';
+  document.getElementById('dlg-skip').style.opacity='1';
+  // Update dots to show extra branch progress
+  document.getElementById('dlg-dots').innerHTML=lines.map((_,i)=>`<div class="dlg-dot ${i<dlgExtraBLine?'done':i===dlgExtraBLine?'active':''}"></div>`).join('');
+  // If this is the last extraB line of phase2_ms4, start avatar fade to black
+  if(isLast && dlgKey==='phase2_ms4'){
+    const avSvg=document.getElementById('dlg-avatar-svg');
+    avSvg.style.transition='opacity 3.5s ease';
+    avSvg.style.opacity='1';
+    setTimeout(()=>{avSvg.style.opacity='0';},400);
+  }
+  startTypewriter(lines[dlgExtraBLine],d.avatar,()=>{
+    if(isLast){
+      const resp=(dlgExtraMode==='b_direct'?(d.extraB_direct_close||d.extraB_close_response):d.extraB_close_response)||d.extraB_response||'Fechar';
+      document.getElementById('dlg-options').innerHTML=`<button class="dlg-opt primary visible" onclick="closeDlg()">${resp}</button>`;
+    } else {
+      const btnLabel=(dlgKey==='phase2_ms4'&&dlgExtraBLine===0&&d.extraB_response)?d.extraB_response:'Continuar ›';
+      const btnOnclick=(dlgKey==='phase2_ms4'&&dlgExtraBLine===0&&d.extraB_response)?'advanceExtraB();this.closest(\'#dlg-options\').querySelectorAll(\'button\').forEach(b=>b.disabled=true)':'advanceExtraB()';
+      document.getElementById('dlg-options').innerHTML=`<button class="dlg-opt primary visible" onclick="advanceExtraB()">${btnLabel}</button>`;
+    }
+    document.getElementById('dlg-skip').style.opacity='0';
+  });
+}
+
+function advanceExtraB(){
+  const d=DIALOGS[dlgKey];
+  const lines=dlgExtraMode==='b_direct'?(d.extraB_direct_lines||d.extraB_lines):d.extraB_lines;
+  if(dlgExtraBLine<lines.length-1){playSound('dlg_advance');dlgExtraBLine++;renderExtraBLine();}
+}
+
+function skipOrNext(){
+  if(isNodeDialog(dlgKey)){ndSkipOrNext();return;}
+  const d=DIALOGS[dlgKey];
+  const skipped=skipTypewriter(()=>{
+    const isLast=dlgLine>=d.lines.length-1;
+    if(dlgExtraMode){
+      if(dlgExtraMode==='a'){
+        const isLastA=dlgExtraALine>=d.extraA_lines.length-1;
+        if(isLastA&&d.extraA_responses){
+          const html=d.extraA_responses.map((r,i)=>`<button class="dlg-opt ${i===0?'primary':''} visible" onclick="showExtraB()">${r}</button>`).join('');
+          document.getElementById('dlg-options').innerHTML=html;
+        } else if(isLastA){
+          document.getElementById('dlg-options').innerHTML='<button class="dlg-opt primary visible" onclick="closeDlg()">Fechar</button>';
+        } else {
+          document.getElementById('dlg-options').innerHTML='<button class="dlg-opt primary visible" onclick="advanceExtraA()">Continuar ›</button>';
+        }
+      } else if(d.extraB_lines){
+        const isLastB=dlgExtraBLine>=d.extraB_lines.length-1;
+        const resp=(isLastB?(d.extraB_close_response||d.extraB_response):((dlgKey==='phase2_ms4'&&dlgExtraBLine===0&&d.extraB_response)?d.extraB_response:'Continuar ›'))||'Fechar';
+        const clickFn=isLastB?'closeDlg()':'advanceExtraB()';
+        document.getElementById('dlg-options').innerHTML=`<button class="dlg-opt primary visible" onclick="${clickFn}">${resp}</button>`;
+      } else {
+        document.getElementById('dlg-options').innerHTML='<button class="dlg-opt primary visible" onclick="closeDlg()">Fechar</button>';
+      }
+    } else if(isLast){
+      showDlgButtons(d,true);
+    } else {
+      const mids2=d.midResponses?[].concat(d.midResponses):[];
+      const activeMid2=mids2.find(m=>m.at===dlgLine);
+      if(activeMid2){
+        const html=activeMid2.options.map((r,i)=>{
+          const actions2=activeMid2.actions||[];
+          const action2=actions2[i]||'';
+          return `<button class="dlg-opt ${i===0?'primary':''} visible" data-action="${action2}" onclick="handleMidClick(this)">${r}</button>`;
+        }).join('');
+        document.getElementById('dlg-options').innerHTML=html;
+      } else {
+        document.getElementById('dlg-options').innerHTML='<button class="dlg-opt primary visible" onclick="advanceDlg()">Continuar ›</button>';
+      }
+    }
+    document.getElementById('dlg-skip').style.opacity='0';
+  });
+  if(!skipped){
+    if(dlgExtraMode==='a')advanceExtraA();
+    else if(dlgExtraMode&&d.extraB_lines)advanceExtraB();
+    else if(!dlgExtraMode)advanceDlg();
+  }
+}
+
+function advanceDlg(){const d=DIALOGS[dlgKey];if(dlgLine<d.lines.length-1){playSound('dlg_advance');dlgLine++;renderDlgLine();}}
+function closeDlg(){
+  document.getElementById('dlg-avatar-area').style.visibility='visible';
+  document.getElementById('dlg-text').classList.remove('dlg-terminal');
+  clearTypewriter();dlgExtraMode=false;dlgExtraBLine=0;
+  document.getElementById('dlg-overlay').classList.remove('open');
+  if(pendingPhaseDialog){const key=pendingPhaseDialog;pendingPhaseDialog=null;setTimeout(()=>openDialog(key),500);}
+}
+
+const MS_DIALOG_KEYS=[['phase1_ms1','phase1_ms2','phase1_ms3','phase1_ms4','phase1_ms5'],['phase2_ms1','phase2_ms2','phase2_ms3','phase2_ms4','phase2_ms5'],['phase3_ms1','phase3_ms2','phase3_ms3','phase3_ms4','phase3_ms5'],['phase4_ms1','phase4_ms2','phase4_ms3','phase4_ms4','phase4_ms5'],['phase5_ms1','phase5_ms2','phase5_ms3','phase5_ms4','phase5_ms5']];
+
+// ── PROGRESSO LINEAR ──────────────────────────────────────────────────────
+// Carrega progresso salvo ou inicializa zerado
+function loadProgress(){
+  try{
+    const saved=localStorage.getItem('calipso_progress');
+    if(saved){const p=JSON.parse(saved);if(p.milestones&&p.milestones.length===PHASES.length){if(!p.banners||p.banners.length!==PHASES.length)p.banners=PHASES.map(()=>false);return p;}}
+  }catch(e){}
+  return {currentPhase:0,milestones:PHASES.map(p=>p.milestones.map(()=>false)),banners:PHASES.map(()=>false)};
+}
+function saveProgress(){
+  try{localStorage.setItem('calipso_progress',JSON.stringify({currentPhase:state.currentPhase,milestones:state.milestones,banners:state.banners}));}catch(e){}
+}
+// Retorna qual fase está desbloqueada para navegação (a primeira fase incompleta ou a última)
+function unlockedPhase(){
+  // Fase só conta como concluída se o banner foi coletado (clique no SVG)
+  for(let i=0;i<PHASES.length;i++){
+    if(!state.banners[i])return i;
+  }
+  return PHASES.length-1;
+}
+// Retorna o índice do próximo milestone clicável numa fase
+// -1 se a fase não está desbloqueada, índice do milestone se está disponível
+function nextMsIdx(phaseIdx){
+  const unl=unlockedPhase();
+  if(phaseIdx>unl)return -1; // fase futura — nada clicável
+  if(phaseIdx<unl)return -2; // fase já concluída — nada a clicar (todos done)
+  // fase atual: próximo não concluído
+  return state.milestones[phaseIdx].findIndex(v=>!v);
+}
+
+const saved=loadProgress();
+const state={currentPhase:saved.currentPhase,milestones:saved.milestones,banners:saved.banners};
+
+function renderPhaseScroll(){
+  document.getElementById('phase-scroll').innerHTML=PHASES.map((p,i)=>{
+    const done=state.milestones[i].every(Boolean);
+    return `<div class="phase-pill ${i===state.currentPhase?'active':''} ${done?'done':''}" onclick="selectPhase(${i})"><span class="pill-num">0${p.id}</span><span class="pill-name">${p.name.split(' ').slice(0,2).join(' ')}</span></div>`;
+  }).join('');
+}
+
+// ── RUÍDO DE MÁSCARA — FASE 5 ────────────────────────────────────────────
+// [nome_mascarado, desc_mascarada] para cada ms da fase 5
+const PHASE5_NOISE=[
+  ['KR_%dFQt_*-LtCw','Xv#3!mQz_r@Np*'],
+  ['%Tz!9vW-rNq@Lx#','Jk*8-Bf!zQ@mR#v'],
+  ['Wq@4-Xn!kBt*Rz#','Mv!3_Lp@Nq-Bx*k'],
+  ['#Nz-7!Qx_vBm@Rt','Fq*-Xk!9_Bz@Nv#'],
+  ['Bx!_3Rv@-NqWt*k','Lz#-8Qm!_Bx@vNr']
+];
+
+function renderPhaseContent(){
+  const i=state.currentPhase;const p=PHASES[i];
+  const doneCount=state.milestones[i].filter(Boolean).length;
+  const total=p.milestones.length;
+  const pct=Math.round(doneCount/total*100);
+  const nextMs=nextMsIdx(i);
+  const msGrid=p.milestones.map((m,mi)=>{
+    const done=state.milestones[i][mi];
+    // Milestone é clicável apenas se for exatamente o próximo a ser concluído
+    const isNext=(nextMs===mi);
+    const locked=!done&&!isNext;
+
+    // ── Máscara de ruído para fase 5 ─────────────────────────────────────
+    // MS da fase 5 ficam mascaradas até serem reveladas progressivamente.
+    // MS[mi] é revelada quando state.banners[3] (SVG fase 4) foi clicado
+    // e todos os milestones anteriores da fase 5 foram concluídos.
+    let maskedName=m.name;
+    let maskedDesc=m.desc;
+    if(i===4){
+      // Número de milestones anteriores concluídos na fase 5
+      const prevDone=mi===0?state.banners[3]:state.milestones[4][mi-1];
+      if(!prevDone){
+        maskedName=PHASE5_NOISE[mi][0];
+        maskedDesc=PHASE5_NOISE[mi][1];
+      }
+    }
+
+    return `<div class="ms-card ${done?'done':''}" ${isNext?`onclick="toggleMs(${i},${mi})"`:''} style="${locked?'cursor:default;opacity:0.5;pointer-events:none;':''}">
+      <div class="ms-card-num">MILESTONE ${m.num}</div>
+      <div class="ms-card-name">${maskedName}</div>
+      <div class="ms-card-desc">${maskedDesc}</div>
+      <div class="ms-card-check">${done?'\u2713':''}</div>
+      <div class="ms-card-icon">${MS_ICONS[mi]||''}</div>
+    </div>`;
+  }).join('');
+
+function buildNavCard(i){
+  var svg=PHASE_SVGS[i];
+  var title=i<PHASES.length-1?'Ir para Fase '+(i+1):'Coletar Banner';
+  svg=svg.replace('<svg ','<svg class="ms-nav-svg" aria-label="'+title+'" ');
+  var allMsDone=state.milestones[i].every(Boolean);
+  var bannerCollected=state.banners[i];
+  var clickAttr='';
+  var extraClass='';
+  var extraStyle='';
+  if(bannerCollected){
+    // Banner já coletado — visual done, sem ação
+    extraClass=' done';
+  } else if(allMsDone){
+    // Pronto para coletar — clicável
+    clickAttr=' onclick="collectBanner('+(i)+')"';
+  } else {
+    // Bloqueado — ms5 não concluída
+    extraStyle=' style="cursor:default;opacity:0.35;pointer-events:none;"';
+  }
+  return "<div class=\"ms-card ms-card-nav"+extraClass+"\""+clickAttr+extraStyle+">"+svg+"</div>";
+}
+  var navCard=buildNavCard(i);
+  const rewardHtml=p.reward?`<div class="reward-banner"><span class="reward-text">\u2b21 Recompensa \u2014 ${p.reward}</span></div>`:'';
+  document.getElementById('phase-content').innerHTML=`
+    <div class="phase-card">
+      <div class="phase-head">
+        <div class="phase-badge">
+          <img src="${PHASE_IMAGES[i]}" alt="Fase ${p.id}" loading="eager"/>
+        </div>
+        <div class="phase-head-info">
+          <div class="phase-hero-label">Expedi\u00e7\u00e3o \u00b7 Fase ${p.id}</div>
+          <div class="phase-hero-name">${p.name}</div>
+        </div>
+      </div>
+      <div class="phase-body">
+        <div class="prog-row"><div class="prog-bar"><div class="prog-fill" style="width:${pct}%"></div></div><div class="prog-text">${doneCount} / ${total}</div></div>
+        <div class="milestone-grid">${msGrid}${navCard}</div>
+      </div>
+    </div><div class="spacer"></div>`;
+  document.getElementById('hdr-phase').textContent=`Fase ${p.id} \u00b7 ${doneCount}/${total}`;
+}
+
+function goToProgress(){
+  renderProgress();
+  showSection('progress',null);
+  // desativa todos os botões da nav (progresso não tem botão na bottom nav)
+  document.querySelectorAll('.bn-btn').forEach(b=>b.classList.remove('active'));
+}
+
+function renderProgress(){
+  let completedCount=0;
+  const cols=PHASES.map((p,i)=>{
+    const bannerCollected=state.banners[i];
+    if(bannerCollected) completedCount++;
+    const doneMs=state.milestones[i].filter(Boolean).length;
+    const totalMs=p.milestones.length;
+    const allMsDone=state.milestones[i].every(Boolean);
+    // Label: coletado > ms concluídas aguardando coleta > progresso
+    const sublabel=bannerCollected?'✓ Concluída':`${doneMs}/${totalMs}`;
+    return `<div class="exp-banner-col ${bannerCollected?'unlocked':''}">
+      <div class="exp-banner-slot ${bannerCollected?'unlocked':''}">
+        ${bannerCollected
+          ? `<img src="assets/phase${i+1}_banner.png" alt="Banner Fase ${i+1}"/>`
+          : `<div class="exp-banner-placeholder"><svg viewBox="0 0 24 24" fill="none"><rect x="2" y="2" width="20" height="20" rx="5" stroke="rgba(200,220,232,0.45)" stroke-width="1.2" stroke-dasharray="4 3"/><line x1="2" y1="12" x2="22" y2="12" stroke="rgba(200,220,232,0.25)" stroke-width="0.8"/><line x1="12" y1="2" x2="12" y2="22" stroke="rgba(200,220,232,0.25)" stroke-width="0.8"/></svg></div>`
+        }
+      </div>
+      <div class="exp-banner-label">FASE ${i+1}</div>
+      <div class="exp-banner-sublabel">${sublabel}</div>
+    </div>`;
+  }).join('');
+  document.getElementById('exp-banners').innerHTML=cols;
+  const countEl=document.getElementById('exp-phases-count');
+  if(countEl) countEl.textContent=completedCount;
+
+  // Stats
+  const totalMsDone=PHASES.reduce((a,_,i)=>a+state.milestones[i].filter(Boolean).length,0);
+  const totalMsAll=PHASES.reduce((a,p)=>a+p.milestones.length,0);
+  const statsEl=document.getElementById('exp-stats');
+  if(statsEl) statsEl.innerHTML=`
+    <div class="exp-stat-row"><span class="exp-stat-label">Milestones Concluídos</span><span class="exp-stat-value">${totalMsDone} / ${totalMsAll}</span></div>
+    <div class="exp-stat-row"><span class="exp-stat-label">Fases Concluídas</span><span class="exp-stat-value">${completedCount} / 5</span></div>
+  `;
+
+  const allDone=state.banners.every(Boolean);
+  const badge=document.getElementById('exp-badge-wrap');
+  if(allDone){badge.classList.add('unlocked');badge.onclick=()=>window.location.href='calipso_globe.html';}
+  else{badge.classList.remove('unlocked');badge.onclick=null;}
+  const anyBanner=state.banners.some(Boolean);
+  const btn=document.getElementById('prog-btn');
+  if(btn){anyBanner?btn.classList.add('highlight'):btn.classList.remove('highlight');}
+  updateAlsBtn();
+}
+
+function selectPhase(i){
+  state.currentPhase=i;
+  saveProgress();
+  renderPhaseScroll();renderPhaseContent();document.getElementById('scroll-area').scrollTop=0;
+}
+function selectPhaseFromMap(i){selectPhase(i);showSection('expedition',document.querySelectorAll('.bn-btn')[1]);}
+// Avança para a próxima fase ao clicar no botão de estrelas (só quando todos os milestones da fase atual estão concluídos)
+function advanceToNextPhase(nextIdx){
+  if(nextIdx>=PHASES.length)return;
+  state.currentPhase=nextIdx;
+  saveProgress();
+  renderPhaseScroll();renderPhaseContent();document.getElementById('scroll-area').scrollTop=0;
+}
+function collectBanner(phaseIdx){
+  if(state.banners[phaseIdx])return; // já coletado
+  unlockAudio();
+  state.banners[phaseIdx]=true;
+  saveProgress();
+  playSound('milestone');
+  renderPhaseScroll();
+  renderPhaseContent();
+  renderProgress();
+  // Avança fase ou vai para progresso após breve pausa
+  if(phaseIdx<PHASES.length-1){
+    setTimeout(()=>{
+      advancePhaseMusic(phaseIdx+1);
+      state.currentPhase=phaseIdx+1;
+      saveProgress();
+      renderPhaseScroll();
+      renderPhaseContent();
+      document.getElementById('scroll-area').scrollTop=0;
+    },600);
+  } else {
+    // Fase 5 — desbloqueia entradas especiais do glossário e vai para progresso
+    GLOSSARY.forEach(g=>{if(g._unlockOnPhase5Banner)g.locked=false;});
+    renderGlossary();
+    setTimeout(()=>{
+      advancePhaseMusic(5); // track 5 = Lightless_Dawn (já é fase 5, mas reforça)
+      goToProgress();
+    },600);
+  }
+}
+// ── TERMINAL DE SENHA — FASE 4 MS4 ───────────────────────────────────────
+const PWD_CORRECT = '1618';
+let _pwdOnSuccess = null;
+
+function openPwdTerminal(onSuccess){
+  _pwdOnSuccess = onSuccess;
+  const overlay = document.getElementById('pwd-overlay');
+  const input   = document.getElementById('pwd-input');
+  const error   = document.getElementById('pwd-error');
+  input.value = '';
+  error.classList.remove('visible');
+  overlay.classList.add('open');
+  setTimeout(()=>input.focus(), 100);
+}
+
+function closePwdTerminal(){
+  document.getElementById('pwd-overlay').classList.remove('open');
+  _pwdOnSuccess = null;
+}
+
+function submitPwd(){
+  const input = document.getElementById('pwd-input');
+  const error = document.getElementById('pwd-error');
+  if(input.value.trim() === PWD_CORRECT){
+    const cb = _pwdOnSuccess;
+    closePwdTerminal();
+    if(cb) cb();
+  } else {
+    input.value = '';
+    error.classList.remove('visible');
+    void error.offsetWidth; // força reflow para reiniciar transição
+    error.classList.add('visible');
+    input.focus();
+  }
+}
+
+document.addEventListener('DOMContentLoaded', ()=>{
+  document.getElementById('pwd-submit').addEventListener('click', submitPwd);
+  document.getElementById('pwd-input').addEventListener('keydown', e=>{
+    if(e.key==='Enter') submitPwd();
+  });
+});
+// ─────────────────────────────────────────────────────────────────────────
+
+let pendingPhaseDialog=null;
+function toggleMs(phaseIdx,msIdx){
+  unlockAudio();
+  const expectedNext=nextMsIdx(phaseIdx);
+  if(msIdx!==expectedNext)return;
+  if(state.milestones[phaseIdx][msIdx])return;
+
+  // Fase 4 ms4: terminal de senha — milestone só marca após senha correta
+  if(phaseIdx===3 && msIdx===3){
+    openPwdTerminal(()=>{
+      state.milestones[phaseIdx][msIdx]=true;
+      saveProgress();
+      playSound('milestone');
+      const msKey=(MS_DIALOG_KEYS[phaseIdx]||[])[msIdx];
+      const dlg=document.getElementById('dlg-overlay');
+      dlg.style.opacity='';
+      dlg.style.pointerEvents='';
+      renderPhaseScroll();renderPhaseContent();renderProgress();renderZones();
+      setTimeout(()=>openDialog(msKey),400);
+    });
+    return;
+  }
+
+  state.milestones[phaseIdx][msIdx]=true;
+  saveProgress();
+  playSound('milestone');
+  const msKey=(MS_DIALOG_KEYS[phaseIdx]||[])[msIdx];
+  const allDone=state.milestones[phaseIdx].every(Boolean);
+  const phaseKey=allDone?PHASES[phaseIdx].dialogKey:null;
+  const msHasLines=msKey&&DIALOGS[msKey]&&(DIALOGS[msKey].nodes||(DIALOGS[msKey].lines&&DIALOGS[msKey].lines.length>0));
+  const phaseHasLines=phaseKey&&DIALOGS[phaseKey]&&DIALOGS[phaseKey].lines&&DIALOGS[phaseKey].lines.length>0;
+  if(msHasLines){
+    if(phaseHasLines) pendingPhaseDialog=phaseKey;
+    setTimeout(()=>{
+      renderPhaseScroll();renderPhaseContent();renderProgress();renderZones();
+      openDialog(msKey);
+    },400);
+  } else if(phaseHasLines){
+    setTimeout(()=>{
+      renderPhaseScroll();renderPhaseContent();renderProgress();renderZones();
+      openDialog(phaseKey);
+    },500);
+  } else {
+    renderPhaseScroll();renderPhaseContent();renderProgress();renderZones();
+  }
+}
+// ── ÍNDICE DE ENDEREÇOS — ABA ZONAS ──────────────────────────────────────
+const ADDRESSES=[
+  {
+    num:'01',
+    title:'Prisão de Stjord',
+    desc:'Lua 1001101011 · Sistema Bolien XI · Galáxia Calipso',
+    glyph:'107A03904FE6',
+    geo:'-76.02, +77.99',
+    // Desbloqueado na abertura do app (sempre visível)
+    unlockPhase:-1, unlockMs:-1
+  },
+  {
+    num:'02',
+    title:'Portal — Centro de Euclides',
+    desc:'Salto intergaláctico: Euclides → Hilbert',
+    glyph:'411104FF9001',
+    geo:null,
+    // Desbloqueado em Fase 1 MS1
+    unlockPhase:0, unlockMs:0
+  },
+  {
+    num:'03',
+    title:'Portal — Centro de Hilbert',
+    desc:'Salto intergaláctico: Hilbert → Calipso',
+    glyph:'208AFFFF8000',
+    geo:null,
+    // Desbloqueado em Fase 1 MS3
+    unlockPhase:0, unlockMs:2
+  },
+  {
+    num:'04',
+    title:'Portal — A Paz de Calipso',
+    desc:'Destino final · Planeta Relicário',
+    glyph:'241701904FE2',
+    geo:null,
+    // Desbloqueado em Fase 4 MS4
+    unlockPhase:3, unlockMs:3
+  }
+];
+
+function isAddrUnlocked(addr){
+  if(addr.unlockPhase===-1)return true;
+  return state.milestones[addr.unlockPhase]&&state.milestones[addr.unlockPhase][addr.unlockMs]===true;
+}
+
+function renderZones(){
+  const el=document.getElementById('addr-list');
+  if(!el)return;
+  el.innerHTML=ADDRESSES.map(addr=>{
+    const unlocked=isAddrUnlocked(addr);
+    const cls=unlocked?'unlocked':'locked-hidden';
+    const lockIcon=unlocked?'':'🔒';
+    const glyphSpan=`<span class="addr-glyph-val">${addr.glyph}</span><span class="addr-glyph-hex">${addr.glyph}</span>`;
+    const geoRow=addr.geo?`<div class="addr-geo-row"><span class="addr-geo-label">GEO</span><span class="addr-geo-val">${addr.geo}</span></div>`:'';
+    return `<div class="addr-card ${cls}">
+      <div class="addr-card-top">
+        <span class="addr-num">${addr.num}</span>
+        <span class="addr-title">${addr.title}</span>
+        ${lockIcon?`<span class="addr-lock">${lockIcon}</span>`:''}
+      </div>
+      <div class="addr-glyph-row"><span class="addr-glyph-label">GLIFO</span>${glyphSpan}</div>
+      ${geoRow}
+      <div class="addr-desc">${addr.desc}</div>
+    </div>`;
+  }).join('');
+}
+// ── GLOSSÁRIO: unlock e lore-doc ──────────────────────────────────────────
+let _loreOnClose=null;
+
+function unlockGlossaryEntry(term){
+  const entry=GLOSSARY.find(g=>g.term===term);
+  if(!entry||!entry.locked)return;
+  entry.locked=false;
+  // Persistir estado de desbloqueio
+  try{
+    const unlocked=JSON.parse(localStorage.getItem('calipso_gloss')||'[]');
+    if(!unlocked.includes(term)){unlocked.push(term);localStorage.setItem('calipso_gloss',JSON.stringify(unlocked));}
+  }catch(e){}
+  renderGlossary();
+}
+
+function loadGlossaryState(){
+  try{
+    const unlocked=JSON.parse(localStorage.getItem('calipso_gloss')||'[]');
+    unlocked.forEach(term=>{
+      const entry=GLOSSARY.find(g=>g.term===term);
+      if(entry)entry.locked=false;
+    });
+  }catch(e){}
+  // Se o banner da fase 5 já foi coletado, desbloqueia as entradas especiais
+  try{
+    const saved=localStorage.getItem('calipso_progress');
+    if(saved){const p=JSON.parse(saved);if(p.banners&&p.banners[4]===true){GLOSSARY.forEach(g=>{if(g._unlockOnPhase5Banner)g.locked=false;});}}
+  }catch(e){}
+  // renderGlossary é chamado após por initGalaxy chain — não chamar aqui
+  // para evitar render antes do DOM estar pronto
+}
+
+function openLoreDoc(term, onClose){
+  const entry=GLOSSARY.find(g=>g.term===term);
+  if(!entry)return;
+  _loreOnClose=onClose||null;
+  document.getElementById('lore-title').textContent=entry.term;
+  document.getElementById('lore-tag').textContent=entry.phase;
+  document.getElementById('lore-body').innerHTML=entry.def;
+  document.getElementById('lore-overlay').classList.add('open');
+  document.getElementById('lore-body').scrollTop=0;
+}
+
+function closeLoreDoc(){
+  document.getElementById('lore-overlay').classList.remove('open');
+  const cb=_loreOnClose;
+  _loreOnClose=null;
+  if(cb)cb();
+}
+
+function handleMidClick(btn){
+  const action=btn.dataset.action||'';
+  if(action==='openLoreAndContinue'){
+    const LORE_TERM='Os Cartógrafos e a mentira de Atlas';
+    unlockGlossaryEntry(LORE_TERM);
+    // Esconde o diálogo temporariamente sem fechá-lo
+    const dlgOverlay=document.getElementById('dlg-overlay');
+    dlgOverlay.style.opacity='0';
+    dlgOverlay.style.pointerEvents='none';
+    openLoreDoc(LORE_TERM, function(){
+      // Restaura o diálogo e avança para a fala 3
+      dlgOverlay.style.opacity='';
+      dlgOverlay.style.pointerEvents='';
+      advanceDlg();
+    });
+  } else if(action==='unlockLoreOnly'){
+    const LORE_TERM='Os Cartógrafos e a mentira de Atlas';
+    unlockGlossaryEntry(LORE_TERM);
+    advanceDlg();
+  } else {
+    advanceDlg();
+  }
+}
+
+function renderGlossary(){
+  document.getElementById('gloss-list').innerHTML=GLOSSARY.map((g,i)=>{
+    const headAttr=g.locked?'':'onclick="toggleGloss('+i+')"';
+    const chevron=g.locked?'':'&#9658;';
+    const prefix=g.locked?'\uD83D\uDD12 ':'';
+    return '<div class="gloss-item '+(g.locked?'locked':'')+'"><div class="gloss-head" '+headAttr+'><div class="gloss-term">'+prefix+g.term+'</div><div class="gloss-phase">'+g.phase+'</div><div class="gloss-chevron" id="gc-'+i+'">'+chevron+'</div></div><div class="gloss-body" id="gb-'+i+'"><div class="gloss-def">'+g.def+'</div></div></div>';
+  }).join('');
+}
+function toggleGloss(i){const b=document.getElementById('gb-'+i);const c=document.getElementById('gc-'+i);const open=b.classList.toggle('open');c.textContent=open?'\u25be':'\u25b8';}
+function showSection(id,btn){document.querySelectorAll('.section').forEach(s=>s.classList.remove('active'));document.querySelectorAll('.bn-btn').forEach(b=>b.classList.remove('active'));document.getElementById('sec-'+id).classList.add('active');if(btn)btn.classList.add('active');document.getElementById('scroll-area').scrollTop=0;}
+
+let ty0=0;
+document.getElementById('dlg-overlay').addEventListener('touchstart',e=>{ty0=e.touches[0].clientY;});
+document.getElementById('dlg-overlay').addEventListener('touchend',e=>{if(e.changedTouches[0].clientY-ty0>70)closeDlg();});
+document.addEventListener('keydown',e=>{if(e.key==='Escape')closeDlg();if((e.key===' '||e.key==='ArrowRight')&&document.getElementById('dlg-overlay').classList.contains('open')){e.preventDefault();skipOrNext();}});
+
+// ── BOTÃO A.L.S CALCULADORA ──────────────────────────────────────────────
+function updateAlsBtn(){
+  const btn=document.getElementById('als-btn');
+  if(!btn)return;
+  const visible=state.milestones[3][3]===true;
+  const unlocked=state.milestones[4][1]===true;
+  if(!visible){btn.classList.remove('visible','locked','unlocked');return;}
+  btn.classList.add('visible');
+  if(unlocked){
+    btn.classList.remove('locked');
+    btn.classList.add('unlocked');
+    btn.innerHTML='⊕ A.L.S CALCULADORA';
+  } else {
+    btn.classList.remove('unlocked');
+    btn.classList.add('locked');
+    btn.innerHTML='🔒 A.L.S CALCULADORA';
+  }
+}
+function handleAlsClick(){
+  const unlocked=state.milestones[4]&&state.milestones[4][1]===true;
+  if(!unlocked)return;
+  const seen=localStorage.getItem('als_tutorial_seen');
+  if(!seen){
+    document.getElementById('als-popup-overlay').classList.add('open');
+  } else {
+    window.open('ALS_Calculator_v25.html','_blank');
+  }
+}
+function closeAlsPopup(){
+  localStorage.setItem('als_tutorial_seen','1');
+  document.getElementById('als-popup-overlay').classList.remove('open');
+  window.open('ALS_Calculator_v25.html','_blank');
+}
+
+loadGlossaryState();initGalaxy();renderPhaseScroll();renderPhaseContent();renderZones();renderGlossary();renderProgress();
+
+window.testDialog=k=>openDialog(k||'app_open');
+window.resetSplash=()=>{location.reload()};
+
+</script>
+</body>
+</html>

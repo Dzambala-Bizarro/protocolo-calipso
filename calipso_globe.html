@@ -1,0 +1,1060 @@
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Protocolo Calipso — Paz de Calipso</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Share+Tech+Mono&family=Orbitron:wght@300;400&display=swap');
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body {
+    background: #000;
+    overflow: hidden;
+    font-family: 'Share Tech Mono', monospace;
+    color: #fff;
+    width: 100vw;
+    height: 100vh;
+  }
+  #canvas-container {
+    position: fixed;
+    inset: 0;
+    opacity: 0;
+    transition: opacity 2.5s ease;
+  }
+  #canvas-container.visible { opacity: 1; }
+  canvas { display: block; }
+
+  #title-block {
+    position: fixed;
+    top: 2rem;
+    left: 50%;
+    transform: translateX(-50%);
+    text-align: center;
+    opacity: 0;
+    transition: opacity 1.8s ease;
+    pointer-events: none;
+    z-index: 10;
+    white-space: nowrap;
+  }
+  #title-block.visible { opacity: 1; }
+  #title-block h1 {
+    font-family: 'Orbitron', monospace;
+    font-weight: 300;
+    font-size: clamp(0.7rem, 1.8vw, 1rem);
+    letter-spacing: 0.4em;
+    color: rgba(255,255,255,0.4);
+    text-transform: uppercase;
+  }
+  #title-block h2 {
+    font-family: 'Orbitron', monospace;
+    font-weight: 400;
+    font-size: clamp(0.95rem, 2.8vw, 1.5rem);
+    letter-spacing: 0.22em;
+    color: rgba(255,255,255,0.88);
+    margin-top: 0.35rem;
+  }
+
+  #counter {
+    position: fixed;
+    bottom: 2rem;
+    right: 2rem;
+    font-size: 0.68rem;
+    color: rgba(255,255,255,0.28);
+    letter-spacing: 0.18em;
+    opacity: 0;
+    transition: opacity 1s ease;
+    z-index: 10;
+  }
+  #counter.visible { opacity: 1; }
+
+  #table-overlay {
+    position: fixed;
+    inset: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 2s ease;
+    z-index: 20;
+  }
+  #table-overlay.visible {
+    opacity: 1;
+    pointer-events: auto;
+  }
+  #table-wrap {
+    background: rgba(6,3,2,0.78);
+    backdrop-filter: blur(14px);
+    -webkit-backdrop-filter: blur(14px);
+    border: 0.5px solid rgba(210,170,120,0.18);
+    border-radius: 3px;
+    padding: 2rem 2.5rem;
+    max-height: 80vh;
+    overflow-y: auto;
+    min-width: 400px;
+    max-width: 540px;
+    scrollbar-width: thin;
+    scrollbar-color: rgba(210,170,120,0.2) transparent;
+  }
+  #table-wrap::-webkit-scrollbar { width: 3px; }
+  #table-wrap::-webkit-scrollbar-thumb { background: rgba(210,170,120,0.2); border-radius: 2px; }
+  #table-wrap h3 {
+    font-family: 'Orbitron', monospace;
+    font-weight: 300;
+    font-size: 0.6rem;
+    letter-spacing: 0.45em;
+    color: rgba(210,170,120,0.4);
+    text-transform: uppercase;
+    margin-bottom: 1.3rem;
+    text-align: center;
+  }
+  table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 0.7rem;
+    letter-spacing: 0.04em;
+  }
+  thead th {
+    color: rgba(210,170,120,0.35);
+    font-weight: 400;
+    padding: 0.3rem 0.5rem;
+    border-bottom: 0.5px solid rgba(210,170,120,0.12);
+    text-align: left;
+  }
+  tbody tr {
+    border-bottom: 0.5px solid rgba(255,255,255,0.04);
+    transition: background 0.15s;
+  }
+  tbody tr:hover { background: rgba(210,170,120,0.05); }
+  tbody td {
+    padding: 0.26rem 0.5rem;
+    color: rgba(255,255,255,0.65);
+    font-variant-numeric: tabular-nums;
+  }
+  tbody td:first-child {
+    color: rgba(210,170,120,0.25);
+    font-size: 0.58rem;
+  }
+  .portal-row td { color: rgba(255,255,255,0.95) !important; }
+  .portal-row td:first-child { color: rgba(210,170,120,0.6) !important; }
+  .portal-badge {
+    display: inline-block;
+    font-size: 0.52rem;
+    letter-spacing: 0.1em;
+    color: rgba(210,170,120,0.5);
+    border: 0.5px solid rgba(210,170,120,0.25);
+    padding: 1px 5px;
+    border-radius: 2px;
+    margin-left: 6px;
+    vertical-align: middle;
+  }
+  #close-table {
+    display: block;
+    margin: 1.3rem auto 0;
+    background: transparent;
+    border: 0.5px solid rgba(210,170,120,0.22);
+    color: rgba(210,170,120,0.4);
+    font-family: 'Share Tech Mono', monospace;
+    font-size: 0.62rem;
+    letter-spacing: 0.22em;
+    padding: 0.4rem 1.2rem;
+    cursor: pointer;
+    border-radius: 2px;
+    transition: all 0.2s;
+    text-transform: uppercase;
+  }
+  #close-table:hover {
+    color: rgba(210,170,120,0.85);
+    border-color: rgba(210,170,120,0.45);
+  }
+
+  #back-btn {
+    position: fixed;
+    top: 1.4rem;
+    right: 1.6rem;
+    z-index: 50;
+    background: transparent;
+    border: 0.5px solid rgba(210,170,120,0.22);
+    color: rgba(210,170,120,0.4);
+    font-family: 'Share Tech Mono', monospace;
+    font-size: 0.62rem;
+    letter-spacing: 0.22em;
+    padding: 0.4rem 1.1rem;
+    cursor: pointer;
+    border-radius: 2px;
+    transition: all 0.2s;
+    text-transform: uppercase;
+    opacity: 0;
+    transition: opacity 1.8s ease, color 0.2s, border-color 0.2s;
+  }
+  #back-btn.visible {
+    opacity: 1;
+  }
+  #back-btn:hover {
+    color: rgba(210,170,120,0.85);
+    border-color: rgba(210,170,120,0.45);
+  }
+
+  /* ─── Scanner overlay ───────────────────────────────────────────────────── */
+  #scanner-overlay {
+    position: fixed;
+    inset: 0;
+    background: #000;
+    z-index: 100;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    font-family: 'Share Tech Mono', monospace;
+    cursor: pointer;
+    transition: opacity 1.6s ease;
+  }
+  #scanner-overlay.fade-out {
+    opacity: 0;
+    pointer-events: none;
+  }
+
+  /* Subtle dot-grid background texture */
+  #scanner-overlay::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background-image: radial-gradient(circle, rgba(255,255,255,0.045) 1px, transparent 1px);
+    background-size: 18px 18px;
+    pointer-events: none;
+  }
+
+  /* Central reticle area */
+  #scanner-center {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 1.1rem;
+  }
+
+  /* The oval reticle */
+  #reticle {
+    position: relative;
+    width: clamp(180px, 38vw, 260px);
+    height: clamp(64px, 12vw, 88px);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  #reticle svg {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    overflow: visible;
+  }
+  /* Outer dim rect */
+  .reticle-outer {
+    fill: none;
+    stroke: rgba(255,255,255,0.18);
+    stroke-width: 1;
+    rx: 999;
+  }
+  /* Inner bright rect */
+  .reticle-inner {
+    fill: none;
+    stroke: rgba(255,255,255,0.72);
+    stroke-width: 1.2;
+  }
+  /* Corner accent marks */
+  .reticle-corner {
+    stroke: rgba(255,255,255,0.85);
+    stroke-width: 1.5;
+    fill: none;
+    stroke-linecap: square;
+  }
+  /* Plus sign */
+  #reticle-plus {
+    color: rgba(255,255,255,0.70);
+    font-size: clamp(1rem, 3vw, 1.4rem);
+    font-weight: 300;
+    letter-spacing: 0;
+    user-select: none;
+    z-index: 1;
+  }
+
+  /* "Segure para verificar" prompt */
+  #scan-prompt {
+    font-size: clamp(0.58rem, 1.4vw, 0.72rem);
+    letter-spacing: 0.28em;
+    color: rgba(255,255,255,0.38);
+    text-transform: uppercase;
+    transition: opacity 0.4s ease;
+    text-align: center;
+  }
+  #scan-prompt.hidden { opacity: 0; }
+
+  /* Verification bar — sits just ABOVE the reticle */
+  #verify-bar {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.45rem;
+    opacity: 0;
+    transition: opacity 0.35s ease;
+    width: clamp(180px, 38vw, 260px);
+  }
+  #verify-bar.visible { opacity: 1; }
+
+  #verify-label-row {
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+    font-size: clamp(0.55rem, 1.3vw, 0.67rem);
+    letter-spacing: 0.2em;
+    color: rgba(255,255,255,0.55);
+    text-transform: uppercase;
+  }
+  #verify-pct { color: rgba(255,255,255,0.75); }
+
+  #verify-track {
+    position: relative;
+    width: 100%;
+    height: 1.5px;
+    background: rgba(255,255,255,0.15);
+  }
+  /* Left half (grows from center leftward) */
+  #bar-left {
+    position: absolute;
+    top: 0; bottom: 0;
+    right: 50%;
+    width: 0%;
+    background: rgba(255,255,255,0.88);
+    transition: none;
+  }
+  /* Right half (grows from center rightward) */
+  #bar-right {
+    position: absolute;
+    top: 0; bottom: 0;
+    left: 50%;
+    width: 0%;
+    background: rgba(255,255,255,0.88);
+    transition: none;
+  }
+
+  /* HUD bottom bar */
+  #scanner-hud {
+    position: fixed;
+    bottom: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    padding-bottom: clamp(0.8rem, 3vw, 1.4rem);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.4rem;
+  }
+
+  #hud-icons {
+    display: flex;
+    align-items: center;
+    gap: 0;
+    background: rgba(30,30,30,0.45);
+    border-radius: 999px;
+    padding: 0.3rem 0.42rem;
+    border: 0.5px solid rgba(255,255,255,0.09);
+    backdrop-filter: blur(4px);
+  }
+  .hud-slot {
+    width: clamp(28px, 6.5vw, 38px);
+    height: clamp(28px, 6.5vw, 38px);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+  }
+  .hud-slot.active {
+    background: rgba(255,255,255,0.11);
+    box-shadow: 0 0 0 1px rgba(255,255,255,0.22);
+  }
+  .hud-slot svg {
+    width: 52%;
+    height: 52%;
+    opacity: 0.45;
+  }
+  .hud-slot.active svg { opacity: 0.80; }
+  .hud-num {
+    width: clamp(20px, 4.5vw, 27px);
+    height: clamp(20px, 4.5vw, 27px);
+    font-size: 0.58rem;
+    color: rgba(255,255,255,0.38);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border: 0.5px solid rgba(255,255,255,0.15);
+    border-radius: 4px;
+    letter-spacing: 0;
+    margin: 0 0.15rem;
+  }
+  #hud-label {
+    font-size: clamp(0.55rem, 1.2vw, 0.65rem);
+    letter-spacing: 0.22em;
+    color: rgba(255,255,255,0.28);
+    text-transform: uppercase;
+    text-align: center;
+  }
+</style>
+</head>
+<body>
+
+<button id="back-btn" onclick="window.location.href='index.html'">← Voltar</button>
+
+<!-- ─── Scanner intro overlay ────────────────────────────────────────────── -->
+<div id="scanner-overlay">
+
+  <div id="scanner-center">
+
+    <!-- Loading bar ABOVE the reticle -->
+    <div id="verify-bar">
+      <div id="verify-label-row">
+        <span>Verificando</span>
+        <span id="verify-pct">0%</span>
+      </div>
+      <div id="verify-track">
+        <div id="bar-left"></div>
+        <div id="bar-right"></div>
+      </div>
+    </div>
+
+    <!-- Oval reticle — double oval only, no corner marks -->
+    <div id="reticle">
+      <svg viewBox="0 0 260 88" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg">
+        <!-- Outer dim oval -->
+        <rect x="2" y="2" width="256" height="84" rx="42" ry="42" class="reticle-outer"/>
+        <!-- Inner bright oval -->
+        <rect x="9" y="9" width="242" height="70" rx="35" ry="35" class="reticle-inner"/>
+      </svg>
+      <span id="reticle-plus">+</span>
+    </div>
+
+    <!-- Prompt below reticle -->
+    <div id="scan-prompt">Segure para verificar</div>
+
+  </div>
+
+  <!-- HUD bottom bar -->
+  <div id="scanner-hud">
+    <div id="hud-icons">
+      <div class="hud-num">1</div>
+      <!-- Scanner (active) -->
+      <div class="hud-slot active">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" color="white">
+          <circle cx="12" cy="12" r="9"/><circle cx="12" cy="12" r="4"/>
+          <line x1="12" y1="2" x2="12" y2="5"/><line x1="12" y1="19" x2="12" y2="22"/>
+          <line x1="2" y1="12" x2="5" y2="12"/><line x1="19" y1="12" x2="22" y2="12"/>
+        </svg>
+      </div>
+      <!-- Target -->
+      <div class="hud-slot">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" color="white">
+          <circle cx="12" cy="12" r="9"/><circle cx="12" cy="12" r="2"/>
+          <line x1="12" y1="3" x2="12" y2="7"/><line x1="12" y1="17" x2="12" y2="21"/>
+          <line x1="3" y1="12" x2="7" y2="12"/><line x1="17" y1="12" x2="21" y2="12"/>
+        </svg>
+      </div>
+      <!-- Lightning -->
+      <div class="hud-slot">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" color="white">
+          <polyline points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/>
+        </svg>
+      </div>
+      <!-- Wrench -->
+      <div class="hud-slot">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" color="white">
+          <path d="M14.7 6.3a1 1 0 0 0 0 1.4l1.6 1.6a1 1 0 0 0 1.4 0l3.77-3.77a6 6 0 0 1-7.94 7.94l-6.91 6.91a2.12 2.12 0 0 1-3-3l6.91-6.91a6 6 0 0 1 7.94-7.94l-3.76 3.76z"/>
+        </svg>
+      </div>
+      <!-- Leaf/Bio -->
+      <div class="hud-slot">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" color="white">
+          <path d="M11 20A7 7 0 0 1 9.8 6.1C15.5 5 17 4.48 19 2c1 2 2 4.18 2 8 0 5.5-4.78 10-10 10z"/>
+          <path d="M2 21c0-3 1.85-5.36 5.08-6C9.5 14.52 12 13 13 12"/>
+        </svg>
+      </div>
+      <!-- Paw -->
+      <div class="hud-slot">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" color="white">
+          <circle cx="11" cy="4" r="2"/><circle cx="18" cy="8" r="2"/><circle cx="4" cy="8" r="2"/>
+          <path d="M12 17c-2.67 0-8 1.33-8 4v1h16v-1c0-2.67-5.33-4-8-4z"/>
+          <path d="M8 13c0-2.21 1.79-4 4-4s4 1.79 4 4"/>
+        </svg>
+      </div>
+      <div class="hud-num">3</div>
+    </div>
+    <div id="hud-label">Modo de análise</div>
+  </div>
+
+</div>
+
+<div id="canvas-container">
+  <canvas id="globe"></canvas>
+</div>
+
+<div id="title-block">
+  <h1>Protocolo Calipso</h1>
+  <h2>Paz de Calipso</h2>
+</div>
+
+<div id="counter">EFÍGIES: <span id="count-num">0</span> / 42</div>
+
+<div id="table-overlay">
+  <div id="table-wrap">
+    <h3>Mapeamento de Coordenadas</h3>
+    <table>
+      <thead>
+        <tr><th>#</th><th>Latitude</th><th>Longitude</th></tr>
+      </thead>
+      <tbody id="table-body"></tbody>
+    </table>
+    <button id="close-table">Fechar</button>
+  </div>
+</div>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+<script>
+const PORTAL = { lat: 6.83, lon: 18.52 };
+const EFIGIES_RAW = [
+  {lat:-29.85,lon:-47.63},{lat:-21.83,lon:-174.19},{lat:19.68,lon:30.01},
+  {lat:-17.47,lon:-120.23},{lat:22.01,lon:36.04},{lat:-12.89,lon:-74.02},
+  {lat:20.45,lon:29.18},{lat:1.87,lon:-74.52},{lat:36.16,lon:-23.38},
+  {lat:44.67,lon:115.6},{lat:-44.42,lon:-75.95},{lat:10.31,lon:106.23},
+  {lat:16.24,lon:-2.23},{lat:-26.26,lon:-73.52},{lat:37.66,lon:53.41},
+  {lat:43.21,lon:-83.09},{lat:29.31,lon:129.53},{lat:0.66,lon:-52.68},
+  {lat:-36.21,lon:-103.39},{lat:21.82,lon:49.16},{lat:-45.77,lon:-162.3},
+  {lat:44.94,lon:-139.91},{lat:46.04,lon:161.21},{lat:-44.9,lon:50.71},
+  {lat:36.87,lon:-158.52},{lat:-43.41,lon:-44.98},{lat:-37.32,lon:-27.46},
+  {lat:-40.43,lon:82.52},{lat:-34.59,lon:120.01},{lat:-54.46,lon:121.12},
+  {lat:-8.63,lon:122.25},{lat:-25.14,lon:108.52},{lat:7.64,lon:127.82},
+  {lat:33,lon:146.19},{lat:64.46,lon:122.56},{lat:23.03,lon:164.27},
+  {lat:49.3,lon:149.1},{lat:-80.7,lon:12.05},{lat:4.07,lon:-39.37},
+  {lat:42.86,lon:130.42},{lat:-7.42,lon:43.43},{lat:11.06,lon:-134.02}
+];
+
+// Keep original index for table ordering
+const EFIGIES = EFIGIES_RAW.map((e, i) => ({ ...e, origIdx: i }));
+
+// ─── Three.js setup ────────────────────────────────────────────────────────
+const canvas = document.getElementById('globe');
+const renderer = new THREE.WebGLRenderer({ canvas, antialias: true, alpha: true });
+renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
+renderer.setSize(window.innerWidth, window.innerHeight);
+renderer.setClearColor(0x000000, 1);
+
+const scene = new THREE.Scene();
+const camera = new THREE.PerspectiveCamera(42, window.innerWidth / window.innerHeight, 0.1, 100);
+camera.position.z = 3.4;
+
+const R = 0.82; // smaller globe
+
+// ─── Axial tilt group (holds everything that rotates with the planet) ───
+const tiltGroup = new THREE.Group();
+tiltGroup.rotation.z = -23.5 * Math.PI / 180; // tilt toward viewer
+scene.add(tiltGroup);
+
+const spinGroup = new THREE.Group(); // child — spins on Y
+tiltGroup.add(spinGroup);
+
+// ─── Set initial rotation so Portal longitude faces camera ─────────────
+// latLonToVec3 maps lon 0 → -X axis when theta=180°.
+// The camera looks at +Z. We need Portal lon facing +Z.
+// spin.rotation.y = offset so the portal is at front.
+// Portal lon = 18.52. In our mapping: theta = (lon+180)*PI/180
+// Front face = theta = 270° (i.e. sin(phi)*sin(theta) is max → theta=90° in standard)
+// Actually in our coords +Z is forward. We want lon=18.52 to produce max Z component.
+// Z = R * sin(phi) * sin(theta), theta = (lon+180)*PI/180
+// For lon=18.52: theta = 198.52°, sin(theta) = sin(198.52°) ≈ -0.32 → not front
+// We rotate spinGroup.rotation.y to compensate: add -theta_portal + 90° to bring to front
+const PORTAL_THETA = (PORTAL.lon + 180) * Math.PI / 180; // 198.52° in radians
+// We want theta_eff = PI/2 (so sin=1, max Z). So offset = PI/2 - PORTAL_THETA
+const INITIAL_Y = Math.PI / 2 - PORTAL_THETA;
+spinGroup.rotation.y = INITIAL_Y;
+
+// ─── Procedural terrain texture (earthy NMS planet, no water) ───────────
+function makePlanetTexture() {
+  const size = 512;
+  const c = document.createElement('canvas');
+  c.width = size; c.height = size;
+  const ctx = c.getContext('2d');
+
+  // Base warm dark ochre
+  ctx.fillStyle = '#1a0f08';
+  ctx.fillRect(0, 0, size, size);
+
+  // Layered noise patches — earthy palette
+  const palette = [
+    'rgba(80,45,18,',   // dark sienna
+    'rgba(110,62,22,',  // ochre brown
+    'rgba(140,80,30,',  // terra cotta
+    'rgba(90,55,25,',   // rust
+    'rgba(60,35,15,',   // deep umber
+    'rgba(130,90,40,',  // sandy
+    'rgba(50,28,12,',   // near-black brown
+    'rgba(100,65,28,',  // mid brown
+  ];
+
+  // Seed-based pseudo-random for deterministic look
+  let seed = 42;
+  function rng() { seed = (seed * 1664525 + 1013904223) & 0xffffffff; return (seed >>> 0) / 0xffffffff; }
+
+  for (let layer = 0; layer < 7; layer++) {
+    const count = 60 + layer * 30;
+    for (let i = 0; i < count; i++) {
+      const x = rng() * size;
+      const y = rng() * size;
+      const w = 20 + rng() * (120 - layer * 10);
+      const h = 12 + rng() * (60 - layer * 5);
+      const angle = rng() * Math.PI;
+      const col = palette[Math.floor(rng() * palette.length)];
+      const alpha = 0.12 + rng() * 0.28;
+      ctx.save();
+      ctx.translate(x, y);
+      ctx.rotate(angle);
+      ctx.beginPath();
+      ctx.ellipse(0, 0, w, h, 0, 0, Math.PI * 2);
+      ctx.fillStyle = col + alpha + ')';
+      ctx.fill();
+      ctx.restore();
+    }
+  }
+
+  // Polar caps — pale dusty
+  const ngrd = ctx.createRadialGradient(size/2, 0, 0, size/2, 0, size * 0.28);
+  ngrd.addColorStop(0, 'rgba(200,180,150,0.35)');
+  ngrd.addColorStop(1, 'rgba(200,180,150,0)');
+  ctx.fillStyle = ngrd;
+  ctx.fillRect(0, 0, size, size * 0.32);
+
+  const sgrd = ctx.createRadialGradient(size/2, size, 0, size/2, size, size * 0.22);
+  sgrd.addColorStop(0, 'rgba(180,160,130,0.25)');
+  sgrd.addColorStop(1, 'rgba(180,160,130,0)');
+  ctx.fillStyle = sgrd;
+  ctx.fillRect(0, size * 0.75, size, size * 0.25);
+
+  return new THREE.CanvasTexture(c);
+}
+
+const planetTex = makePlanetTexture();
+
+// Planet sphere with texture
+const sphereGeo = new THREE.SphereGeometry(R, 64, 48);
+const sphereMat = new THREE.MeshPhongMaterial({
+  map: planetTex,
+  specular: new THREE.Color(0x1a0a00),
+  shininess: 4,
+});
+const planetMesh = new THREE.Mesh(sphereGeo, sphereMat);
+spinGroup.add(planetMesh);
+
+// Subtle lat/lon grid
+const wireGeo = new THREE.WireframeGeometry(new THREE.SphereGeometry(R * 1.001, 36, 24));
+const wireMat = new THREE.LineBasicMaterial({ color: 0xffffff, opacity: 0.025, transparent: true });
+spinGroup.add(new THREE.LineSegments(wireGeo, wireMat));
+
+// Atmosphere rim
+const atmGeo = new THREE.SphereGeometry(R * 1.035, 32, 32);
+const atmMat = new THREE.MeshBasicMaterial({
+  color: 0x3d1f00,
+  side: THREE.BackSide,
+  transparent: true,
+  opacity: 0.55
+});
+tiltGroup.add(new THREE.Mesh(atmGeo, atmMat));
+
+// ─── Cloud layer ──────────────────────────────────────────────────────────
+function makeCloudTexture() {
+  const size = 1024;
+  const c = document.createElement('canvas');
+  c.width = size; c.height = size;
+  const ctx = c.getContext('2d');
+  ctx.clearRect(0, 0, size, size);
+  let seed = 137;
+  function rng() { seed = (seed * 1664525 + 1013904223) & 0xffffffff; return (seed >>> 0) / 0xffffffff; }
+  const passes = [
+    { count: 38, baseW: 160, baseH: 38, aMin: 0.20, aMax: 0.40 },
+    { count: 58, baseW:  90, baseH: 22, aMin: 0.12, aMax: 0.28 },
+    { count: 75, baseW:  48, baseH: 12, aMin: 0.07, aMax: 0.18 },
+  ];
+  passes.forEach(p => {
+    for (let i = 0; i < p.count; i++) {
+      const x     = rng() * size;
+      const y     = rng() * size;
+      const w     = p.baseW * (0.5 + rng() * 1.1);
+      const h     = p.baseH * (0.5 + rng() * 1.0);
+      const angle = (rng() - 0.5) * 0.7;
+      const alpha = p.aMin + rng() * (p.aMax - p.aMin);
+      const grd = ctx.createRadialGradient(0, 0, 0, 0, 0, 1);
+      grd.addColorStop(0,   `rgba(245,238,222,${alpha})`);
+      grd.addColorStop(0.55,`rgba(238,230,215,${alpha * 0.45})`);
+      grd.addColorStop(1,   'rgba(235,228,210,0)');
+      ctx.save();
+      ctx.translate(x, y);
+      ctx.rotate(angle);
+      ctx.scale(w, h);
+      ctx.fillStyle = grd;
+      ctx.beginPath();
+      ctx.arc(0, 0, 1, 0, Math.PI * 2);
+      ctx.fill();
+      ctx.restore();
+    }
+  });
+  return new THREE.CanvasTexture(c);
+}
+const cloudTex = makeCloudTexture();
+const cloudGeo = new THREE.SphereGeometry(R * 1.018, 64, 48);
+const cloudMat = new THREE.MeshPhongMaterial({
+  map: cloudTex,
+  transparent: true,
+  opacity: 1,
+  depthWrite: false,
+  specular: new THREE.Color(0x1a1210),
+  shininess: 5,
+});
+const cloudMesh = new THREE.Mesh(cloudGeo, cloudMat);
+const cloudSpin = new THREE.Group();
+cloudSpin.rotation.y = INITIAL_Y + 0.4;
+tiltGroup.add(cloudSpin);
+cloudSpin.add(cloudMesh);
+const CLOUD_SPEED = 0.0016;
+
+// ─── Lighting ──────────────────────────────────────────────────────────────
+const sun = new THREE.DirectionalLight(0xfff0d8, 1.15);
+sun.position.set(5, 2, 4);
+scene.add(sun);
+scene.add(new THREE.AmbientLight(0x1a0d06, 1.0));
+
+// ─── Stars ─────────────────────────────────────────────────────────────────
+const starVerts = [];
+for (let i = 0; i < 2800; i++) {
+  const r = 20 + Math.random() * 12;
+  const th = Math.random() * Math.PI * 2;
+  const ph = Math.acos(2 * Math.random() - 1);
+  starVerts.push(r*Math.sin(ph)*Math.cos(th), r*Math.cos(ph), r*Math.sin(ph)*Math.sin(th));
+}
+const starGeo = new THREE.BufferGeometry();
+starGeo.setAttribute('position', new THREE.Float32BufferAttribute(starVerts, 3));
+scene.add(new THREE.Points(starGeo, new THREE.PointsMaterial({ color: 0xfff8f0, size: 0.035, transparent: true, opacity: 0.55 })));
+
+// ─── Dot helpers ──────────────────────────────────────────────────────────
+// latLonToVec3 — position on surface in LOCAL spinGroup space
+function latLonToVec3(lat, lon, r) {
+  const phi   = (90 - lat) * Math.PI / 180;
+  const theta = (lon + 180) * Math.PI / 180;
+  return new THREE.Vector3(
+    -r * Math.sin(phi) * Math.cos(theta),
+     r * Math.cos(phi),
+     r * Math.sin(phi) * Math.sin(theta)
+  );
+}
+
+const dotData = []; // { mesh, mat, ringMat?, lit, targetOpacity, currentOpacity, localPos }
+
+function makeDot(lat, lon, isPortal) {
+  const localPos = latLonToVec3(lat, lon, R);
+  const surfPos  = latLonToVec3(lat, lon, R + 0.014);
+
+  const geo = new THREE.SphereGeometry(isPortal ? 0.02 : 0.011, 8, 8);
+  const mat = new THREE.MeshBasicMaterial({ color: 0xffffff, transparent: true, opacity: 0 });
+  const mesh = new THREE.Mesh(geo, mat);
+  mesh.position.copy(surfPos);
+  spinGroup.add(mesh);
+
+  const entry = { mesh, mat, ringMat: null, lit: false, targetOpacity: 0, currentOpacity: 0, localPos };
+
+  if (isPortal) {
+    const ringGeo = new THREE.RingGeometry(0.028, 0.044, 28);
+    const ringMat = new THREE.MeshBasicMaterial({ color: 0xffffff, transparent: true, opacity: 0, side: THREE.DoubleSide });
+    const ring = new THREE.Mesh(ringGeo, ringMat);
+    ring.position.copy(surfPos);
+    ring.lookAt(new THREE.Vector3(0,0,0));
+    ring.rotateX(Math.PI / 2);
+    spinGroup.add(ring);
+    entry.ringMat = ringMat;
+  }
+
+  dotData.push(entry);
+  return entry;
+}
+
+// Portal first (index 0), then efígies
+const portalDotEntry = makeDot(PORTAL.lat, PORTAL.lon, true);
+EFIGIES.forEach(e => makeDot(e.lat, e.lon, false));
+
+// ─── Visibility test: is this dot on the front face? ─────────────────────
+// We compare the dot's world-space normal to the camera direction.
+// A dot is "facing" if dot(worldNormal, camDir) > threshold.
+const _worldPos  = new THREE.Vector3();
+const _worldNorm = new THREE.Vector3();
+const _camDir    = new THREE.Vector3();
+
+function dotVisibility(dotEntry) {
+  // Get world position of dot center
+  dotEntry.mesh.getWorldPosition(_worldPos);
+  // Normal from globe center (world) to dot world pos
+  const globeCenter = new THREE.Vector3();
+  spinGroup.getWorldPosition(globeCenter);
+  _worldNorm.copy(_worldPos).sub(globeCenter).normalize();
+  // Camera direction toward globe center
+  _camDir.copy(globeCenter).sub(camera.position).normalize();
+  return _worldNorm.dot(_camDir); // positive = back, negative = front-facing
+}
+
+// ─── Build table (original order) ─────────────────────────────────────────
+const tbody = document.getElementById('table-body');
+{
+  const tr = document.createElement('tr');
+  tr.className = 'portal-row';
+  tr.innerHTML = `<td>P</td><td>${PORTAL.lat.toFixed(2)}°</td><td>${PORTAL.lon.toFixed(2)}° <span class="portal-badge">PORTAL</span></td>`;
+  tbody.appendChild(tr);
+}
+EFIGIES.forEach((e, i) => {
+  const tr = document.createElement('tr');
+  tr.innerHTML = `<td>${String(i+1).padStart(2,'0')}</td>
+    <td>${(e.lat>=0?'+':'')+e.lat.toFixed(2)}°</td>
+    <td>${(e.lon>=0?'+':'')+e.lon.toFixed(2)}°</td>`;
+  tbody.appendChild(tr);
+});
+
+// ─── Animation state ──────────────────────────────────────────────────────
+let phase = 'waiting'; // holds until scanner verification completes
+let phaseTimer = 0;
+let startTime = null;
+let lastTime = null;
+let litCount = 0;
+let pendingDots = null; // indices of efígie dots not yet lit, to be picked by visibility
+const EFIGIES_INTERVAL = 620; // ms between each ascent — slower
+let lastEfigyTime = 0;
+
+const container  = document.getElementById('canvas-container');
+const titleBlock = document.getElementById('title-block');
+const counterEl  = document.getElementById('counter');
+const countNum   = document.getElementById('count-num');
+const tableOverlay = document.getElementById('table-overlay');
+
+document.getElementById('close-table').addEventListener('click', () => {
+  tableOverlay.classList.remove('visible');
+});
+
+const SPIN_SPEED = 0.0022; // rad/frame
+
+function easeOut(t) { return 1 - (1-t)*(1-t); }
+
+function animate(ts) {
+  requestAnimationFrame(animate);
+  if (!startTime) { startTime = ts; lastTime = ts; }
+  const elapsed = ts - startTime;
+  const dt = ts - lastTime;
+  lastTime = ts;
+
+  // Always spin
+  spinGroup.rotation.y += SPIN_SPEED;
+  cloudSpin.rotation.y += CLOUD_SPEED;
+
+  const t2 = ts * 0.001;
+
+  // ── Phase: waiting for scanner verification ───────────────────────────
+  if (phase === 'waiting') {
+    // Globe spins silently; no fadein or dot logic runs until phase changes
+    renderer.render(scene, camera);
+    return;
+  }
+
+  // ── Phase: fade in ────────────────────────────────────────────────────
+  if (phase === 'fadein') {
+    if (elapsed > 500)  container.classList.add('visible');
+    if (elapsed > 800)  titleBlock.classList.add('visible');
+  if (elapsed > 800)  document.getElementById('back-btn').classList.add('visible');
+    if (elapsed > 2600) { phase = 'portal'; phaseTimer = ts; }
+  }
+
+  // ── Phase: portal ascends ─────────────────────────────────────────────
+  if (phase === 'portal') {
+    const age = ts - phaseTimer;
+    const t = Math.min(age / 1200, 1);
+    const op = easeOut(t);
+    portalDotEntry.mat.opacity = op;
+    portalDotEntry.currentOpacity = op;
+    if (portalDotEntry.ringMat) portalDotEntry.ringMat.opacity = op * 0.5;
+    if (t >= 1) {
+      portalDotEntry.lit = true;
+      phase = 'efigies';
+      phaseTimer = ts;
+      lastEfigyTime = ts;
+      counterEl.classList.add('visible');
+      // Build queue of unlit efígie indices (1..42 in dotData)
+      pendingDots = EFIGIES.map((_, i) => i + 1); // indices into dotData
+    }
+  }
+
+  // ── Phase: efígies ascend by visibility ───────────────────────────────
+  if (phase === 'efigies' && pendingDots && pendingDots.length > 0) {
+    if (ts - lastEfigyTime >= EFIGIES_INTERVAL) {
+      lastEfigyTime = ts;
+
+      // Score each pending dot by visibility (more negative = more front-facing)
+      let bestScore = Infinity;
+      let bestIdx = 0;
+      pendingDots.forEach((di, qi) => {
+        const vis = dotVisibility(dotData[di]);
+        if (vis < bestScore) { bestScore = vis; bestIdx = qi; }
+      });
+
+      // Activate the best visible dot
+      const chosenDotIdx = pendingDots[bestIdx];
+      pendingDots.splice(bestIdx, 1);
+      dotData[chosenDotIdx].lit = true;
+      dotData[chosenDotIdx].targetOpacity = 1;
+
+      litCount++;
+      countNum.textContent = litCount;
+
+      if (pendingDots.length === 0) {
+        phase = 'table';
+        phaseTimer = ts;
+      }
+    }
+  }
+
+  // ── Phase: table appears ──────────────────────────────────────────────
+  if (phase === 'table') {
+    if (ts - phaseTimer > 1800) {
+      tableOverlay.classList.add('visible');
+      phase = 'done';
+    }
+  }
+
+  // ── Smooth opacity transitions for dots ──────────────────────────────
+  for (let i = 1; i < dotData.length; i++) {
+    const d = dotData[i];
+    if (d.lit) {
+      // Ease in toward 1
+      if (d.currentOpacity < 1) {
+        d.currentOpacity = Math.min(d.currentOpacity + dt * 0.0012, 1);
+      }
+      // Twinkle after fully lit
+      const flicker = 0.78 + 0.22 * Math.sin(t2 * (1.4 + i * 0.27) + i * 1.9);
+      d.mat.opacity = d.currentOpacity * flicker;
+    }
+  }
+
+  // Portal pulse
+  if (portalDotEntry.lit) {
+    const pulse = 0.80 + 0.20 * Math.sin(t2 * 2.2);
+    portalDotEntry.mat.opacity = pulse;
+    if (portalDotEntry.ringMat) portalDotEntry.ringMat.opacity = pulse * 0.45;
+  }
+
+  renderer.render(scene, camera);
+}
+
+window.addEventListener('resize', () => {
+  camera.aspect = window.innerWidth / window.innerHeight;
+  camera.updateProjectionMatrix();
+  renderer.setSize(window.innerWidth, window.innerHeight);
+});
+
+requestAnimationFrame(animate);
+
+// ─── Scanner intro logic ──────────────────────────────────────────────────
+(function() {
+  const overlay   = document.getElementById('scanner-overlay');
+  const prompt    = document.getElementById('scan-prompt');
+  const verifyBar = document.getElementById('verify-bar');
+  const barLeft   = document.getElementById('bar-left');
+  const barRight  = document.getElementById('bar-right');
+  const pctEl     = document.getElementById('verify-pct');
+
+  let scanning  = false;
+  let progress  = 0;
+  let rafId     = null;
+  let holdStart = null;
+  const DURATION = 2400; // ms to fill 100%
+
+  function startScan() {
+    if (scanning || progress >= 100) return;
+    scanning  = true;
+    holdStart = performance.now() - (progress / 100) * DURATION; // resume from current
+    prompt.classList.add('hidden');
+    verifyBar.classList.add('visible');
+    tick();
+  }
+
+  function stopScan() {
+    if (!scanning) return;
+    scanning = false;
+    if (rafId) { cancelAnimationFrame(rafId); rafId = null; }
+    if (progress < 100) {
+      // Reset back to zero on release
+      progress = 0;
+      barLeft.style.width  = '0%';
+      barRight.style.width = '0%';
+      pctEl.textContent    = '0%';
+      verifyBar.classList.remove('visible');
+      prompt.classList.remove('hidden');
+    }
+  }
+
+  function tick() {
+    if (!scanning) return;
+    const now     = performance.now();
+    const elapsed = now - holdStart;
+    progress = Math.min((elapsed / DURATION) * 100, 100);
+
+    const half = progress / 2;
+    barLeft.style.width  = half + '%';
+    barRight.style.width = half + '%';
+    pctEl.textContent    = Math.floor(progress) + '%';
+
+    if (progress >= 100) {
+      scanning = false;
+      // ── Unlock globe animation ──
+      startTime = null; // will be re-initialized on next animate tick
+      phase = 'fadein';
+      setTimeout(() => {
+        overlay.classList.add('fade-out');
+        setTimeout(() => { overlay.style.display = 'none'; }, 1650);
+      }, 320);
+      return;
+    }
+    rafId = requestAnimationFrame(tick);
+  }
+
+  overlay.addEventListener('mousedown',   startScan);
+  overlay.addEventListener('touchstart',  startScan, { passive: true });
+  overlay.addEventListener('mouseup',     stopScan);
+  overlay.addEventListener('mouseleave',  stopScan);
+  overlay.addEventListener('touchend',    stopScan);
+  overlay.addEventListener('touchcancel', stopScan);
+})();
+
+// Música da splash
+(function(){
+  const audio = new Audio('assets/Space_1990.mp3');
+  audio.loop = true;
+  audio.volume = 0;
+  const play = () => {
+    audio.play().then(() => {
+      let v = 0;
+      const fade = setInterval(() => {
+        v = Math.min(v + 0.65/40, 0.65);
+        audio.volume = v;
+        if (v >= 0.65) clearInterval(fade);
+      }, 50);
+    }).catch(() => {});
+  };
+  play();
+  // fallback para Firefox
+  document.addEventListener('click', function retry(){
+    if (audio.paused) audio.play().catch(()=>{});
+    document.removeEventListener('click', retry);
+  }, {once: true});
+})();
+</script>
+</body>
+</html>
