@@ -147,7 +147,7 @@ body{background:url('assets/bg.png') center center / cover no-repeat fixed;color
 .addr-geo-label{font-family:'Share Tech Mono',monospace;font-size:9px;color:var(--text2);letter-spacing:.06em;flex-shrink:0}
 .addr-geo-val{font-family:'Orbitron',monospace;font-size:11px;font-weight:600;color:var(--teal)}
 .addr-desc{font-size:11px;color:var(--text2);margin-top:7px;line-height:1.5;padding-top:7px;border-top:1px solid rgba(48,216,232,.08)}
-.addr-card.locked-hidden .addr-glyph-val,.addr-card.locked-hidden .addr-geo-val{filter:blur(4px);user-select:none}
+.addr-card.locked-hidden .addr-glyph-val,.addr-card.locked-hidden .addr-geo-val,.addr-card.locked-hidden .addr-glyph-hex{filter:blur(4px);user-select:none}
 .gloss-item{background:rgba(255,255,255,.022);border-radius:6px;overflow:hidden;margin-bottom:6px}
 .gloss-head{display:flex;align-items:center;gap:10px;padding:12px 14px;cursor:pointer;transition:background .15s}
 .gloss-head:active{background:rgba(48,216,232,.05)}
@@ -1090,7 +1090,7 @@ const GLOSSARY=[
     def:`<div class="lore-doc">
 <div class="lore-doc-header">[DIRECTORY_CORE // NÚCLEO ARQUITETO // CRÉDITOS]</div>
 <div class="lore-fragment">Protocolo Calipso não é apenas um software, é uma quebra de barreira metalinguística e estrutural. O projeto foi idealizado, pesquisado e desenvolvido por <strong style="color:var(--white)">Diego Bizarro</strong> (conhecido na malha profunda como <em>Dzambala</em>).<br><br>Diego trilhou uma jornada de engenharia reversa e narrativa conceitual única: extraiu a matemática real por trás da geração procedural de No Man's Sky (mapeando fisicamente clusters e comportamentos antipodais das Efígies) e, simultaneamente, utilizou inteligências artificiais generativas de ponta para assumirem papéis cênicos estritos dentro do próprio código.<br><br>Ao orquestrar a precisão cirúrgica de Logos (código, implementação e layout), a sensibilidade fragmentada de Axioma (início do projeto, artes conceituais e banners) e o pragmatismo militar de Síntese (cálculos, código da calculadora, modelos preditivos), Diego Bizarro costurou dados puros de programação com o misticismo do vazio, provando que, no fim das contas, a simulação e a realidade compartilham do mesmo padrão.</div>
-<div class="lore-fragment" style="border-color:rgba(240,192,64,.2);background:rgba(240,192,64,.04);font-style:italic;color:var(--text);">"Agradeço a Larissa, minha namorada, que teve paciência com minhas loucuras e que amo tanto; Ao jogador Rat que contribuiu com suas efigies catalogadas, e aos meus amigos Guapo, Nathan e Tony pela vontade que tive de fazer uma expedição para eles. Agradeço a Hello Games e ao Sean Murray por esse jogo incrível que é definição de persistência e evolução."</div>
+<div class="lore-fragment" style="border-color:rgba(240,192,64,.2);background:rgba(240,192,64,.04);font-style:italic;color:var(--text);">"Agradeço a Larissa, minha namorada, que teve paciência com minhas loucuras e que amo tanto; Ao jogador Rat que contribuiu com suas efigies catalogadas, e aos meus amigos Guapo, Natan e Tony pela vontade que tive de fazer uma expedição para eles. Agradeço a Hello Games e ao Sean Murray por esse jogo incrível que é definição de persistência e evolução."</div>
 </div>`
   },
   {
@@ -2170,7 +2170,7 @@ function updateAlsBtn(){
   const btn=document.getElementById('als-btn');
   if(!btn)return;
   const visible=state.milestones[3][3]===true;
-  const unlocked=state.milestones[4][1]===true;
+  const unlocked=state.milestones[4][0]===true;
   if(!visible){btn.classList.remove('visible','locked','unlocked');return;}
   btn.classList.add('visible');
   if(unlocked){
@@ -2184,7 +2184,7 @@ function updateAlsBtn(){
   }
 }
 function handleAlsClick(){
-  const unlocked=state.milestones[4]&&state.milestones[4][1]===true;
+  const unlocked=state.milestones[4]&&state.milestones[4][0]===true;
   if(!unlocked)return;
   const seen=localStorage.getItem('als_tutorial_seen');
   if(!seen){
