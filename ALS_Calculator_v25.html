@@ -201,7 +201,7 @@ body{background:var(--c0);color:var(--text);font-family:var(--font);min-height:1
 .panel{background:var(--c1);border:1px solid var(--border);border-radius:6px;padding:14px;margin-bottom:12px}
 .panel-label{font-size:10px;color:var(--acc);letter-spacing:2px;margin-bottom:10px;text-transform:uppercase}
 
-.input-row{display:grid;grid-template-columns:1fr 1fr 1fr;gap:10px;margin-bottom:10px}
+.input-row{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:10px}
 .field{display:flex;flex-direction:column;gap:4px}
 .field label{font-size:10px;color:var(--text2);letter-spacing:1px;text-transform:uppercase}
 .field input{background:var(--c0);border:1px solid var(--border2);border-radius:4px;color:var(--acc);font-family:var(--font);font-size:13px;padding:7px 10px;outline:none;transition:border-color .2s}
@@ -289,16 +289,16 @@ body{background:var(--c0);color:var(--text);font-family:var(--font);min-height:1
     <div class="panel-label"><i class="ti ti-planet" aria-hidden="true"></i> Parâmetros de Entrada</div>
     <div class="input-row">
       <div class="field">
-        <label>Semente Hex (4 dígitos)</label>
-        <input id="seed" placeholder="ex: 2417" maxlength="8">
-      </div>
-      <div class="field">
         <label>Latitude do Portal</label>
         <input id="lat" placeholder="ex: 6.83" type="number" step="0.01">
       </div>
       <div class="field">
         <label>Longitude do Portal</label>
         <input id="lon" placeholder="ex: 18.52" type="number" step="0.01">
+      </div>
+      <div class="field">
+        <label>Semente Hex (4 dígitos)</label>
+        <input id="seed" placeholder="ex: 2417" maxlength="8">
       </div>
     </div>
     <button class="btn-run" id="btn-run" onclick="runEngine()">▶ EXECUTAR MOTOR GEODÉSICO</button>
